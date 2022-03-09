@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.paynetone.counter">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:name=".app.PaynetOneApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon_paynet_01"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon_paynet_01"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".main.SplashScreenActivity"
+            android:theme="@style/SplashscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".functions.qr.QRDynamicActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".functions.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".functions.payment.qr.QRActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".functions.history.HistoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".functions.withdraw.WithDrawActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".functions.outward.OutwardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".login.regiter.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|navigation"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity2"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|navigation"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+    </application>
+
+</manifest>

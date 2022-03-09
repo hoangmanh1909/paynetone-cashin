@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Paynet one Cashier</string>
+    <string name="error_system_upgrading">Hệ thống đang nâng cấp. Vui lòng quay lại sau!</string>
+    <string name="error_fail_default">Hệ thống đang bận. Vui lòng thử lại sau!</string>
+    <string name="error_empty_phone">Vui lòng nhập số điện thoại</string>
+    <string name="error_password_empty">Vui lòng nhập mật khẩu</string>
+    <string name="error_empty_otp">Vui lòng nhập mã xác nhận</string>
+    <string name="no_data">Không có dữ liệu</string>
+    <string name="error_warning_phone">Số điện thoại không hợp lệ</string>
+
+    <string name="home_qr_online">Thanh toán QR động</string>
+    <string name="home_history">Lịch sử</string>
+    <string name="tab_title">Tab title</string>
+
+    <string name="cam_use_capture">Sử dụng</string>
+    <string name="cam_retry_capture">Thử lại</string>
+    <string name="permission_rationale_message">You have rejected us to apply for authorization, please agree to authorization, otherwise the function can\'t be used normally!</string>
+    <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
+
+    <string name="xac_thuc_otp">Mã xác nhận được gửi đến số điện thoại </string>
+</resources>
