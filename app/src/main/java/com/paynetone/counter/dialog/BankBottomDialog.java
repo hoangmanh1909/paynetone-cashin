@@ -19,8 +19,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.paynetone.counter.R;
 import com.paynetone.counter.adapter.BankDialogAdapter;
+import com.paynetone.counter.adapter.BaseDialogAdapter;
 import com.paynetone.counter.callback.BankDialogCallback;
 import com.paynetone.counter.model.BankModel;
+import com.paynetone.counter.model.BaseDialogModel;
 
 import java.util.List;
 
@@ -48,17 +50,10 @@ public class BankBottomDialog extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.dialog_base_bottom, container,false);
         ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        BankDialogAdapter adapter = new BankDialogAdapter(getContext(), bankModels) {
-            @Override
-            public void onBindViewHolder(@NonNull HolderView holder, int position) {
-                super.onBindViewHolder(holder, position);
-
-                holder.itemView.setOnClickListener(view1 -> {
-                    dismiss();
-                    mDelegate.onResponse(bankModels.get(position));
-                });
-            }
-        };
+        BankDialogAdapter adapter = new BankDialogAdapter(getContext(), bankModels, (bankModel, position) -> {
+            dismiss();
+            mDelegate.onResponse(bankModel);
+        });
 
         recyclerView.setAdapter(adapter);
         androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView)view.findViewById(R.id.sv_search);

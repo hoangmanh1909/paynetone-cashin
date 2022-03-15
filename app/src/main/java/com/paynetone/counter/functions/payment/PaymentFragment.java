@@ -50,11 +50,13 @@ public class PaymentFragment extends ViewFragment<PaymentContract.Presenter> imp
             tv_fee.setText("0đ");
             if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);
-                tv_providers.setText("ZaloPay");
-            }
-            else {
+                tv_providers.setText(getResources().getString(R.string.str_zalo_pay));
+            } else if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VIETTEL)){
                 img_logo.setImageResource(R.drawable.viettel_money);
-                tv_providers.setText("Viettel money");
+                tv_providers.setText(getResources().getString(R.string.str_viettel_money));
+            }else {
+                img_logo.setImageResource(R.drawable.ic_shoppe_pay);
+                tv_providers.setText(getResources().getString(R.string.str_shoppe_pay));
             }
         }
     }

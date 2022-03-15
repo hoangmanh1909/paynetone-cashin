@@ -53,18 +53,10 @@ public class BaseBottomDialog  extends BottomSheetDialogFragment {
         tv_title.setText(title);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        BaseDialogAdapter adapter = new BaseDialogAdapter(getContext(), baseDialogModels) {
-            @Override
-            public void onBindViewHolder(@NonNull HolderView holder, int position) {
-                super.onBindViewHolder(holder, position);
-
-                holder.itemView.setOnClickListener(view1 -> {
-                    dismiss();
-                    mDelegate.onResponse(baseDialogModels.get(position));
-                });
-            }
-        };
-
+        BaseDialogAdapter adapter = new BaseDialogAdapter(getContext(), baseDialogModels, (model, position) -> {
+            dismiss();
+            mDelegate.onResponse(model);
+        });
         recyclerView.setAdapter(adapter);
         androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView)view.findViewById(R.id.sv_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

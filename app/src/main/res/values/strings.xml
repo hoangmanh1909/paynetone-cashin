@@ -18,4 +18,56 @@
     <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
 
     <string name="xac_thuc_otp">Mã xác nhận được gửi đến số điện thoại </string>
+
+    //qr dynamic fragment
+    <string name="str_title_qr_dynamic">Tạo mã QR Code thanh toán</string>
+    <string name="str_viettel_money">Viettel money</string>
+    <string name="str_zalo_pay">ZaloPay</string>
+    <string name="str_shoppe_pay">ShoppePay</string>
+
+    //qr fragment
+    <string name="str_qr_viettel">Sử dụng ứng dụng Viettel money để quét mã</string>
+    <string name="str_qr_zalo">Sử dụng ứng dụng ZaloPay để quét mã</string>
+    <string name="str_qr_shopee">Sử dụng ứng dụng ShopeePay để quét mã</string>
+    <string name="str_code_order">Mã đơn hàng:  </string>
+
+    // merchant fragment
+    <string name="str_title_fragment_merchant">Hồ sơ Merchant</string>
+    <string name="st_profile_status">Trạng thái hồ sơ</string>
+    <string name="str_service">Dịch vụ</string>
+    <string name="str_qr_code">QR Code</string>
+    <string name="str_business_registration_information">Thông tin đăng ký kinh doanh</string>
+    <string name="str_phone_number">Số điện thoại</string>
+    <string name="str_select_service_type">Chọn Loại dịch vụ hàng hóa</string>
+    <string name="str_province_city">Chọn Tỉnh/Thành phố</string>
+    <string name="str_district">Chọn Quận/Huyện</string>
+    <string name="str_wards">Chọn Xã/Phường</string>
+    <string name="st_full_name">Họ tên</string>
+    <string name="str_number_gttt">Số GTTT</string>
+    <string name="str_photo_font">Ảnh GTTT mặt trước</string>
+    <string name="str_photo_backside">Ảnh GTTT mặt sau</string>
+    <string name="str_billing_information">Thông tin thanh toán</string>
+    <string name="str_account_number">Số tài khoản</string>
+    <string name="str_select_bank">Chọn ngân hàng</string>
+    <string name="str_branch_bank">Chi nhánh</string>
+    <string name="str_update">Cập nhật</string>
+    <string name="str_formality_type">Hình thức kinh doanh</string>
+    <string name="str_formality_offline">Offline</string>
+    <string name="str_formality_online">Online</string>
+
+    <string name="str_business_type">Loại hình kinh doanh</string>
+    <string name="str_business_enterprise">Doanh nghiệp</string>
+    <string name="str_business_household">Hộ kinh doanh</string>
+    <string name="str_business_personal">Cá nhân kinh doanh</string>
+    <string name="str_business_vietlott">Cửa hàng xổ số Vietlott</string>
+    <string name="str_business_synthetic">Cửa hàng xổ số tổng hợp</string>
+    <string name="str_waiting_approval">Chờ phê duyệt</string>
+    <string name="str_approved">Đã phê duyệt</string>
+    <string name="str_refuse">Từ chối</string>
+    <string name="str_representative_information">Thông tin người đại diện</string>
+    <string name="str_detailed_address">Địa chỉ chi tiết</string>
+    <string name="str_business_information">Thông tin kinh doanh</string>
+
+
+
 </resources>

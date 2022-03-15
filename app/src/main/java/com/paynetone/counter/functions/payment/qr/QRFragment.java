@@ -57,16 +57,20 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
         if (mPresenter != null) {
             orderAddResponse = mPresenter.getOrderAddResponse();
             mOrderAddRequest = mPresenter.getOrderAddRequest();
-            tvCode.setText("Mã đơn hàng " + orderAddResponse.getOrderCode());
+            tvCode.setText(getResources().getString(R.string.str_code_order).concat( orderAddResponse.getOrderCode()));
             tv_amount.setText(NumberUtils.formatPriceNumber(mOrderAddRequest.getAmount()) + "đ");
             if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);
-                tv_providers.setText("Sử dụng ứng dụng ZaloPay để quét mã");
-                tv_providers_logo.setText("ZaloPay");
-            } else {
+                tv_providers.setText(getResources().getString(R.string.str_zalo_pay));
+                tv_providers_logo.setText(getResources().getString(R.string.str_zalo_pay));
+            } else if(mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VIETTEL)) {
                 img_logo.setImageResource(R.drawable.viettel_money);
-                tv_providers.setText("Sử dụng ứng dụng Viettel money để quét mã");
-                tv_providers_logo.setText("Viettel money");
+                tv_providers.setText(getResources().getString(R.string.str_qr_viettel));
+                tv_providers_logo.setText(getResources().getString(R.string.str_viettel_money));
+            }else {
+                img_logo.setImageResource(R.drawable.ic_shoppe_pay);
+                tv_providers.setText(getResources().getString(R.string.str_shoppe_pay));
+                tv_providers_logo.setText(getResources().getString(R.string.str_shoppe_pay));
             }
             Bitmap bitmap = BitmapUtils.generateQRBitmap(orderAddResponse.getReturnURL());
             img_qr_code.setImageBitmap(bitmap);

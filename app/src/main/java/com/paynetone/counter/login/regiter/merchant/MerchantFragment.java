@@ -97,6 +97,8 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
     RelativeLayout rl_navigation_header;
     @BindView(R.id.rl_status)
     RelativeLayout rl_status;
+    @BindView(R.id.tv_formality)
+    TextView tv_formality;
     MerchantModel mMerchantModel;
 
     StepperLayout.OnNextClickedCallback mCallback;
@@ -119,6 +121,7 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
     RegisterPassDataModel dataModel;
     String mode = Constants.MERCHANT_MODE_ADD;
+
 
     public static MerchantFragment getInstance() {
         return new MerchantFragment();
@@ -497,17 +500,19 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         fileImgAfter = model.getRepresentativePIDImageAfter();
         image_before.setImageURI(Utils.getUrlImage(model.getRepresentativePIDImageBefore()));
         image_after.setImageURI(Utils.getUrlImage(model.getRepresentativePIDImageAfter()));
+        if (mMerchantModel.getFormalityType().equals(Constants.FORMALITY_TYPE_ONLINE)) tv_formality.setText(getResources().getText(R.string.str_formality_online));
+        else tv_formality.setText(getResources().getText(R.string.str_formality_offline));
         switch (model.getStatus()) {
-            case "A":
-                tv_status.setText("Chờ phê duyệt");
+            case Constants.WAITING_APPROVAL:
+                tv_status.setText(getResources().getText(R.string.str_waiting_approval));
                 tv_status.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.order_status_w));
                 break;
-            case "P":
-                tv_status.setText("Đã phê duyệt");
+            case Constants.APPROVED:
+                tv_status.setText(getResources().getText(R.string.str_approved));
                 tv_status.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.order_status_s));
                 break;
-            case "R":
-                tv_status.setText("Từ chối");
+            case Constants.REFUSE:
+                tv_status.setText(getResources().getText(R.string.str_refuse));
                 tv_status.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.order_status_c));
                 break;
         }

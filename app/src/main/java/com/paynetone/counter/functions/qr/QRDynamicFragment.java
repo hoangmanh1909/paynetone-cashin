@@ -4,10 +4,12 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,7 +30,9 @@ import com.paynetone.counter.utils.NumberUtils;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,6 +53,8 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     RadioButton rd_zalopay;
     @BindView(R.id.rd_viettel_pay)
     RadioButton rd_viettel_pay;
+    @BindView(R.id.rd_shoppe_pay)
+    RadioButton rd_shoppe_pay;
 
     SharedPref sharedPref;
     EmployeeModel employeeModel;
@@ -127,6 +133,7 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
             }
         };
         recycle.setAdapter(adapter);
+        onListenerRadio(rd_shoppe_pay,rd_viettel_pay,rd_zalopay);
     }
 
     private void addOptionAmount() {
@@ -170,12 +177,12 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
             case R.id.btn_ok:
                 ok();
                 break;
-            case R.id.rd_zalopay:
-                rd_viettel_pay.setChecked(!rd_zalopay.isChecked());
-                break;
-            case R.id.rd_viettel_pay:
-                rd_zalopay.setChecked(!rd_viettel_pay.isChecked());
-                break;
+//            case R.id.rd_zalopay:
+//                rd_viettel_pay.setChecked(!rd_zalopay.isChecked());
+//                break;
+//            case R.id.rd_viettel_pay:
+//                rd_zalopay.setChecked(!rd_viettel_pay.isChecked());
+//                break;
         }
     }
 
@@ -192,8 +199,11 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         OrderAddRequest req = new OrderAddRequest();
         if (rd_viettel_pay.isChecked())
             req.setProviderCode(Constants.PROVIDER_VIETTEL);
-        else
+        else if (rd_zalopay.isChecked())
             req.setProviderCode(Constants.PROVIDER_ZALO);
+        else {
+            req.setProviderCode(Constants.PROVIDER_SHOPPE);
+        }
         req.setMobileNumber(Objects.requireNonNull(edt_mobile_number.getText()).toString());
         req.setServiceID(1);
         req.setAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
@@ -204,9 +214,21 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         req.setEmpID(employeeModel.getId());
         req.setPaynetID(employeeModel.getPaynetID());
         req.setTransCategory(1);
-        req.setPaymentType(3);
+        if (rd_shoppe_pay.isChecked()) req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
+        else req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL_ZALO);
         req.setPaymentCate(2);
         req.setMerchantID(paynetModel.getMerchantID());
         new PaymentPresenter((ContainerView) requireActivity(), req).pushView();
     }
+    private void onListenerRadio(RadioButton...arrayListRadio){
+        final RadioButton[] currentSelected = {rd_viettel_pay};
+        for (RadioButton radioButton:arrayListRadio){
+            radioButton.setOnClickListener(view->{
+                currentSelected[0].setChecked(false);
+                currentSelected[0] = radioButton;
+                currentSelected[0].setChecked(true);
+            });
+        }
+    }
+
 }

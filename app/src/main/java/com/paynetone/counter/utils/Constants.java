@@ -40,6 +40,7 @@ public class Constants {
 
     public static final String PROVIDER_VIETTEL = "VIETTEL";
     public static final String PROVIDER_ZALO = "ZALO";
+    public static final String PROVIDER_SHOPPE = "SHOPEE";
 
     public static final String HOME_QR = "HOME_QR";
     public static final String HOME_HISTORY = "HOME_HISTORY";
@@ -52,4 +53,16 @@ public class Constants {
     public static final String MERCHANT_MODE_ADD = "MERCHANT_MODE_ADD";
     public static final String MERCHANT_MODE_EDIT = "MERCHANT_MODE_EDIT";
     public static final String MERCHANT_MODE_VIEW = "MERCHANT_MODE_VIEW";
+
+    public static final int PAYMENT_TYPE_SHOPEE=5;
+    public static final int PAYMENT_TYPE_VIETTEL_ZALO=3;
+
+    public static final String FORMALITY_TYPE_ONLINE = "1";
+    public static final String FORMALITY_TYPE_OFFLINE = "2";
+
+    public static final String WAITING_APPROVAL = "A";
+    public static final String APPROVED= "P";
+    public static final String REFUSE = "R";
+
+
 }

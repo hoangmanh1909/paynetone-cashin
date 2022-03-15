@@ -2,11 +2,13 @@ package com.paynetone.counter.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.paynetone.counter.R;
 import com.paynetone.counter.model.BankModel;
+import com.paynetone.counter.model.BaseDialogModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +29,18 @@ public class BankDialogAdapter extends RecyclerView.Adapter<BankDialogAdapter.Ho
     Activity activity;
     List<BankModel> mListFilter;
     List<BankModel> mList;
+    OnClickItemListener mOnClickItemListener;
 
-    public BankDialogAdapter(Context context, List<BankModel> items) {
+    public BankDialogAdapter(Context context, List<BankModel> items, OnClickItemListener mOnClickItemListener) {
         activity = (Activity) context;
         mListFilter = items;
         mList = items;
+        this.mOnClickItemListener = mOnClickItemListener;
+
+    }
+
+    public interface OnClickItemListener{
+        public void onClickItem(BankModel model, int position);
     }
 
     @Override
@@ -64,7 +74,7 @@ public class BankDialogAdapter extends RecyclerView.Adapter<BankDialogAdapter.Ho
                     List<BankModel> filteredList = new ArrayList<>();
                     for (BankModel row : mList) {
                         if (row.getName().toLowerCase().contains(charString.toLowerCase())
-                        || row.getShortName().toLowerCase().contains(charString.toLowerCase())) {
+                                || row.getShortName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
@@ -90,6 +100,8 @@ public class BankDialogAdapter extends RecyclerView.Adapter<BankDialogAdapter.Ho
         TextView tv_short_name;
         @BindView(R.id.tv_name)
         TextView tv_name;
+        @BindView(R.id.rootView)
+        LinearLayout rootView;
 
         public HolderView(View itemView)
         {
@@ -101,6 +113,9 @@ public class BankDialogAdapter extends RecyclerView.Adapter<BankDialogAdapter.Ho
             BankModel bankModel = (BankModel)model;
             tv_name.setText(bankModel.getName());
             tv_short_name.setText(bankModel.getShortName());
+            rootView.setOnClickListener(view -> {
+                mOnClickItemListener.onClickItem(bankModel,position);
+            });
         }
 
     }

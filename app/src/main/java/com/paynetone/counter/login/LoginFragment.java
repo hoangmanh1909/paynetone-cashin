@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.core.base.viper.ViewFragment;
+import com.core.utils.AppUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.paynetone.counter.callback.CloseCallback;
 import com.paynetone.counter.dialog.SelectBusinessTypeDialog;
@@ -52,7 +53,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
         }
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_register})
+    @OnClick({R.id.btn_login, R.id.btn_register,R.id.rootView})
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -65,6 +66,9 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
                 });
                 dialog.setCancelable(false);
                 dialog.show();
+                break;
+            case R.id.rootView:
+                AppUtils.hideKeyboard(view);
                 break;
         }
     }
