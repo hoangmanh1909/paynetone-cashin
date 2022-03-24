@@ -32,218 +32,215 @@
         android:background="@color/backgroundHome">
 
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btn_ok"
-            android:layout_margin="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_4sdp"
-            app:cardElevation="@dimen/_2sdp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:padding="@dimen/_10sdp"
+                android:text="Thêm thông tin vào mã QR Code"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
 
-                <TextView
+            <!--                <RelativeLayout-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="@dimen/anchor_default">-->
+
+            <!--                    <ImageView-->
+            <!--                        android:id="@+id/img_logo"-->
+            <!--                        android:layout_width="@dimen/logoDetail"-->
+            <!--                        android:layout_height="@dimen/logoDetail"-->
+            <!--                        android:src="@drawable/viettelpay" />-->
+
+            <!--                    <LinearLayout-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginStart="@dimen/_6sdp"-->
+            <!--                        android:layout_toRightOf="@+id/img_logo"-->
+            <!--                        android:orientation="vertical">-->
+
+            <!--                        <TextView-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="Đơn vị thanh toán" />-->
+
+            <!--                        <TextView-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="Viettel Pay"-->
+            <!--                            android:textColor="@color/black"-->
+            <!--                            android:textStyle="bold" />-->
+            <!--                    </LinearLayout>-->
+            <!--                </RelativeLayout>-->
+
+            <!--                <View style="@style/Divider" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số điện thoại"
+                android:padding="@dimen/anchor_default"
+                android:visibility="gone"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_mobile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Thêm thông tin vào mã QR Code"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold" />
+                    android:inputType="number" />
 
-                <!--                <RelativeLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:padding="@dimen/anchor_default">-->
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <!--                    <ImageView-->
-                <!--                        android:id="@+id/img_logo"-->
-                <!--                        android:layout_width="@dimen/logoDetail"-->
-                <!--                        android:layout_height="@dimen/logoDetail"-->
-                <!--                        android:src="@drawable/viettelpay" />-->
+            <!--                <HorizontalScrollView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content">-->
+            <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:padding="@dimen/anchor_default"-->
+            <!--                        android:layout_height="match_parent">-->
 
-                <!--                    <LinearLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_marginStart="@dimen/_6sdp"-->
-                <!--                        android:layout_toRightOf="@+id/img_logo"-->
-                <!--                        android:orientation="vertical">-->
+            <!--                        <RelativeLayout-->
+            <!--                            android:id="@+id/layout_viettel_pay"-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="match_parent"-->
+            <!--                            app:layout_constraintStart_toStartOf="parent">-->
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="Đơn vị thanh toán" />-->
+            <!--                            <RadioButton-->
+            <!--                                android:id="@+id/rd_viettel_pay"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:checked="true" />-->
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="Viettel Pay"-->
-                <!--                            android:textColor="@color/black"-->
-                <!--                            android:textStyle="bold" />-->
-                <!--                    </LinearLayout>-->
-                <!--                </RelativeLayout>-->
+            <!--                            <ImageView-->
+            <!--                                android:id="@+id/img_logo"-->
+            <!--                                android:layout_toEndOf="@+id/rd_viettel_pay"-->
+            <!--                                android:layout_centerVertical="true"-->
+            <!--                                android:layout_width="@dimen/logoDetail"-->
+            <!--                                android:layout_height="@dimen/logoDetail"-->
+            <!--                                android:src="@drawable/viettel_money"/>-->
 
-                <!--                <View style="@style/Divider" />-->
+            <!--                            <TextView-->
+            <!--                                android:layout_toEndOf="@+id/img_logo"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:layout_centerVertical="true"-->
+            <!--                                android:layout_marginStart="@dimen/_4sdp"-->
+            <!--                                android:textColor="@color/black"-->
+            <!--                                android:text="@string/str_viettel_money"/>-->
+            <!--                        </RelativeLayout>-->
+            <!--                        <RelativeLayout-->
+            <!--                            android:id="@+id/layout_zalo_pay"-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="match_parent"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/layout_viettel_pay">-->
 
-                <com.google.android.material.textfield.TextInputLayout
+            <!--                            <RadioButton-->
+            <!--                                android:id="@+id/rd_zalopay"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content" />-->
+
+            <!--                            <ImageView-->
+            <!--                                android:id="@+id/img_logo_shoppe"-->
+            <!--                                android:layout_width="@dimen/logoDetail"-->
+            <!--                                android:layout_height="@dimen/logoDetail"-->
+            <!--                                android:layout_centerVertical="true"-->
+            <!--                                android:layout_toEndOf="@+id/rd_zalopay"-->
+            <!--                                android:src="@drawable/zalopay" />-->
+
+            <!--                            <TextView-->
+            <!--                                android:layout_toEndOf="@+id/img_logo_shoppe"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:layout_centerVertical="true"-->
+            <!--                                android:layout_marginStart="@dimen/_4sdp"-->
+            <!--                                android:textColor="@color/black"-->
+            <!--                                android:text="@string/str_zalo_pay"/>-->
+            <!--                        </RelativeLayout>-->
+            <!--                        <RelativeLayout-->
+            <!--                            android:id="@+id/layout_shoppe_pay"-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="match_parent"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/layout_zalo_pay">-->
+
+            <!--                            <RadioButton-->
+            <!--                                android:id="@+id/rd_shoppe_pay"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content" />-->
+
+            <!--                            <ImageView-->
+            <!--                                android:id="@+id/img_logo1"-->
+            <!--                                android:layout_toEndOf="@+id/rd_shoppe_pay"-->
+            <!--                                android:layout_centerVertical="true"-->
+            <!--                                android:layout_width="@dimen/logoDetail"-->
+            <!--                                android:layout_height="@dimen/logoDetail"-->
+            <!--                                android:src="@drawable/ic_shoppe_pay"/>-->
+
+            <!--                            <TextView-->
+            <!--                                android:layout_toEndOf="@+id/img_logo1"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:layout_centerVertical="true"-->
+            <!--                                android:layout_marginStart="@dimen/_4sdp"-->
+            <!--                                android:textColor="@color/black"-->
+            <!--                                android:text="@string/str_shoppe_pay"/>-->
+            <!--                        </RelativeLayout>-->
+            <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <!--                </HorizontalScrollView>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số tiền (đ)"
+                android:padding="@dimen/anchor_default"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Số điện thoại"
-                    android:padding="@dimen/anchor_default"
-                    android:visibility="gone"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
+                    android:inputType="number" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_mobile_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <HorizontalScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:padding="@dimen/anchor_default"
-                        android:layout_height="match_parent">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mô tả"
+                android:padding="@dimen/anchor_default"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
 
-                        <RelativeLayout
-                            android:id="@+id/layout_viettel_pay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <RadioButton
-                                android:checked="true"
-                                android:id="@+id/rd_viettel_pay"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                            <ImageView
-                                android:id="@+id/img_logo"
-                                android:layout_toEndOf="@+id/rd_viettel_pay"
-                                android:layout_centerVertical="true"
-                                android:layout_width="@dimen/logoDetail"
-                                android:layout_height="@dimen/logoDetail"
-                                android:src="@drawable/viettel_money"/>
-
-                            <TextView
-                                android:layout_toEndOf="@+id/img_logo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:text="@string/str_viettel_money"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/layout_zalo_pay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            app:layout_constraintStart_toEndOf="@id/layout_viettel_pay">
-
-                            <RadioButton
-                                android:id="@+id/rd_zalopay"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                            <ImageView
-                                android:id="@+id/img_logo_shoppe"
-                                android:layout_width="@dimen/logoDetail"
-                                android:layout_height="@dimen/logoDetail"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@+id/rd_zalopay"
-                                android:src="@drawable/zalopay" />
-
-                            <TextView
-                                android:layout_toEndOf="@+id/img_logo_shoppe"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:text="@string/str_zalo_pay"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/layout_shoppe_pay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            app:layout_constraintStart_toEndOf="@id/layout_zalo_pay">
-
-                            <RadioButton
-                                android:id="@+id/rd_shoppe_pay"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                            <ImageView
-                                android:id="@+id/img_logo1"
-                                android:layout_toEndOf="@+id/rd_shoppe_pay"
-                                android:layout_centerVertical="true"
-                                android:layout_width="@dimen/logoDetail"
-                                android:layout_height="@dimen/logoDetail"
-                                android:src="@drawable/ic_shoppe_pay"/>
-
-                            <TextView
-                                android:layout_toEndOf="@+id/img_logo1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:text="@string/str_shoppe_pay"/>
-                        </RelativeLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </HorizontalScrollView>
-
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Số tiền (đ)"
-                    android:padding="@dimen/anchor_default"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycle"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Mô tả"
-                    android:padding="@dimen/anchor_default"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_note"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_ok"

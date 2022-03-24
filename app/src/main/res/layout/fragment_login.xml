@@ -51,6 +51,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_forgot_password"
+        android:text="@string/str_forgot_your_password"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textSize="@dimen/_13sdp"
+        android:textColor="#333232"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btn_login"

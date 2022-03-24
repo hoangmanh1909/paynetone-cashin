@@ -23,9 +23,11 @@ import com.paynetone.counter.R;
 import com.paynetone.counter.functions.payment.PaymentPresenter;
 import com.paynetone.counter.model.EmployeeModel;
 import com.paynetone.counter.model.OptionAmount;
+import com.paynetone.counter.model.PaymentModel;
 import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.request.OrderAddRequest;
 import com.paynetone.counter.utils.Constants;
+import com.paynetone.counter.utils.MarginDecoration;
 import com.paynetone.counter.utils.NumberUtils;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
@@ -49,12 +51,12 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     TextInputEditText edt_note;
     @BindView(R.id.recycle)
     RecyclerView recycle;
-    @BindView(R.id.rd_zalopay)
-    RadioButton rd_zalopay;
-    @BindView(R.id.rd_viettel_pay)
-    RadioButton rd_viettel_pay;
-    @BindView(R.id.rd_shoppe_pay)
-    RadioButton rd_shoppe_pay;
+//    @BindView(R.id.rd_zalopay)
+//    RadioButton rd_zalopay;
+//    @BindView(R.id.rd_viettel_pay)
+//    RadioButton rd_viettel_pay;
+//    @BindView(R.id.rd_shoppe_pay)
+//    RadioButton rd_shoppe_pay;
 
     SharedPref sharedPref;
     EmployeeModel employeeModel;
@@ -62,6 +64,12 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     OptionAmountAdapter adapter;
     List<OptionAmount> optionAmounts;
     OptionAmount mOptionAmount;
+
+    @BindView(R.id.rvPayment)
+    RecyclerView rvPayment;
+    OptionPaymentAdapter optionPaymentAdapter;
+
+    PaymentModel paymentModel;
 
     int mPosition;
 
@@ -108,7 +116,9 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         });
         edt_amount.setText(NumberUtils.formatPriceNumber(10000));
         addOptionAmount();
-
+        initAdapter();
+    }
+    private void initAdapter(){
         recycle.setLayoutManager(new GridLayoutManager(getContext(), 3));
         adapter = new OptionAmountAdapter(getContext(), optionAmounts) {
             @Override
@@ -133,7 +143,13 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
             }
         };
         recycle.setAdapter(adapter);
-        onListenerRadio(rd_shoppe_pay,rd_viettel_pay,rd_zalopay);
+
+        if (optionPaymentAdapter==null) optionPaymentAdapter = new OptionPaymentAdapter(getContext(), item -> {
+            this.paymentModel = item;
+        });
+        rvPayment.setAdapter(optionPaymentAdapter);
+        rvPayment.addItemDecoration(new MarginDecoration(10,2));
+
     }
 
     private void addOptionAmount() {
@@ -168,7 +184,7 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         optionAmounts.add(optionAmount);
     }
 
-    @OnClick({R.id.iv_back, R.id.btn_ok, R.id.rd_zalopay, R.id.rd_viettel_pay})
+    @OnClick({R.id.iv_back, R.id.btn_ok})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
@@ -197,13 +213,21 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         }
 
         OrderAddRequest req = new OrderAddRequest();
-        if (rd_viettel_pay.isChecked())
-            req.setProviderCode(Constants.PROVIDER_VIETTEL);
-        else if (rd_zalopay.isChecked())
-            req.setProviderCode(Constants.PROVIDER_ZALO);
+        if (paymentModel==null)  req.setProviderCode(Constants.PROVIDER_VIETTEL);
         else {
-            req.setProviderCode(Constants.PROVIDER_SHOPPE);
+            switch (paymentModel.getId()){
+                case Constants.PAYMENT_VIETTEL_PAY:
+                    req.setProviderCode(Constants.PROVIDER_VIETTEL);
+                    break;
+                case Constants.PAYMENT_ZALO_PAY:
+                    req.setProviderCode(Constants.PROVIDER_ZALO);
+                    break;
+                case Constants.PAYMENT_SHOPPE_PAY:
+                    req.setProviderCode(Constants.PROVIDER_SHOPPE);
+                    break;
+            }
         }
+
         req.setMobileNumber(Objects.requireNonNull(edt_mobile_number.getText()).toString());
         req.setServiceID(1);
         req.setAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
@@ -214,21 +238,17 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         req.setEmpID(employeeModel.getId());
         req.setPaynetID(employeeModel.getPaynetID());
         req.setTransCategory(1);
-        if (rd_shoppe_pay.isChecked()) req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
-        else req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL_ZALO);
+
+        if (paymentModel==null) req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL_ZALO);
+        else {
+            if (paymentModel.getId() == Constants.PAYMENT_SHOPPE_PAY) req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
+            else req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL_ZALO);
+        }
+
         req.setPaymentCate(2);
         req.setMerchantID(paynetModel.getMerchantID());
         new PaymentPresenter((ContainerView) requireActivity(), req).pushView();
     }
-    private void onListenerRadio(RadioButton...arrayListRadio){
-        final RadioButton[] currentSelected = {rd_viettel_pay};
-        for (RadioButton radioButton:arrayListRadio){
-            radioButton.setOnClickListener(view->{
-                currentSelected[0].setChecked(false);
-                currentSelected[0] = radioButton;
-                currentSelected[0].setChecked(true);
-            });
-        }
-    }
+
 
 }

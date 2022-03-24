@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/_10sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_item_option_payment"
+    android:layout_height="wrap_content">
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/img_logo"
+        android:src="@drawable/viettel_money"
+        android:layout_width="@dimen/_36sdp"
+        android:layout_height="@dimen/_36sdp"/>
+    <TextView
+        android:id="@+id/tvName"
+        android:text="ShoppePay"
+        android:gravity="start|center"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="#353434"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/img_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <ImageView
+        android:id="@+id/imgCheck"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:src="@drawable/ic_tick"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

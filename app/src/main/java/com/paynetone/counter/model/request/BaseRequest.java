@@ -14,12 +14,23 @@ public class BaseRequest {
     @Expose
     private String mobileNumber;
 
+    @SerializedName("IsForget")
+    @Expose
+    private String isForget;
+
+
     public String getMobileNumber() {
         return mobileNumber;
     }
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+    public String getIsForget(){
+        return isForget;
+    }
+    public void setIsForget(String isForget){
+        this.isForget=isForget;
     }
 
     public int getMerchantID() {

@@ -1,5 +1,7 @@
 package com.paynetone.counter.network;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.paynetone.counter.BuildConfig;
@@ -12,6 +14,7 @@ import com.paynetone.counter.model.request.MerchantAddNewRequest;
 import com.paynetone.counter.model.request.OrderAddRequest;
 import com.paynetone.counter.model.request.OrderGetByCodeRequest;
 import com.paynetone.counter.model.request.OrderSearchRequest;
+import com.paynetone.counter.model.request.UpdatePasswordRequest;
 import com.paynetone.counter.model.request.WithdrawRequest;
 import com.paynetone.counter.utils.Constants;
 import com.paynetone.counter.utils.RSAUtil;
@@ -281,16 +284,28 @@ public class NetWorkController {
         }
     }
 
-    public static void getOTP(String mobile, CommonCallback<SimpleResult> callback) {
+    public static void getOTP(String mobile,String isForget, CommonCallback<SimpleResult> callback) {
         try {
             BaseRequest request = new BaseRequest();
             request.setMobileNumber(mobile);
+            request.setIsForget(isForget);
             String data = getGson().toJson(request);
             String signature = RSAUtil.signature(data);
             RequestObject requestObject = new RequestObject("ANDROID", "", Constants.CMD_EMP_GET_OTP, data, "", signature);
             Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
             call.enqueue(callback);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void updatePassword(UpdatePasswordRequest request, CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.CMD_UPDATE_PASSWORD_BY_OTP, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

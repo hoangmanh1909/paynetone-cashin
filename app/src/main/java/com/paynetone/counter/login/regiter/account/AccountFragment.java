@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 
 import static com.paynetone.counter.utils.Constants.REGISTER_PASS_DATA;
+import static com.paynetone.counter.utils.Constants.TYPE_GET_OTP_REGISTER_ACCOUNT;
 
 public class AccountFragment extends ViewFragment<AccountContract.Presenter> implements AccountContract.View, BlockingStep {
     @BindView(R.id.edt_name)
@@ -68,7 +69,7 @@ public class AccountFragment extends ViewFragment<AccountContract.Presenter> imp
                     Toast.showToast(getContext(), "Bạn chưa nhập Số điện thoại");
                     return;
                 }
-                mPresenter.getOTP(edt_mobile_number.getText().toString());
+                mPresenter.getOTP(edt_mobile_number.getText().toString(),TYPE_GET_OTP_REGISTER_ACCOUNT);
             }
         });
     }

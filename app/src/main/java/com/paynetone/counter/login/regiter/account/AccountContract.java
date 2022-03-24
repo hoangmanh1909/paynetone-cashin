@@ -13,7 +13,7 @@ public interface AccountContract {
     interface Interactor extends IInteractor<AccountContract.Presenter> {
         void employeeAdd(EmployeeAddNewRequest request, CommonCallback<SimpleResult> callback);
 
-        void getOTP(String mobile, CommonCallback<SimpleResult> callback);
+        void getOTP(String mobile,String isForget, CommonCallback<SimpleResult> callback);
     }
 
     interface View extends PresentView<AccountContract.Presenter> {
@@ -26,7 +26,7 @@ public interface AccountContract {
     interface Presenter extends IPresenter<AccountContract.View, AccountContract.Interactor> {
         void employeeAdd(EmployeeAddNewRequest request);
 
-        void getOTP(String mobile);
+        void getOTP(String mobile,String isForget);
 
         void saveData(RegisterPassDataModel dataModel);
     }

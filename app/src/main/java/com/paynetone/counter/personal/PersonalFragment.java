@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.paynetone.counter.R;
 import com.paynetone.counter.interfaces.RegisterPassData;
 import com.paynetone.counter.login.LoginActivity;
 import com.paynetone.counter.login.regiter.merchant.MerchantPresenter;
+import com.paynetone.counter.main.SplashScreenActivity;
 import com.paynetone.counter.model.EmployeeModel;
 import com.paynetone.counter.model.RegisterPassDataModel;
 import com.paynetone.counter.utils.Constants;
@@ -64,9 +66,18 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
         tv_name.setText(employeeModel.getFullName());
 
         String mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE,"");
-        if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
-            rl_merchant_info.setVisibility(View.VISIBLE);
+
+        try {
+            if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
+                rl_merchant_info.setVisibility(View.VISIBLE);
+            }
+            if (Integer.parseInt(sharedPref.getPaynet().getPnoLevel())==Constants.PNOLEVEL_STALL){
+                rl_merchant_info.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     @OnClick({R.id.rl_logout, R.id.rl_merchant_info})
@@ -80,7 +91,7 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
                         "Hủy",
                         (dialog, which) -> {
                             sharedPref.clear();
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             dialog.dismiss();

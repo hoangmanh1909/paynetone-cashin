@@ -68,9 +68,9 @@ public class AccountPresenter extends Presenter<AccountContract.View, AccountCon
     }
 
     @Override
-    public void getOTP(String mobile) {
+    public void getOTP(String mobile,String isForget) {
         mView.showProgress();
-        mInteractor.getOTP(mobile, new CommonCallback<SimpleResult>((Activity) mContainerView) {
+        mInteractor.getOTP(mobile,isForget, new CommonCallback<SimpleResult>((Activity) mContainerView) {
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
                 super.onSuccess(call, response);

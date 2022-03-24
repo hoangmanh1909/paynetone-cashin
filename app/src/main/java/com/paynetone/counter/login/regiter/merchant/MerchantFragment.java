@@ -333,7 +333,7 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
 
         MerchantAddNewRequest req = new MerchantAddNewRequest();
-        req.setFormalityType("1");
+        req.setFormalityType("2");
         req.setBusinessType("3");
         req.setServiceType("1");
         req.setMobileNumber(dataModel.getMobileNumber());

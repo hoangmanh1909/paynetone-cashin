@@ -21,7 +21,7 @@
 
     //qr dynamic fragment
     <string name="str_title_qr_dynamic">Tạo mã QR Code thanh toán</string>
-    <string name="str_viettel_money">Viettel money</string>
+    <string name="str_viettel_money">Viettel\n money</string>
     <string name="str_zalo_pay">ZaloPay</string>
     <string name="str_shoppe_pay">ShoppePay</string>
 
@@ -67,6 +67,28 @@
     <string name="str_representative_information">Thông tin người đại diện</string>
     <string name="str_detailed_address">Địa chỉ chi tiết</string>
     <string name="str_business_information">Thông tin kinh doanh</string>
+
+    //fragment_request_opt
+    <string name="str_confirm_mobile_number">Vui lòng xác nhận chính xác số điện thoại đã đăng ký. Mã xác nhận thực sẽ được gửi để xác minh tài khoản</string>
+    <string name="str_send_request">Gửi yêu cầu</string>
+    <string name="str_account_already"><font fgcolor='#373636'>Bạn đã có tài khoản?</font> <font fgcolor='#007fff'>Đăng nhập</font></string>
+    <string name="sr_fragment_request_otp_title">Xác nhận số điện thoại</string>
+    <string name="str_forgot_your_password">Quên mật khẩu</string>
+    <string name="str_did_not_phone_number">Bạn chưa nhập Số điện thoại</string>
+
+    //fragment_forgot_password
+    <string name="str_fragment_forgot_password_title">Đổi lại mật khẩu</string>
+    <string name="str_new_password">Mật khẩu mới</string>
+    <string name="str_confirm_password">Nhập lại mật khẩu mới</string>
+    <string name="str_opt_zalo_fragment_forgot_password">OTP của bạn đã được gửi về Zalo SMS. Mã xác thực hết hạn sau: </string>
+    <string name="str_enter_phone_number">Nhập số điện thoại</string>
+    <string name="str_enter_otp">Nhập mã OTP</string>
+    <string name="str_not_enter_phone_number">Bạn chưa nhập Số điện thoại</string>
+    <string name="str_not_enter_password">Bạn chưa nhập Mật khẩu</string>
+    <string name="str_not_enter_confirm_password">Bạn chưa nhập lại mật khẩu</string>
+    <string name="str_not_match_password">Mật khẩu không khớp</string>
+    <string name="str_not_enter_otp">Bạn chưa nhập OTP</string>
+    <string name="str_change_password_success">Thay đổi mật khẩu thành công</string>
 
 
 

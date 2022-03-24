@@ -3,6 +3,7 @@ package com.paynetone.counter.functions.payment.qr;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,8 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
     ImageView img_logo;
     @BindView(R.id.tv_providers)
     TextView tv_providers;
+    @BindView(R.id.webview_shoppe)
+    WebView wb_shoppe;
 
     OrderAddResponse orderAddResponse;
     OrderAddRequest mOrderAddRequest;
@@ -59,6 +62,14 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
             mOrderAddRequest = mPresenter.getOrderAddRequest();
             tvCode.setText(getResources().getString(R.string.str_code_order).concat( orderAddResponse.getOrderCode()));
             tv_amount.setText(NumberUtils.formatPriceNumber(mOrderAddRequest.getAmount()) + "đ");
+
+            if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_SHOPPE)) {
+                wb_shoppe.setVisibility(View.VISIBLE);
+                img_qr_code.setVisibility(View.GONE);
+            }else {
+                wb_shoppe.setVisibility(View.GONE);
+                img_qr_code.setVisibility(View.VISIBLE);
+            }
             if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);
                 tv_providers.setText(getResources().getString(R.string.str_zalo_pay));
@@ -72,8 +83,14 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
                 tv_providers.setText(getResources().getString(R.string.str_shoppe_pay));
                 tv_providers_logo.setText(getResources().getString(R.string.str_shoppe_pay));
             }
-            Bitmap bitmap = BitmapUtils.generateQRBitmap(orderAddResponse.getReturnURL());
-            img_qr_code.setImageBitmap(bitmap);
+            if (img_qr_code.getVisibility()==View.VISIBLE){
+                Bitmap bitmap = BitmapUtils.generateQRBitmap(orderAddResponse.getReturnURL());
+                img_qr_code.setImageBitmap(bitmap);
+            }else {
+                wb_shoppe.getSettings().setJavaScriptEnabled(true);
+                wb_shoppe.loadUrl(orderAddResponse.getReturnURL());
+            }
+
         }
     }
 

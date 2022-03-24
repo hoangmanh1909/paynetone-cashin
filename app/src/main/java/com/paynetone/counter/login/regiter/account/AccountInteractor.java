@@ -19,7 +19,7 @@ public class AccountInteractor extends Interactor<AccountContract.Presenter>
     }
 
     @Override
-    public void getOTP(String mobile, CommonCallback<SimpleResult> callback) {
-        NetWorkController.getOTP(mobile, callback);
+    public void getOTP(String mobile,String isForget, CommonCallback<SimpleResult> callback) {
+        NetWorkController.getOTP(mobile,isForget, callback);
     }
 }

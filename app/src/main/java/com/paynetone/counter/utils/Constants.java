@@ -31,6 +31,7 @@ public class Constants {
     public static final String CMD_MERCHANT_ADD_NEW = "MERCHANT_ADD_NEW";
     public static final String CMD_MERCHANT_EDIT = "MERCHANT_EDIT";
     public static final String CMD_MERCHANT_GET_BY_MOBILE_NUMBER = "MERCHANT_GET_BY_MOBILE_NUMBER";
+    public static final String CMD_UPDATE_PASSWORD_BY_OTP="EMP_UPDATE_PASSWORD_BY_OTP";
 
     public static final String WEB_VIEW_URL = "WEB_VIEW_URL";
 
@@ -63,6 +64,19 @@ public class Constants {
     public static final String WAITING_APPROVAL = "A";
     public static final String APPROVED= "P";
     public static final String REFUSE = "R";
+
+    public static final int PNOLEVEL_STALL = 4;
+
+    public static final int THRESHOLD_CLICK_TIME = 500;
+
+    public static final String TYPE_GET_OTP_REGISTER_ACCOUNT="N";
+    public static final String TYPE_GET_OTP_FORGOT_PASSWORD="Y";
+
+    public static final String EXTRA_OPT ="EXTRA_OTP";
+
+    public static final int PAYMENT_VIETTEL_PAY = 1;
+    public static final int PAYMENT_ZALO_PAY = 2;
+    public static final int PAYMENT_SHOPPE_PAY = 3;
 
 
 }

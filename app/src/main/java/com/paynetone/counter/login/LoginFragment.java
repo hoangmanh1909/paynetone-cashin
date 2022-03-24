@@ -8,8 +8,8 @@ import android.widget.LinearLayout;
 import com.core.base.viper.ViewFragment;
 import com.core.utils.AppUtils;
 import com.google.android.material.textfield.TextInputEditText;
-import com.paynetone.counter.callback.CloseCallback;
 import com.paynetone.counter.dialog.SelectBusinessTypeDialog;
+import com.paynetone.counter.forgotpassword.requestotp.RequestOTPActivity;
 import com.paynetone.counter.login.regiter.RegisterActivity;
 import com.paynetone.counter.main.MainActivity;
 import com.paynetone.counter.R;
@@ -53,7 +53,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
         }
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_register,R.id.rootView})
+    @OnClick({R.id.btn_login, R.id.btn_register,R.id.rootView,R.id.tv_forgot_password})
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -69,6 +69,9 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
                 break;
             case R.id.rootView:
                 AppUtils.hideKeyboard(view);
+                break;
+            case R.id.tv_forgot_password:
+                goToRequestOTP();
                 break;
         }
     }
@@ -103,5 +106,9 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         requireActivity().finish();
+    }
+    private void goToRequestOTP(){
+        Intent intent = new Intent(requireActivity(), RequestOTPActivity.class);
+        startActivity(intent);
     }
 }
