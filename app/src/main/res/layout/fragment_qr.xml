@@ -83,7 +83,8 @@
                         android:id="@+id/webview_shoppe"
                         android:visibility="gone"
                         android:layout_width="@dimen/_300sdp"
-                        android:layout_height="@dimen/_300sdp"/>
+                        android:layout_height="@dimen/_300sdp"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"

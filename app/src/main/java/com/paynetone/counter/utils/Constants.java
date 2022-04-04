@@ -56,7 +56,8 @@ public class Constants {
     public static final String MERCHANT_MODE_VIEW = "MERCHANT_MODE_VIEW";
 
     public static final int PAYMENT_TYPE_SHOPEE=5;
-    public static final int PAYMENT_TYPE_VIETTEL_ZALO=3;
+    public static final int PAYMENT_TYPE_VIETTEL=3;
+    public static final int PAYMENT_TYPE_ZALO=4;
 
     public static final String FORMALITY_TYPE_ONLINE = "1";
     public static final String FORMALITY_TYPE_OFFLINE = "2";
@@ -65,7 +66,8 @@ public class Constants {
     public static final String APPROVED= "P";
     public static final String REFUSE = "R";
 
-    public static final int PNOLEVEL_STALL = 4;
+    public static final int PNOLEVEL_STALL = 4; // tài khoản quầy
+    public static final int   BUSINESS_TYPE = 3; // tài khoản cá nhân
 
     public static final int THRESHOLD_CLICK_TIME = 500;
 

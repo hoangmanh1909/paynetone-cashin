@@ -2,9 +2,11 @@ package com.paynetone.counter.login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.core.base.viper.Presenter;
 import com.core.base.viper.interfaces.ContainerView;
+import com.paynetone.counter.R;
 import com.paynetone.counter.interfaces.RegisterPassData;
 import com.paynetone.counter.login.regiter.merchant.MerchantPresenter;
 import com.paynetone.counter.model.EmployeeModel;
@@ -17,6 +19,7 @@ import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
 import com.paynetone.counter.utils.Constants;
 import com.paynetone.counter.utils.SharedPref;
+import com.paynetone.counter.utils.Toast;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -98,8 +101,12 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
                 if ("00".equals(response.body().getErrorCode())) {
                     SharedPref sharedPref = new SharedPref((Context) mContainerView);
                     PaynetModel paynetModel = NetWorkController.getGson().fromJson(response.body().getData(), PaynetModel.class);
-                    sharedPref.savePaynet(paynetModel);
-                    mView.goHome();
+                    if (Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_STALL || paynetModel.getBusinessType()==Constants.BUSINESS_TYPE){
+                        sharedPref.savePaynet(paynetModel);
+                        mView.goHome();
+                    }else {
+                        mView.showAlertDialog(getViewContext().getResources().getString(R.string.str_allow_account_personal_and_stall_login));
+                    }
                 } else {
                     mView.showAlertDialog(response.body().getMessage());
                 }

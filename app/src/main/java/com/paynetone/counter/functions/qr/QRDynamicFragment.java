@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.core.base.log.Logger;
 import com.core.base.viper.ViewFragment;
 import com.core.base.viper.interfaces.ContainerView;
+import com.core.utils.AppUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.paynetone.counter.R;
 import com.paynetone.counter.functions.payment.PaymentPresenter;
@@ -184,7 +185,7 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         optionAmounts.add(optionAmount);
     }
 
-    @OnClick({R.id.iv_back, R.id.btn_ok})
+    @OnClick({R.id.iv_back, R.id.btn_ok,R.id.rootView})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
@@ -192,6 +193,9 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                 break;
             case R.id.btn_ok:
                 ok();
+                break;
+            case R.id.rootView:
+                AppUtils.hideKeyboard(v);
                 break;
 //            case R.id.rd_zalopay:
 //                rd_viettel_pay.setChecked(!rd_zalopay.isChecked());
@@ -239,12 +243,20 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         req.setPaynetID(employeeModel.getPaynetID());
         req.setTransCategory(1);
 
-        if (paymentModel==null) req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL_ZALO);
+        if (paymentModel==null) req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL);
         else {
-            if (paymentModel.getId() == Constants.PAYMENT_SHOPPE_PAY) req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
-            else req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL_ZALO);
+            switch (paymentModel.getId()){
+                case Constants.PAYMENT_VIETTEL_PAY:
+                    req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL);
+                    break;
+                case Constants.PAYMENT_ZALO_PAY:
+                    req.setPaymentType(Constants.PAYMENT_TYPE_ZALO);
+                    break;
+                case Constants.PAYMENT_SHOPPE_PAY:
+                    req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
+                    break;
+            }
         }
-
         req.setPaymentCate(2);
         req.setMerchantID(paynetModel.getMerchantID());
         new PaymentPresenter((ContainerView) requireActivity(), req).pushView();

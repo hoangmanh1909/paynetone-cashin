@@ -27,7 +27,7 @@ public class EmployeeAddNewRequest {
     private Integer paynetID;
     @SerializedName("RoleID")
     @Expose
-    private Integer roleID;
+    private Integer roleID = 1;
     @SerializedName("EmpID")
     @Expose
     private Integer empID;

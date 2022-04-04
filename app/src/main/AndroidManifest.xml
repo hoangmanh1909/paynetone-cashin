@@ -15,9 +15,9 @@
     <application
         android:name=".app.PaynetOneApplication"
         android:allowBackup="true"
-        android:icon="@drawable/icon_paynet_01"
+        android:icon="@mipmap/ic_app"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icon_paynet_01"
+        android:roundIcon="@mipmap/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
@@ -39,6 +39,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".functions.qr.QRDynamicActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity android:name=".functions.WebViewActivity"
             android:screenOrientation="portrait"/>

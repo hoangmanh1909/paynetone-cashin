@@ -71,6 +71,7 @@ class RequestOTPFragment : ViewFragment<RequestOTPContract.Presenter>(),RequestO
 
     override fun showSuccessOTP() {
         startActivity(Intent(requireActivity(), ForgotPasswordActivity::class.java))
+        activity?.finish()
     }
 
 }
