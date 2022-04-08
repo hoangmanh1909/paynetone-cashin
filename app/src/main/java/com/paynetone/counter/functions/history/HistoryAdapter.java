@@ -2,6 +2,7 @@ package com.paynetone.counter.functions.history;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -80,10 +81,12 @@ public class HistoryAdapter extends RecyclerBaseAdapter {
             tv_status.setText(Utils.getStatusName(item.getStatus()));
             if (item.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);
-            }
-            else {
+            } else if (item.getProviderCode().equals(Constants.PROVIDER_VIETTEL)){
                 img_logo.setImageResource(R.drawable.viettel_money);
+            }else {
+                img_logo.setImageResource(R.drawable.ic_shoppe_pay);
             }
+            Log.e("TAG", "bindView: " + item.getProviderCode() );
             switch (item.getStatus()){
                 case Constants.STATUS_W:
                     tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_w));
