@@ -39,14 +39,14 @@ android {
     }
     signingConfigs{
         debug {
-            keyAlias 'PaynetOne'
+            keyAlias 'key0'
             keyPassword '123456a@'
             storeFile file("../keystore/paynetone.jks")
             storePassword '123456a@'
 
         }
         release {
-            keyAlias 'PaynetOne'
+            keyAlias 'key0'
             keyPassword '123456a@'
             storeFile file("../keystore/paynetone.jks")
             storePassword '123456a@'
