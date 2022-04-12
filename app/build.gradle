@@ -37,6 +37,23 @@ android {
         multiDexEnabled true
         signingConfig signingConfigs.debug
     }
+    signingConfigs{
+        debug {
+            keyAlias 'PaynetOne'
+            keyPassword '123456a@'
+            storeFile file("../keystore/paynetone.jks")
+            storePassword '123456a@'
+
+        }
+        release {
+            keyAlias 'PaynetOne'
+            keyPassword '123456a@'
+            storeFile file("../keystore/paynetone.jks")
+            storePassword '123456a@'
+        }
+
+
+    }
 
     productFlavors {
         dev {
