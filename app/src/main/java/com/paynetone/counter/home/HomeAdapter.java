@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,11 +26,12 @@ import butterknife.BindView;
 
 public class HomeAdapter extends RecyclerBaseAdapter {
     Activity activity;
+    OnClickItemListener mOnClickItemListener;
 
-    public HomeAdapter(Context context, List<HomeModel> mHomeList) {
+    public HomeAdapter(Context context, List<HomeModel> mHomeList,OnClickItemListener mOnClickItemListener) {
         super(context, mHomeList);
-
         activity = (Activity) context;
+        this.mOnClickItemListener=mOnClickItemListener;
     }
 
     @NonNull
@@ -48,8 +50,10 @@ public class HomeAdapter extends RecyclerBaseAdapter {
         ImageView imgLogo;
         @BindView(R.id.tv_title)
         TextView tvTitle;
-        @BindView(R.id.cv_item)
-        CardView cv_item;
+        @BindView(R.id.rootView)
+        LinearLayout rootView;
+//        @BindView(R.id.cv_item)
+//        CardView cv_item;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +64,8 @@ public class HomeAdapter extends RecyclerBaseAdapter {
             HomeModel homeModel = (HomeModel) model;
             imgLogo.setImageResource(homeModel.getLogo());
             tvTitle.setText(homeModel.getTitle());
+            rootView.setOnClickListener( view -> mOnClickItemListener.onClickItem(homeModel,position));
+
 //            if (position == 1) {
 //                ViewGroup.MarginLayoutParams  params =  (ViewGroup.MarginLayoutParams) cv_item.getLayoutParams();
 //                int top = getPixelValue(activity, 8);
@@ -78,5 +84,8 @@ public class HomeAdapter extends RecyclerBaseAdapter {
                     resources.getDisplayMetrics()
             );
         }
+    }
+    public interface OnClickItemListener{
+        public void onClickItem(HomeModel model, int position);
     }
 }

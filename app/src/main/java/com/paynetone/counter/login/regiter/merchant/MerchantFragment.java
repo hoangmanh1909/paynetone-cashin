@@ -30,6 +30,7 @@ import com.paynetone.counter.dialog.BankBottomDialog;
 import com.paynetone.counter.dialog.BaseBottomDialog;
 import com.paynetone.counter.interfaces.RegisterPassData;
 import com.paynetone.counter.login.regiter.account.AccountFragment;
+import com.paynetone.counter.main.SplashScreenActivity;
 import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.BaseDialogModel;
 import com.paynetone.counter.model.DictionaryModel;
@@ -447,10 +448,13 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
     @Override
     public void showImage(String file) {
-        if (!IsImageAfter)
+        if (!IsImageAfter){
             fileImgBefore = file;
-        else
+            image_before.setImageURI(Utils.getUrlImage(file), file);
+        } else{
             fileImgAfter = file;
+            image_after.setImageURI(Utils.getUrlImage(file), file);
+        }
     }
 
     @Override
@@ -518,6 +522,14 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         }
     }
 
+    @Override
+    public void gotoSplashWhenUpdateMerchant() {
+        if (getActivity()!=null){
+            startActivity(new Intent(getActivity(), SplashScreenActivity.class));
+            getActivity().finish();
+        }
+    }
+
     private void disableTextInput(boolean value) {
         auto_business_service.setEnabled(value);
         auto_province.setEnabled(value);
@@ -546,13 +558,8 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
     @SuppressLint("CheckResult")
     private void attemptSendMedia(String path_media) {
+        this.showProgress();
         File file = new File(path_media);
-        Uri picUri = Uri.fromFile(new File(path_media));
-        if (!IsImageAfter)
-            image_before.setImageURI(picUri);
-        else
-            image_after.setImageURI(picUri);
-
         Observable.fromCallable(() -> {
             Uri uri = Uri.fromFile(new File(path_media));
             return BitmapUtils.processingBitmap(uri, getViewContext());
@@ -564,12 +571,14 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 isSavedImage -> {
                     String path = file.getParent() + File.separator + "pno" + file.getName();
-
                     mPresenter.postImage(path);
                     if (file.exists())
                         file.delete();
                 },
-                onError -> Logger.e("error save image")
+                onError ->{
+                    Logger.e("error save image");
+                    this.hideProgress();
+                }
         );
     }
 

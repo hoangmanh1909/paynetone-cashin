@@ -53,6 +53,8 @@ public interface MerchantContract {
         void showError(String message);
 
         void showMerchant(MerchantModel model);
+
+        void gotoSplashWhenUpdateMerchant();
     }
 
     interface Presenter extends IPresenter<MerchantContract.View, MerchantContract.Interactor> {

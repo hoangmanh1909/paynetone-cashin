@@ -218,7 +218,6 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
 
     @Override
     public void postImage(String filePath) {
-        mView.showProgress();
         CommonCallback<SimpleResult> callback = new CommonCallback<SimpleResult>((Context) mContainerView) {
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
@@ -255,7 +254,7 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
                 if ("00".equals(response.body().getErrorCode())) {
                     if (mode.equals(Constants.MERCHANT_MODE_EDIT)) {
                         Toast.showToast(activity,"Cập nhật hồ sơ Merchant thành công");
-                        activity.finish();
+                        mView.gotoSplashWhenUpdateMerchant();
                     } else
                         mView.showSuccess();
 

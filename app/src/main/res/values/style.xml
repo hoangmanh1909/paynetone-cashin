@@ -37,8 +37,10 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/white</item>
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorOnPrimary">@color/white</item>-->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="Button">

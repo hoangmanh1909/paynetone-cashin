@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/page_home"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/bg_ic_home_selector"
         android:title="Trang chủ"/>
 
     <item
         android:id="@+id/page_persional"
-        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:icon="@drawable/bg_ic_personal_selector"
         android:title="Cá nhân"/>
 </menu>

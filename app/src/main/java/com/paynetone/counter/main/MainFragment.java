@@ -59,7 +59,7 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
 
             @Override
             public void onPageSelected(int position) {
-                bottomNavigation.setSelectedItemId(position);
+                bottomNavigation.getMenu().getItem(position).setChecked(true);
             }
 
             @Override

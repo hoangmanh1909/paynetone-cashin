@@ -78,23 +78,16 @@ public class HomeFragment extends ViewFragment<HomeContract.Presenter> implement
             ll_balance.setVisibility(View.GONE);
         }
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        adapter = new HomeAdapter(getContext(), homeModels) {
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                super.onBindViewHolder(holder, position);
-
-                holder.itemView.setOnClickListener(v -> {
-                    HomeModel homeModel = homeModels.get(position);
-                    if (homeModel.getServiceCode().equals(Constants.HOME_QR)) {
-                        Intent intent = new Intent(requireActivity(), QRDynamicActivity.class);
-                        startActivity(intent);
-                    } else if (homeModel.getServiceCode().equals(Constants.HOME_HISTORY)) {
-                        Intent intent = new Intent(requireActivity(), HistoryActivity.class);
-                        startActivity(intent);
-                    }
-                });
+        adapter = new HomeAdapter(getContext(), homeModels,(homeModel, position) -> {
+            if (homeModel.getServiceCode().equals(Constants.HOME_QR)) {
+                Intent intent = new Intent(requireActivity(), QRDynamicActivity.class);
+                startActivity(intent);
+            } else if (homeModel.getServiceCode().equals(Constants.HOME_HISTORY)) {
+                Intent intent = new Intent(requireActivity(), HistoryActivity.class);
+                startActivity(intent);
             }
-        };
+        }) ;
+
         recyclerView.setAdapter(adapter);
 
         rl_withdraw.setOnClickListener(view -> {
@@ -125,13 +118,13 @@ public class HomeFragment extends ViewFragment<HomeContract.Presenter> implement
 
         HomeModel homeModel = new HomeModel();
 
-        homeModel.setLogo(R.drawable.qr_dong);
+        homeModel.setLogo(R.drawable.ic_qr_dong);
         homeModel.setServiceCode(Constants.HOME_QR);
         homeModel.setTitle(res.getString(R.string.home_qr_online));
         homeModels.add(homeModel);
 
         homeModel = new HomeModel();
-        homeModel.setLogo(R.drawable.history);
+        homeModel.setLogo(R.drawable.ic_history);
         homeModel.setServiceCode(Constants.HOME_HISTORY);
         homeModel.setTitle(res.getString(R.string.home_history));
         homeModels.add(homeModel);

@@ -8,7 +8,7 @@
     <string name="no_data">Không có dữ liệu</string>
     <string name="error_warning_phone">Số điện thoại không hợp lệ</string>
 
-    <string name="home_qr_online">Thanh toán QR động</string>
+    <string name="home_qr_online">Thanh toán \nQR động</string>
     <string name="home_history">Lịch sử</string>
     <string name="tab_title">Tab title</string>
 
