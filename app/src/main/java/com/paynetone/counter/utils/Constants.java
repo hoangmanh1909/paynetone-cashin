@@ -42,6 +42,7 @@ public class Constants {
     public static final String PROVIDER_VIETTEL = "VIETTEL";
     public static final String PROVIDER_ZALO = "ZALO";
     public static final String PROVIDER_SHOPPE = "SHOPEE";
+    public static final String PROVIDER_VN_PAY = "VNPAY";
 
     public static final String HOME_QR = "HOME_QR";
     public static final String HOME_HISTORY = "HOME_HISTORY";
@@ -58,6 +59,7 @@ public class Constants {
     public static final int PAYMENT_TYPE_SHOPEE=5;
     public static final int PAYMENT_TYPE_VIETTEL=3;
     public static final int PAYMENT_TYPE_ZALO=4;
+    public static final int PAYMENT_TYPE_VN_PAY=6;
 
     public static final String FORMALITY_TYPE_ONLINE = "1";
     public static final String FORMALITY_TYPE_OFFLINE = "2";
@@ -67,7 +69,13 @@ public class Constants {
     public static final String REFUSE = "R";
 
     public static final int PNOLEVEL_STALL = 4; // tài khoản quầy
-    public static final int   BUSINESS_TYPE = 3; // tài khoản cá nhân
+    public static final int PNOLEVEL_MERCHANT = 1; // tài khoản merchant
+
+    public static final int   BUSINESS_TYPE_ENTERPRISE = 1; // doanh nghiep
+    public static final int   BUSINESS_TYPE_HOUSEHOLD = 2; // hộ kinh doanh
+    public static final int   BUSINESS_TYPE_PERSONAL = 3; //  cá nhân kinh doanh
+    public static final int   BUSINESS_TYPE_VIETLOTT = 4; //cửa hàng xổ số vietlott
+    public static final int   BUSINESS_TYPE_SYNTHETIC = 5; // cửa hàng xổ số tổng hợp
 
     public static final int THRESHOLD_CLICK_TIME = 500;
 
@@ -79,6 +87,7 @@ public class Constants {
     public static final int PAYMENT_VIETTEL_PAY = 1;
     public static final int PAYMENT_ZALO_PAY = 2;
     public static final int PAYMENT_SHOPPE_PAY = 3;
+    public static final int PAYMENT_VN_PAY = 4;
 
 
 }

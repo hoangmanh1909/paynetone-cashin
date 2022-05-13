@@ -54,7 +54,10 @@ public class PaymentFragment extends ViewFragment<PaymentContract.Presenter> imp
             } else if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VIETTEL)){
                 img_logo.setImageResource(R.drawable.viettel_money);
                 tv_providers.setText(getResources().getString(R.string.str_viettel_money));
-            }else {
+            } else if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VN_PAY)) {
+                img_logo.setImageResource(R.drawable.ic_vnpay);
+                tv_providers.setText(getResources().getString(R.string.str_vn_pay));
+            } else {
                 img_logo.setImageResource(R.drawable.ic_shoppe_pay);
                 tv_providers.setText(getResources().getString(R.string.str_shoppe_pay));
             }

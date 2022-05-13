@@ -101,7 +101,7 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
                 if ("00".equals(response.body().getErrorCode())) {
                     SharedPref sharedPref = new SharedPref((Context) mContainerView);
                     PaynetModel paynetModel = NetWorkController.getGson().fromJson(response.body().getData(), PaynetModel.class);
-                    if (Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_STALL || paynetModel.getBusinessType()==Constants.BUSINESS_TYPE){
+                    if (Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_STALL || Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_MERCHANT){
                         sharedPref.savePaynet(paynetModel);
                         mView.goHome();
                     }else {

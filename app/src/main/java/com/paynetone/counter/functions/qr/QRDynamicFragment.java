@@ -149,7 +149,7 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
             this.paymentModel = item;
         });
         rvPayment.setAdapter(optionPaymentAdapter);
-        rvPayment.addItemDecoration(new MarginDecoration(10,2));
+        rvPayment.addItemDecoration(new MarginDecoration(20,2));
 
     }
 
@@ -229,6 +229,9 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                 case Constants.PAYMENT_SHOPPE_PAY:
                     req.setProviderCode(Constants.PROVIDER_SHOPPE);
                     break;
+                case Constants.PAYMENT_VN_PAY:
+                    req.setProviderCode(Constants.PROVIDER_VN_PAY);
+                    break;
             }
         }
 
@@ -255,6 +258,8 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                 case Constants.PAYMENT_SHOPPE_PAY:
                     req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
                     break;
+                case Constants.PAYMENT_VN_PAY:
+                    req.setPaymentType(Constants.PAYMENT_TYPE_VN_PAY);
             }
         }
         req.setPaymentCate(2);

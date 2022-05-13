@@ -37,6 +37,9 @@ public class WithdrawRequest {
     @SerializedName("FullName")
     @Expose
     private String fullName;
+    @SerializedName("WithdrawCategory")
+    @Expose
+    private int withdrawCategory ;
 
     public Integer getMerchantID() {
         return merchantID;
@@ -124,5 +127,12 @@ public class WithdrawRequest {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public void setWithdrawCategory(int withdrawCategory){
+        this.withdrawCategory=withdrawCategory;
+    }
+    public int getWithdrawCategory(){
+        return withdrawCategory;
     }
 }

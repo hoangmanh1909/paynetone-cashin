@@ -27,11 +27,13 @@
     <string name="str_viettel_money">Viettel\n money</string>
     <string name="str_zalo_pay">ZaloPay</string>
     <string name="str_shoppe_pay">ShoppePay</string>
+    <string name="str_vn_pay">VNPay</string>
 
     //qr fragment
     <string name="str_qr_viettel">Sử dụng ứng dụng Viettel money để quét mã</string>
     <string name="str_qr_zalo">Sử dụng ứng dụng ZaloPay để quét mã</string>
     <string name="str_qr_shopee">Sử dụng ứng dụng ShopeePay để quét mã</string>
+    <string name="str_qr_vn_pay">Sử dụng ứng dụng VNPay để quét mã</string>
     <string name="str_code_order">Mã đơn hàng:  </string>
 
     // merchant fragment

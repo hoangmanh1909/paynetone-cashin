@@ -45,13 +45,19 @@ public class Utils {
         String name = "Từ chối";
         switch (code){
             case 0:
-                name = "Thành công";
+                name = "Đã chuyển tiền";
                 break;
             case 1:
                 name = "Chờ xử lý";
                 break;
             case 2:
-                name = "Đã phê duyệt";
+                name = "Từ chối";
+                break;
+            case 3:
+                name = "Chờ xác nhận";
+                break;
+            case 4:
+                name ="Chuyển tiền lỗi";
                 break;
         }
         return name;

@@ -97,6 +97,7 @@
                         android:text="@string/str_business_type" />
 
                     <TextView
+                        android:id="@+id/tv_business"
                         style="@style/TextPayment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

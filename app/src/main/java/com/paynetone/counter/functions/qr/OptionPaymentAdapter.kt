@@ -16,7 +16,8 @@ class OptionPaymentAdapter(private val mContext:Context,var listener: OnClickIte
     private val listContent by lazy {
         arrayListOf<PaymentModel>(PaymentModel(PAYMENT_VIETTEL_PAY,mContext.resources.getString(R.string.str_viettel_money), R.drawable.viettel_money,true),
             PaymentModel(PAYMENT_ZALO_PAY,mContext.resources.getString(R.string.str_zalo_pay),R.drawable.zalopay),
-            PaymentModel(PAYMENT_SHOPPE_PAY,mContext.resources.getString(R.string.str_shoppe_pay),R.drawable.ic_shoppe_pay))
+            PaymentModel(PAYMENT_SHOPPE_PAY,mContext.resources.getString(R.string.str_shoppe_pay),R.drawable.ic_shoppe_pay),
+            PaymentModel(PAYMENT_VN_PAY,mContext.resources.getString(R.string.str_vn_pay),R.drawable.ic_vnpay))
     }
 
     interface OnClickItemListener {

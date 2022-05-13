@@ -72,15 +72,19 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
             }
             if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);
-                tv_providers.setText(getResources().getString(R.string.str_zalo_pay));
+                tv_providers.setText(getResources().getString(R.string.str_qr_zalo));
                 tv_providers_logo.setText(getResources().getString(R.string.str_zalo_pay));
             } else if(mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VIETTEL)) {
                 img_logo.setImageResource(R.drawable.viettel_money);
                 tv_providers.setText(getResources().getString(R.string.str_qr_viettel));
                 tv_providers_logo.setText(getResources().getString(R.string.str_viettel_money));
+            }else if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VN_PAY)){
+                img_logo.setImageResource(R.drawable.ic_vnpay);
+                tv_providers.setText(getResources().getString(R.string.str_qr_vn_pay));
+                tv_providers_logo.setText(getResources().getString(R.string.str_vn_pay));
             }else {
                 img_logo.setImageResource(R.drawable.ic_shoppe_pay);
-                tv_providers.setText(getResources().getString(R.string.str_shoppe_pay));
+                tv_providers.setText(getResources().getString(R.string.str_qr_shopee));
                 tv_providers_logo.setText(getResources().getString(R.string.str_shoppe_pay));
             }
             if (img_qr_code.getVisibility()==View.VISIBLE){

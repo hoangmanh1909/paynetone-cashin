@@ -155,6 +155,7 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
         request.setMobileNumber(employeeModel.getMobileNumber());
         request.setAccountNumber(Objects.requireNonNull(edt_account_number.getText()).toString());
         request.setFullName(Objects.requireNonNull(edt_full_name.getText()).toString());
+        request.setWithdrawCategory(1);
         mPresenter.withdraw(request);
     }
 

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -101,6 +102,8 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
     @BindView(R.id.tv_formality)
     TextView tv_formality;
     MerchantModel mMerchantModel;
+    @BindView(R.id.tv_business)
+    TextView tv_business;
 
     StepperLayout.OnNextClickedCallback mCallback;
 
@@ -504,6 +507,27 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         fileImgAfter = model.getRepresentativePIDImageAfter();
         image_before.setImageURI(Utils.getUrlImage(model.getRepresentativePIDImageBefore()));
         image_after.setImageURI(Utils.getUrlImage(model.getRepresentativePIDImageAfter()));
+
+        int businessType = Integer.parseInt(mMerchantModel.getBusinessType());
+        switch (businessType){
+            case Constants.BUSINESS_TYPE_ENTERPRISE:
+                tv_business.setText(getResources().getString(R.string.str_business_enterprise));
+                break;
+            case Constants.BUSINESS_TYPE_HOUSEHOLD:
+                tv_business.setText(getResources().getString(R.string.str_business_household));
+                break;
+            case Constants.BUSINESS_TYPE_PERSONAL:
+                tv_business.setText(getResources().getString(R.string.str_business_personal));
+                break;
+            case Constants.BUSINESS_TYPE_VIETLOTT:
+                tv_business.setText(getResources().getString(R.string.str_business_vietlott));
+                break;
+            case Constants.BUSINESS_TYPE_SYNTHETIC:
+                tv_business.setText(getResources().getString(R.string.str_business_synthetic));
+                break;
+
+        }
+
         if (mMerchantModel.getFormalityType().equals(Constants.FORMALITY_TYPE_ONLINE)) tv_formality.setText(getResources().getText(R.string.str_formality_online));
         else tv_formality.setText(getResources().getText(R.string.str_formality_offline));
         switch (model.getStatus()) {
