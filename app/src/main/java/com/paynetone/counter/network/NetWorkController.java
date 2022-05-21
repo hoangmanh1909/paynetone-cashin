@@ -171,6 +171,17 @@ public class NetWorkController {
         }
     }
 
+    public static void getWallet(CommonCallback<SimpleResult> callback){
+        try {
+            String signature = RSAUtil.signature("");
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.DIC_GET_WALLET, "", "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void getBusinessServices(CommonCallback<SimpleResult> callback) {
         try {
             String signature = RSAUtil.signature("");

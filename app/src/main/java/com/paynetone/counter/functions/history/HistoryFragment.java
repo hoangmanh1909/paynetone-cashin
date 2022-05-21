@@ -1,6 +1,7 @@
 package com.paynetone.counter.functions.history;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

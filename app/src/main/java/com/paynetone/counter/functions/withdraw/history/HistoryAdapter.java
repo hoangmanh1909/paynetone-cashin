@@ -71,12 +71,16 @@ public class HistoryAdapter  extends RecyclerBaseAdapter {
         public void bindView(Object model, int position) {
             WithdrawSearchResponse item = (WithdrawSearchResponse)model;
 
+            Boolean withDrawCateforyBank;
+            if (item.getWithDrawCatefory()==Constants.WITHDRAW_CATEGORY_BANK) withDrawCateforyBank = true;
+            else withDrawCateforyBank = false;
+
             tv_amount.setText(NumberUtils.formatPriceNumber(item.getAmount()) + "đ");
 //            tv_amount.setText(item.getMobileNumber());
             tv_date.setText(item.getTransDate());
             tv_code.setText(item.getRetRefNumber());
-            tv_bank.setText(item.getBankShortName());
-            tv_account_number.setText(item.getAccountNumber());
+            tv_bank.setText(withDrawCateforyBank ? item.getBankShortName() : item.getWalletName());
+            tv_account_number.setText(withDrawCateforyBank ? item.getAccountNumber() : item.getMobileNumber());
             tv_full_name.setText(item.getFullName());
             tv_status.setText(Utils.getStatusWithdrawName(item.getReturnCode()));
 

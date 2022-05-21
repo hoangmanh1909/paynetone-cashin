@@ -18,6 +18,6 @@ public interface LoginContract {
     }
 
     interface Presenter extends IPresenter<View, Interactor> {
-        void login(String phone, String passWord);
+        void login(String phone, String passWord,String token);
     }
 }

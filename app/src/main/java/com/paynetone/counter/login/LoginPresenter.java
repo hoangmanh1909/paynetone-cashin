@@ -47,11 +47,9 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
     }
 
     @Override
-    public void login(String phone, String passWord) {
+    public void login(String phone, String passWord,String token) {
         mView.showProgress();
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setMobileNumber(phone);
-        loginRequest.setPassword(passWord);
+        LoginRequest loginRequest = new LoginRequest(phone,passWord,token);
         mInteractor.login(loginRequest, new CommonCallback<SimpleResult>((Activity) mContainerView) {
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {

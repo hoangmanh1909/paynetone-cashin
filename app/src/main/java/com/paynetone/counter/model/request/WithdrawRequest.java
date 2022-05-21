@@ -40,6 +40,17 @@ public class WithdrawRequest {
     @SerializedName("WithdrawCategory")
     @Expose
     private int withdrawCategory ;
+    @SerializedName("WalletID")
+    @Expose
+    private int walletID ;
+
+    public int getWalletID() {
+        return walletID;
+    }
+
+    public void setWalletID(int walletID) {
+        this.walletID = walletID;
+    }
 
     public Integer getMerchantID() {
         return merchantID;

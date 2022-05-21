@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Paynet One</string>
+    <string name="default_notification_channel_id">Paynet One</string>
+<!--    <string name="project_id">CHANNEL_ID</string>-->
     <string name="error_system_upgrading">Hệ thống đang nâng cấp. Vui lòng quay lại sau!</string>
     <string name="error_fail_default">Hệ thống đang bận. Vui lòng thử lại sau!</string>
     <string name="error_empty_phone">Vui lòng nhập số điện thoại</string>
@@ -18,6 +20,8 @@
     <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
 
     <string name="xac_thuc_otp">Mã xác nhận được gửi đến số điện thoại </string>
+
+    <string name="str_confirm">Xác nhận</string>
     
     //framgent login
     <string name="str_allow_account_personal_and_stall_login">Chỉ tài khoản có loại hình  kinh doanh cá nhân và tài khoản quầy mới đăng nhập vào app được</string>
@@ -94,6 +98,23 @@
     <string name="str_not_match_password">Mật khẩu không khớp</string>
     <string name="str_not_enter_otp">Bạn chưa nhập OTP</string>
     <string name="str_change_password_success">Thay đổi mật khẩu thành công</string>
+
+    // rút tiền
+    <string name="str_with_draw_bank">Tài khoản ngân hàng</string>
+    <string name="str_with_draw_wallet">Qua ví điện tử</string>
+    <string name="str_not_enter_receive_full_name">Bạn chưa nhập tên người nhận</string>
+    <string name="str_not_enter_amount">Bạn chưa nhập Số tiền</string>
+    <string name="str_not_enter_wallet">Bạn chưa chọn ví rút tiền</string>
+    <string name="str_with_draw">Hình thức rút tiền <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_name_bank">Tên ngân hàng <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_account_number_required">Số tài khoản <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_full_name_personal_required">Họ và tên <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_amount_required">Số tiền <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_name_wallet_required">Tên ví điện tử <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_phone_number_required">Số điện thoại <font fgcolor='#EA5151'>*</font></string>
+    <string name="str_amount">Số tiền</string>
+    <string name="str_full_name_personal">Họ và tên</string>
+    <string name="str_selected_wallet">--Chọn ví điện tử--</string>
 
 
 

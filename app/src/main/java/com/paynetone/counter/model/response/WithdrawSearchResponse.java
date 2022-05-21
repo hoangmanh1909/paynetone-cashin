@@ -47,6 +47,40 @@ public class WithdrawSearchResponse {
     @Expose
     private String merchantName;
 
+    @SerializedName("WalletCode")
+    @Expose
+    private String walletCode;
+    @SerializedName("WalletName")
+    @Expose
+    private String walletName;
+    @SerializedName("WithDrawCatefory")
+    @Expose
+    private int withDrawCatefory;
+
+    public String getWalletCode() {
+        return walletCode;
+    }
+
+    public void setWalletCode(String walletCode) {
+        this.walletCode = walletCode;
+    }
+
+    public String getWalletName() {
+        return walletName;
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
+    }
+
+    public int getWithDrawCatefory() {
+        return withDrawCatefory;
+    }
+
+    public void setWithDrawCatefory(int withDrawCatefory) {
+        this.withDrawCatefory = withDrawCatefory;
+    }
+
     public String getTransDate() {
         return transDate;
     }

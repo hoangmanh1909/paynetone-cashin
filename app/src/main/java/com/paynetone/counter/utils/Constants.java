@@ -19,6 +19,7 @@ public class Constants {
     public static final String CMD_PAYNET_GET_BY_ID = "PAYNET_GET_BY_ID";
     public static final String CMD_TRANS_WITHDRAW = "TRANS_WITHDRAW";
     public static final String CMD_DIC_GET_BANK = "DIC_GET_BANK";
+    public static final String DIC_GET_WALLET = "DIC_GET_WALLET";
     public static final String CMD_TRANS_GET_OUTWARD = "TRANS_GET_OUTWARD";
     public static final String CMD_TRANS_WITHDRAW_SEARCH = "TRANS_WITHDRAW_SEARCH";
     public static final String CMD_EMP_ADD_NEW = "EMP_ADD_NEW";
@@ -88,6 +89,35 @@ public class Constants {
     public static final int PAYMENT_ZALO_PAY = 2;
     public static final int PAYMENT_SHOPPE_PAY = 3;
     public static final int PAYMENT_VN_PAY = 4;
+
+    public static final int WITHDRAW_CATEGORY_BANK = 1;  // rút tiền ngân hàng
+    public static final int WITHDRAW_CATEGORY_WALLET = 3; // rút tiền ví
+
+    public static final String NOTIFICATION_COUNT = "notification_count";
+    public static final String NOTIFICATION_DATA_TRANSFER = "TF_NotificationData";
+
+    // bank
+    public static final int BANK_ID_BIDV = 1;
+    public static final int BANK_ID_TECK = 2;
+    public static final int BANK_ID_VIETCOM = 3;
+    public static final int BANK_ID_VIETIN = 4;
+    public static final int BANK_ID_AGRI = 5;
+    public static final int BANK_MB=6;
+
+    public static final String BANK_NAME_BIDV = "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam";
+    public static final String BANK_NAME_TECK = "Ngân hàng cổ phần thương mại kỹ thương";
+    public static final String BANK_NAME_VIETCOM = "Ngân hàng TMCP Ngoại Thương Việt Nam";
+    public static final String BANK_NAME_VIETIN = "Ngân hàng TPCP Công Thương Việt Nam";
+    public static final String BANK_NAME_AGRI = "Ngân hàng Nông nghiệp và Phát triển Việt Nam";
+    public static final String BANK_NAME_MB = "Ngân hàng TMCP Á Châu";
+
+    // wallet
+
+    public static final int WALLET_VIETTEL = 1;
+    public static final int WALLET_ZALO = 2;
+    public static final int WALLET_SHOPEE = 3;
+    public static final int WALLET_MOMO = 4;
+
 
 
 }

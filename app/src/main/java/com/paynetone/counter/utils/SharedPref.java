@@ -67,6 +67,11 @@ public class SharedPref {
         }
     }
 
+    public void putInt(String key, int value){
+        editor.putInt(key,value);
+        if (autoCommit) commit();
+    }
+
     public long getLong(String key, long defaultValue) {
         return pref.getLong(key, defaultValue);
     }

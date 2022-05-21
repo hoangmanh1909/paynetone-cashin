@@ -22,6 +22,40 @@ public class EmployeeModel {
     @SerializedName("RoleID")
     @Expose
     private Integer roleID;
+    @SerializedName("BankID")
+    @Expose
+    private Integer bankID;
+    @SerializedName("PaymentAccNo")
+    @Expose
+    private String paymentAccNo;
+    @SerializedName("PaymentAccName")
+    @Expose
+    private String paymentAccName;
+
+
+    public void setBankID(Integer bankID) {
+        this.bankID = bankID;
+    }
+
+    public void setPaymentAccNo(String paymentAccNo) {
+        this.paymentAccNo = paymentAccNo;
+    }
+
+    public void setPaymentAccName(String paymentAccName) {
+        this.paymentAccName = paymentAccName;
+    }
+
+    public Integer getBankID() {
+        return bankID;
+    }
+
+    public String getPaymentAccNo() {
+        return paymentAccNo;
+    }
+
+    public String getPaymentAccName() {
+        return paymentAccName;
+    }
 
     public Integer getPaynetID() {
         return paynetID;

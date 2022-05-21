@@ -1,5 +1,8 @@
 package com.paynetone.counter.main;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -7,10 +10,16 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.core.base.viper.ViewFragment;
 import com.core.base.viper.interfaces.ContainerView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.paynetone.counter.R;
 import com.paynetone.counter.home.HomePresenter;
 import com.paynetone.counter.personal.PersonalPresenter;
+import com.paynetone.counter.service.MyFirebaseMessagingService;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 

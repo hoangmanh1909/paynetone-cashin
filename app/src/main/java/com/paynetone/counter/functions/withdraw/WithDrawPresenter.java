@@ -11,10 +11,12 @@ import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.BaseRequest;
 import com.paynetone.counter.model.request.WithdrawRequest;
+import com.paynetone.counter.model.response.WalletResponse;
 import com.paynetone.counter.model.response.WithdrawResponse;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,25 +31,25 @@ public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDra
 
     @Override
     public void start() {
-        mInteractor.getBank(new CommonCallback<SimpleResult>((Activity) mContainerView) {
-            @Override
-            protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
-                super.onSuccess(call, response);
-
-                if ("00".equals(response.body().getErrorCode())) {
-                    List<BankModel> bankModels = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<BankModel>>() {
-                    }.getType());
-                    mView.showBanks(bankModels);
-                } else {
-                    mView.showAlertDialog(response.body().getMessage());
-                }
-            }
-
-            @Override
-            protected void onError(Call<SimpleResult> call, String message) {
-                super.onError(call, message);
-            }
-        });
+//        mInteractor.getBank(new CommonCallback<SimpleResult>((Activity) mContainerView) {
+//            @Override
+//            protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
+//                super.onSuccess(call, response);
+//
+//                if ("00".equals(response.body().getErrorCode())) {
+//                    List<BankModel> bankModels = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<BankModel>>() {
+//                    }.getType());
+//                    mView.showBanks(bankModels);
+//                } else {
+//                    mView.showAlertDialog(response.body().getMessage());
+//                }
+//            }
+//
+//            @Override
+//            protected void onError(Call<SimpleResult> call, String message) {
+//                super.onError(call, message);
+//            }
+//        });
     }
 
     @Override
@@ -79,6 +81,30 @@ public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDra
             @Override
             protected void onError(Call<SimpleResult> call, String message) {
                 super.onError(call, message);
+            }
+        });
+    }
+
+    @Override
+    public void getWallet() {
+        mView.showProgress();
+        mInteractor.getWallet( new CommonCallback<SimpleResult>((Activity) mContainerView) {
+            @Override
+            protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
+                super.onSuccess(call, response);
+                mView.hideProgress();
+                if ("00".equals(response.body().getErrorCode())) {
+                    List<WalletResponse> walletResponseList = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<WalletResponse>>(){}.getType());
+                    mView.showListWallet(walletResponseList);
+                } else {
+                    mView.showAlertDialog(response.body().getMessage());
+                }
+            }
+
+            @Override
+            protected void onError(Call<SimpleResult> call, String message) {
+                super.onError(call, message);
+                mView.hideProgress();
             }
         });
     }

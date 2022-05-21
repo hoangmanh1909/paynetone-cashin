@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +7,11 @@
 
 
     <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titleHeight"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -36,8 +38,10 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_account"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -87,107 +91,257 @@
 
     </RelativeLayout>
 
-    <View
-        style="@style/Divider"
-        android:layout_margin="@dimen/anchor_default" />
-
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/btn_ok"
+        app:layout_constraintTop_toBottomOf="@id/layout_account">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btn_ok"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/rl_bank"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_with_draw"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_with_draw"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_4sdp">
+                    android:text="@string/str_with_draw"
+                    android:textColor="@color/colorBlack2"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:background="@drawable/bg_color_balance"
-                        android:padding="@dimen/_4sdp"
-                        android:src="@drawable/ic_baseline_account_balance_24" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name_with_draw"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/bg_textview_with_draw_enable_focus"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:hint="@string/str_with_draw_bank"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_with_draw" />
 
-                    <TextView
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_name_with_draw"
+                    app:layout_constraintEnd_toEndOf="@id/tv_name_with_draw"
+                    app:layout_constraintTop_toTopOf="@id/tv_name_with_draw" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_bank"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_bank"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:text="Ngân hàng "
-                        android:textSize="@dimen/_12sdp" />
-                </LinearLayout>
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_name_bank"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView style="@style/ImageViewArrowRight" />
-            </RelativeLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_disable_focus"
+                        android:gravity="start|center"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_bank" />
 
-            <com.google.android.material.textfield.TextInputLayout
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_account_number_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_account_number_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name_bank" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_account_number_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_disable_focus"
+                        android:gravity="start|center"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_account_number_bank" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/app_tv_full_name_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_full_name_personal_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name_account_number_bank" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_full_name_personal_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_disable_focus"
+                        android:gravity="start|center"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@id/app_tv_full_name_bank" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_wallet"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_wallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_name_wallet_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_wallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_enable_focus"
+                        android:gravity="start|center"
+                        android:paddingStart="@dimen/_11sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:hint="@string/str_selected_wallet"
+                        android:textSize="@dimen/_11sdp"
+
+                        app:layout_constraintTop_toBottomOf="@id/tv_wallet" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:src="@drawable/ic_arrow_down"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_name_wallet"
+                        app:layout_constraintEnd_toEndOf="@id/tv_name_wallet"
+                        app:layout_constraintTop_toTopOf="@id/tv_name_wallet" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_number_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_phone_number_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name_wallet" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tv_name_number_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_enable_focus"
+                        android:gravity="start|center"
+                        android:hint="@string/str_phone_number"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textSize="@dimen/_11sdp"
+                        android:maxLines="1"
+                        app:layout_constraintTop_toBottomOf="@id/tv_number_phone" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/app_tv_full_name_wallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_full_name_personal_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name_number_phone" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tv_full_name_personal_wallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_enable_focus"
+                        android:gravity="start|center"
+                        android:hint="@string/str_full_name_personal"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
+                        android:maxLines="1"
+                        app:layout_constraintTop_toBottomOf="@id/app_tv_full_name_wallet" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Số tài khoản"
-                android:padding="@dimen/anchor_default"
-                app:boxBackgroundColor="@color/white"
-                app:endIconMode="clear_text">
+                android:layout_marginTop="@dimen/_7sdp"
+                android:text="@string/str_amount_required"
+                android:textColor="@color/colorBlack2"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_with_draw" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_account_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_amount"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Họ tên"
-                android:padding="@dimen/anchor_default"
-                app:boxBackgroundColor="@color/white"
-                app:endIconMode="clear_text">
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_textview_with_draw_enable_focus"
+                android:gravity="start|center"
+                android:hint="@string/str_amount"
+                android:inputType="number"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintTop_toBottomOf="@id/tv_amount" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_full_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                style="@style/Divider"
-                android:layout_margin="@dimen/anchor_default" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Số tiền (đ)"
-                android:padding="@dimen/anchor_default"
-                app:boxBackgroundColor="@color/white"
-                app:endIconMode="clear_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_ok"
-            style="@style/Button"
-            android:layout_alignParentBottom="true"
-            android:text="Xác nhận" />
-    </RelativeLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_ok"
+        style="@style/Button"
+        android:text="@string/str_confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

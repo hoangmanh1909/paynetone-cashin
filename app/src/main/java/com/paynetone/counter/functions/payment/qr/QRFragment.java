@@ -70,22 +70,27 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
                 wb_shoppe.setVisibility(View.GONE);
                 img_qr_code.setVisibility(View.VISIBLE);
             }
-            if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
-                img_logo.setImageResource(R.drawable.zalopay);
-                tv_providers.setText(getResources().getString(R.string.str_qr_zalo));
-                tv_providers_logo.setText(getResources().getString(R.string.str_zalo_pay));
-            } else if(mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VIETTEL)) {
-                img_logo.setImageResource(R.drawable.viettel_money);
-                tv_providers.setText(getResources().getString(R.string.str_qr_viettel));
-                tv_providers_logo.setText(getResources().getString(R.string.str_viettel_money));
-            }else if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VN_PAY)){
-                img_logo.setImageResource(R.drawable.ic_vnpay);
-                tv_providers.setText(getResources().getString(R.string.str_qr_vn_pay));
-                tv_providers_logo.setText(getResources().getString(R.string.str_vn_pay));
-            }else {
-                img_logo.setImageResource(R.drawable.ic_shoppe_pay);
-                tv_providers.setText(getResources().getString(R.string.str_qr_shopee));
-                tv_providers_logo.setText(getResources().getString(R.string.str_shoppe_pay));
+            switch (mOrderAddRequest.getProviderCode()){
+                case Constants.PROVIDER_ZALO:
+                    img_logo.setImageResource(R.drawable.zalopay);
+                    tv_providers.setText(getResources().getString(R.string.str_qr_zalo));
+                    tv_providers_logo.setText(getResources().getString(R.string.str_zalo_pay));
+                    break;
+                case Constants.PROVIDER_VIETTEL:
+                    img_logo.setImageResource(R.drawable.viettel_money);
+                    tv_providers.setText(getResources().getString(R.string.str_qr_viettel));
+                    tv_providers_logo.setText(getResources().getString(R.string.str_viettel_money));
+                    break;
+                case Constants.PROVIDER_VN_PAY:
+                    img_logo.setImageResource(R.drawable.ic_vnpay);
+                    tv_providers.setText(getResources().getString(R.string.str_qr_vn_pay));
+                    tv_providers_logo.setText(getResources().getString(R.string.str_vn_pay));
+                    break;
+                case Constants.PROVIDER_SHOPPE:
+                    img_logo.setImageResource(R.drawable.ic_shoppe_pay);
+                    tv_providers.setText(getResources().getString(R.string.str_qr_shopee));
+                    tv_providers_logo.setText(getResources().getString(R.string.str_shoppe_pay));
+                    break;
             }
             if (img_qr_code.getVisibility()==View.VISIBLE){
                 Bitmap bitmap = BitmapUtils.generateQRBitmap(orderAddResponse.getReturnURL());

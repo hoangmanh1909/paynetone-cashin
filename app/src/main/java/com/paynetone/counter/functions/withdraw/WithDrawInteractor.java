@@ -20,6 +20,11 @@ public class WithDrawInteractor extends Interactor<WithDrawContract.Presenter>
     }
 
     @Override
+    public void getWallet(CommonCallback<SimpleResult> callback) {
+        NetWorkController.getWallet(callback);
+    }
+
+    @Override
     public void withdraw(WithdrawRequest withdrawRequest, CommonCallback<SimpleResult> callback) {
         NetWorkController.withdraw(withdrawRequest, callback);
     }

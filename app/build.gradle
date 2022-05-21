@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin:  'com.google.gms.google-services'
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -112,6 +113,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     api 'org.apache.commons:commons-lang3:3.12.0'
     api "com.squareup.okhttp3:logging-interceptor:${okhttpLoggingInterceptorVersion}"
+    implementation 'io.grpc:grpc-okhttp:1.32.2'
 
     implementation "com.jakewharton:butterknife:${butterKnifeVersion}"
     kapt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
@@ -124,6 +126,29 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.2.0')
+//    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.1'
+//    implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:22.0.0'
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation "androidx.lifecycle:lifecycle-process:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-common:2.4.1"
+
+    //Kotlin Coroutines
+    def coroutines_android_version = '1.4.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
+
+    //Lifecycle
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }
 repositories {
     mavenCentral()

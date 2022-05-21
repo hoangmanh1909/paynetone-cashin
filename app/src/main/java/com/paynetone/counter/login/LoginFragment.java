@@ -2,12 +2,14 @@ package com.paynetone.counter.login;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.core.base.viper.ViewFragment;
 import com.core.utils.AppUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.paynetone.counter.dialog.SelectBusinessTypeDialog;
 import com.paynetone.counter.forgotpassword.requestotp.RequestOTPActivity;
 import com.paynetone.counter.login.regiter.RegisterActivity;
@@ -19,6 +21,7 @@ import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,6 +35,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
     LinearLayout ll_register;
 
     SharedPref sharedPref;
+    String firebaseToken = "";
 
     public static LoginFragment getInstance() {
         return new LoginFragment();
@@ -51,6 +55,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
         if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
             ll_register.setVisibility(View.VISIBLE);
         }
+        getFirebaseMessageToken();
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register,R.id.rootView,R.id.tv_forgot_password})
@@ -97,7 +102,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
             return;
         }
 
-        mPresenter.login(phone, passWord);
+        mPresenter.login(phone, passWord,firebaseToken);
     }
 
     @Override
@@ -110,5 +115,20 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
     private void goToRequestOTP(){
         Intent intent = new Intent(requireActivity(), RequestOTPActivity.class);
         startActivity(intent);
+    }
+
+    private void getFirebaseMessageToken(){
+        try {
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            Log.e("TAG", "onComplete: "+task.getResult() );
+                            firebaseToken = task.getResult();
+                        }
+                    });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

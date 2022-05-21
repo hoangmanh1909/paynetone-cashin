@@ -61,7 +61,7 @@ class OptionPaymentAdapter(private val mContext:Context,var listener: OnClickIte
         listContent.let {
             notifyItemChanged(position)
             for (i in it.indices) {
-                if (i != position) {
+                if (i != position && it[i].isChecked) {
                     it[i].isChecked=false
                     notifyItemChanged(i)
                 }
