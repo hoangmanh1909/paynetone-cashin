@@ -78,11 +78,12 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
     }
 
     private void getBusinessServices() {
+        mView.showProgress();
         mInteractor.getBusinessServices(new CommonCallback<SimpleResult>((Activity) mContainerView) {
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
                 super.onSuccess(call, response);
-
+                mView.hideProgress();
                 if ("00".equals(response.body().getErrorCode())) {
                     List<DictionaryBusinessServiceResponse> models = NetWorkController.getGson().fromJson(response.body().getData(),
                             new TypeToken<List<DictionaryBusinessServiceResponse>>() {
@@ -95,6 +96,7 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
 
             @Override
             protected void onError(Call<SimpleResult> call, String message) {
+                mView.hideProgress();
                 super.onError(call, message);
             }
         });
@@ -126,11 +128,12 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
     }
 
     private void getProvinces() {
+        mView.showProgress();
         mInteractor.getProvinces(new CommonCallback<SimpleResult>((Activity) mContainerView) {
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
                 super.onSuccess(call, response);
-
+                mView.hideProgress();
                 if ("00".equals(response.body().getErrorCode())) {
                     List<DictionaryModel> models = NetWorkController.getGson().fromJson(response.body().getData(),
                             new TypeToken<List<DictionaryModel>>() {
@@ -143,6 +146,7 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
 
             @Override
             protected void onError(Call<SimpleResult> call, String message) {
+                mView.hideProgress();
                 super.onError(call, message);
             }
         });
@@ -250,13 +254,12 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
                 super.onSuccess(call, response);
-
                 if ("00".equals(response.body().getErrorCode())) {
                     if (mode.equals(Constants.MERCHANT_MODE_EDIT)) {
                         Toast.showToast(activity,"Cập nhật hồ sơ Merchant thành công");
                         mView.gotoSplashWhenUpdateMerchant();
                     } else
-                        mView.showSuccess();
+                        mView.goToNextStep();
 
                 } else {
                     mView.showError(response.body().getMessage());
@@ -278,13 +281,13 @@ public class MerchantPresenter extends Presenter<MerchantContract.View, Merchant
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
                 super.onSuccess(call, response);
-
+                mView.handlerEditMerchantSuccess();
                 if ("00".equals(response.body().getErrorCode())) {
                     if (mode.equals(Constants.MERCHANT_MODE_EDIT) || mode.equals(Constants.MERCHANT_MODE_VIEW)) {
                         Toast.showToast(activity,"Cập nhật hồ sơ Merchant thành công");
                         back();
                     } else
-                        mView.showSuccess();
+                        mView.goToNextStep();
 
                 } else {
                     mView.showError(response.body().getMessage());

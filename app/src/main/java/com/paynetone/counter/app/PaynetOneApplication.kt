@@ -9,6 +9,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDexApplication
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.paynetone.counter.main.SplashScreenActivity
+import com.paynetone.counter.utils.PrefConst
 import com.paynetone.counter.utils.SharedPref
 import kotlinx.coroutines.*
 
@@ -18,6 +19,8 @@ class PaynetOneApplication : MultiDexApplication(), LifecycleObserver {
     var applicationScope :Job?=null
     var mTimeRunning :Boolean = false
     private val timeBackground = 180 // time second
+    private fun isLogin() = SharedPref.getInstance(this).getBoolean(PrefConst.PREF_IS_LOGIN,false)
+
     override fun onCreate() {
         super.onCreate()
         Fresco.initialize(this)
@@ -50,18 +53,25 @@ class PaynetOneApplication : MultiDexApplication(), LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
      fun onBackground() {
         // App goes to background
-        applicationScope =  CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
-            for (x in 0..timeBackground step 1) {
-                Log.e("TAG", "onBackground: $x" )
-                delay(1000)
-                if (x==timeBackground) mTimeRunning = true
+        if (isLogin()){ // when login app
+            applicationScope =  CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
+                for (x in 0..timeBackground step 1) {
+                    delay(1000)
+                    if (x==timeBackground) mTimeRunning = true
+                }
             }
         }
+
 
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        applicationScope?.cancel()
+        try {
+            applicationScope?.cancel()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 }

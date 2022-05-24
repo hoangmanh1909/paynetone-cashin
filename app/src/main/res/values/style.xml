@@ -9,6 +9,7 @@
         <item name="windowNoTitle">true</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="android:textViewStyle">@style/fontSemiBold</item>
     </style>
 
     <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -72,7 +73,7 @@
     </style>
 
     <style name="TextPayment">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/colorBlack3</item>
     </style>
 
     <style name="RelativeLayoutPersonal">
@@ -146,4 +147,9 @@
         <item name="android:textColorHint">#03A9F4</item>
 
     </style>
+
+    <style name="fontSemiBold">
+        <item name="fontFamily">@font/semi_bold</item>
+    </style>
+
 </resources>

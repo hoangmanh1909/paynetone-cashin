@@ -48,7 +48,9 @@ public interface MerchantContract {
 
         void showImage(String file);
 
-        void showSuccess();
+        void handlerEditMerchantSuccess();
+
+        void goToNextStep();
 
         void showError(String message);
 

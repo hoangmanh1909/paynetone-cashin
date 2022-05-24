@@ -31,25 +31,6 @@ public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDra
 
     @Override
     public void start() {
-//        mInteractor.getBank(new CommonCallback<SimpleResult>((Activity) mContainerView) {
-//            @Override
-//            protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
-//                super.onSuccess(call, response);
-//
-//                if ("00".equals(response.body().getErrorCode())) {
-//                    List<BankModel> bankModels = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<BankModel>>() {
-//                    }.getType());
-//                    mView.showBanks(bankModels);
-//                } else {
-//                    mView.showAlertDialog(response.body().getMessage());
-//                }
-//            }
-//
-//            @Override
-//            protected void onError(Call<SimpleResult> call, String message) {
-//                super.onError(call, message);
-//            }
-//        });
     }
 
     @Override

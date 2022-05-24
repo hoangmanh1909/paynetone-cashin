@@ -1,6 +1,21 @@
 package com.paynetone.counter.utils;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.core.common.BuildConfig;
+import com.paynetone.counter.R;
+import com.paynetone.counter.widgets.ProgressView;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
@@ -131,5 +146,30 @@ public class Utils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public static void loadImageWithProgressView(Context context, ImageView imageView, String imageUrl, ProgressView progress){
+        progress.setVisibility(View.VISIBLE);
+        progress.setAnimation(12,800);
+        Glide.with(context)
+                .load(imageUrl) // image url
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable @org.jetbrains.annotations.Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progress.setVisibility(View.GONE);
+                        progress.setAnimation(null);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progress.setVisibility(View.GONE);
+                        progress.setAnimation(null);
+                        return false;
+                    }
+                })
+//                .placeholder(R.drawable.loading) // any placeholder to load at start// any image in case of error
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(imageView);  // imageview object
     }
 }

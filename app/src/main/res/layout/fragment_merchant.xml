@@ -176,6 +176,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
+                        android:focusable="false"
+                        android:background="@color/grey_300"
                         android:maxLength="10"
                         android:textSize="@dimen/textSizeRegister" />
 
@@ -334,19 +336,44 @@
                             android:textAlignment="center"
                             android:textColor="@color/black" />
 
-                        <com.facebook.drawee.view.SimpleDraweeView
-                            android:id="@+id/img_before"
+<!--                        <com.facebook.drawee.view.SimpleDraweeView-->
+<!--                            android:id="@+id/img_before"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_100sdp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_margin="@dimen/_10sdp"-->
+<!--                            android:scaleType="center"-->
+<!--                            app:placeholderImage="@drawable/ic_placehoder_image"-->
+<!--                            app:placeholderImageScaleType="fitCenter"-->
+<!--                            app:progressBarAutoRotateInterval="1000"-->
+<!--                            app:progressBarImage="@drawable/loading"-->
+<!--                            app:progressBarImageScaleType="centerInside"-->
+<!--                            app:viewAspectRatio="1" />-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_100sdp"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:scaleType="center"
-                            app:placeholderImage="@drawable/ic_placehoder_image"
-                            app:placeholderImageScaleType="fitCenter"
-                            app:progressBarAutoRotateInterval="1000"
-                            app:progressBarImage="@drawable/loading"
-                            app:progressBarImageScaleType="centerInside"
-                            app:viewAspectRatio="1" />
+                            android:layout_margin="@dimen/_10sdp">
+                            <ImageView
+                                android:id="@+id/img_before"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:src="@drawable/ic_outline_image_24"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center" />
+                            <com.paynetone.counter.widgets.ProgressView
+                                android:id="@+id/progress_before"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/loading"
+                                android:visibility="gone"
+                                app:duration="800"
+                                app:frameCount="12"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -362,19 +389,44 @@
                             android:textAlignment="center"
                             android:textColor="@color/black" />
 
-                        <com.facebook.drawee.view.SimpleDraweeView
-                            android:id="@+id/img_after"
+<!--                        <com.facebook.drawee.view.SimpleDraweeView-->
+<!--                            android:id="@+id/img_after"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_100sdp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_margin="@dimen/_10sdp"-->
+<!--                            android:scaleType="center"-->
+<!--                            app:placeholderImage="@drawable/ic_outline_image_24"-->
+<!--                            app:placeholderImageScaleType="fitCenter"-->
+<!--                            app:progressBarAutoRotateInterval="1000"-->
+<!--                            app:progressBarImage="@drawable/loading"-->
+<!--                            app:progressBarImageScaleType="centerInside"-->
+<!--                            app:viewAspectRatio="1" />-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_100sdp"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:scaleType="center"
-                            app:placeholderImage="@drawable/ic_outline_image_24"
-                            app:placeholderImageScaleType="fitCenter"
-                            app:progressBarAutoRotateInterval="1000"
-                            app:progressBarImage="@drawable/loading"
-                            app:progressBarImageScaleType="centerInside"
-                            app:viewAspectRatio="1" />
+                            android:layout_margin="@dimen/_10sdp">
+
+                            <ImageView
+                                android:id="@+id/img_after"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_100sdp"
+                                android:src="@drawable/ic_outline_image_24" />
+                            <com.paynetone.counter.widgets.ProgressView
+                                android:id="@+id/progress_after"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/loading"
+                                android:visibility="gone"
+                                app:duration="800"
+                                app:frameCount="12"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
                 </LinearLayout>
 

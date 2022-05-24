@@ -18,6 +18,7 @@ import com.paynetone.counter.model.request.LoginRequest;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
 import com.paynetone.counter.utils.Constants;
+import com.paynetone.counter.utils.PrefConst;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
 
@@ -101,6 +102,7 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
                     PaynetModel paynetModel = NetWorkController.getGson().fromJson(response.body().getData(), PaynetModel.class);
                     if (Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_STALL || Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_MERCHANT){
                         sharedPref.savePaynet(paynetModel);
+                        sharedPref.putBoolean(PrefConst.PREF_IS_LOGIN,true);
                         mView.goHome();
                     }else {
                         mView.showAlertDialog(getViewContext().getResources().getString(R.string.str_allow_account_personal_and_stall_login));

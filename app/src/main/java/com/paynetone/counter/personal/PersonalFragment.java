@@ -1,7 +1,9 @@
 package com.paynetone.counter.personal;
 
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -13,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.core.base.viper.ViewFragment;
 import com.core.base.viper.interfaces.ContainerView;
@@ -90,7 +93,13 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
                         "Đồng ý",
                         "Hủy",
                         (dialog, which) -> {
+                            // clear data SharedPref
                             sharedPref.clear();
+
+                            //remove notification
+                            NotificationManager notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                            notificationManager.cancelAll();
+
                             Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

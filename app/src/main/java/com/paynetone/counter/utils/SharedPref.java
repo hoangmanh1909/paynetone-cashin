@@ -60,6 +60,10 @@ public class SharedPref {
         return pref.getInt(key, defaultValue);
     }
 
+    public Boolean getBoolean(String key, Boolean defaultValue){
+        return pref.getBoolean(key,defaultValue);
+    }
+
     public void putLong(String key, long value) {
         editor.putLong(key, value);
         if (autoCommit) {
@@ -69,6 +73,10 @@ public class SharedPref {
 
     public void putInt(String key, int value){
         editor.putInt(key,value);
+        if (autoCommit) commit();
+    }
+    public void putBoolean(String key, Boolean value){
+        editor.putBoolean(key,value);
         if (autoCommit) commit();
     }
 
@@ -86,6 +94,7 @@ public class SharedPref {
             editor.remove(Constants.KEY_SHARE_PREFERENCES);
             editor.remove(Constants.KEY_ANDROID_PAYMENT_MODE);
             editor.remove(Constants.KEY_EMPLOYEE);
+            editor.remove(PrefConst.PREF_IS_LOGIN);
             editor.commit();
         } catch (Exception ex) {
             Logger.w(ex);
@@ -103,7 +112,6 @@ public class SharedPref {
         editor.putString(Constants.KEY_PAYNET, NetWorkController.getGson().toJson(paynetModel));
         editor.apply();
     }
-
     public EmployeeModel getEmployeeModel() {
         String userData = pref.getString(Constants.KEY_EMPLOYEE, "");
         if (!userData.equals("")) {

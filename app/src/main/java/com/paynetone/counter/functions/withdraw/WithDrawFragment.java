@@ -35,6 +35,7 @@ import com.paynetone.counter.model.request.WithdrawRequest;
 import com.paynetone.counter.model.response.WalletResponse;
 import com.paynetone.counter.utils.Constants;
 import com.paynetone.counter.utils.NumberUtils;
+import com.paynetone.counter.utils.PrefConst;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
 
@@ -164,16 +165,16 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
                     tv_name_bank.setText(Constants.BANK_NAME_TECK);
                     break;
                 case Constants.BANK_ID_VIETCOM:
-                    tv_name_bank.setText(Constants.BANK_ID_VIETCOM);
+                    tv_name_bank.setText(Constants.BANK_NAME_VIETCOM);
                     break;
                 case Constants.BANK_ID_VIETIN:
-                    tv_name_bank.setText(Constants.BANK_ID_VIETIN);
+                    tv_name_bank.setText(Constants.BANK_NAME_VIETIN);
                     break;
                 case Constants.BANK_ID_AGRI:
-                    tv_name_bank.setText(Constants.BANK_ID_AGRI);
+                    tv_name_bank.setText(Constants.BANK_NAME_AGRI);
                     break;
                 case Constants.BANK_MB:
-                    tv_name_bank.setText(Constants.BANK_MB);
+                    tv_name_bank.setText(Constants.BANK_NAME_MB);
                     break;
                 default:
                     tv_name_bank.setText("");
@@ -183,9 +184,7 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
             e.printStackTrace();
         }
 
-
     }
-
 
     @OnClick({R.id.iv_back, R.id.btn_ok, R.id.iv_history})
     public void OnClick(View v) {
@@ -196,21 +195,10 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
             case R.id.btn_ok:
                 ok();
                 break;
-//            case R.id.rl_bank:
-//                selectBank();
-//                break;
             case R.id.iv_history:
                 new HistoryPresenter((ContainerView) requireActivity()).pushView();
                 break;
         }
-    }
-
-    private void selectBank() {
-//        BankBottomDialog baseDialog = new BankBottomDialog(mBankModels, bankModel -> {
-//            tv_bank.setText(bankModel.getShortName());
-//            mBankModel = bankModel;
-//        });
-//        baseDialog.show(getChildFragmentManager(), "WithDrawFragment");
     }
 
     private void ok() {

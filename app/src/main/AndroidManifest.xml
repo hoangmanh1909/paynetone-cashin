@@ -48,6 +48,7 @@
         <activity android:name=".functions.history.HistoryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".functions.withdraw.WithDrawActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
         <activity android:name=".functions.outward.OutwardActivity"
             android:screenOrientation="portrait"/>

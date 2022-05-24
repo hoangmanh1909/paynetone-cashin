@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import androidx.core.content.ContextCompat;
 
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
+import com.bumptech.glide.Glide;
 import com.core.base.log.Logger;
 import com.core.base.viper.ViewFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -35,6 +37,7 @@ import com.paynetone.counter.main.SplashScreenActivity;
 import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.BaseDialogModel;
 import com.paynetone.counter.model.DictionaryModel;
+import com.paynetone.counter.model.EmployeeModel;
 import com.paynetone.counter.model.MerchantModel;
 import com.paynetone.counter.model.RegisterPassDataModel;
 import com.paynetone.counter.model.request.MerchantAddNewRequest;
@@ -43,8 +46,11 @@ import com.paynetone.counter.utils.BitmapUtils;
 import com.paynetone.counter.utils.Constants;
 import com.paynetone.counter.utils.DialogHelper;
 import com.paynetone.counter.utils.MediaUtils;
+import com.paynetone.counter.utils.PrefConst;
+import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
 import com.paynetone.counter.utils.Utils;
+import com.paynetone.counter.widgets.ProgressView;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.StepperLayout;
@@ -91,9 +97,14 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
     TextInputEditText edt_branch;
 
     @BindView(R.id.img_before)
-    SimpleDraweeView image_before;
+    ImageView image_before;
+    @BindView(R.id.progress_before)
+    ProgressView progressViewBefore;
     @BindView(R.id.img_after)
-    SimpleDraweeView image_after;
+    ImageView image_after;
+    @BindView(R.id.progress_after)
+    ProgressView progressViewAfter;
+
 
     @BindView(R.id.rl_navigation_header)
     RelativeLayout rl_navigation_header;
@@ -150,8 +161,8 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                     dataModel = mPresenter.getPassData();
                     edt_mobile_number.setText(dataModel.getMobileNumber());
                     rl_status.setVisibility(View.GONE);
-                } else
-                    rl_status.setVisibility(View.VISIBLE);
+                } else  rl_status.setVisibility(View.VISIBLE);
+
                 rl_navigation_header.setVisibility(View.VISIBLE);
                 btn_ok.setVisibility(View.VISIBLE);
             }
@@ -283,6 +294,7 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
             BankBottomDialog baseDialog = new BankBottomDialog(bankModels, bankModel -> {
                 auto_bank.setText(bankModel.getShortName());
                 this.bankModel = bankModel;
+                Log.e("TAG", "selectBank: "+bankModel.getId().toString() );
             });
             baseDialog.show(getChildFragmentManager(), "WithDrawFragment");
         } else {
@@ -300,15 +312,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 Toast.showToast(requireContext(), "Bạn chưa Chọn Loại dịch vụ hàng hóa");
                 return;
             }
-//        if (province == null) {
-//            return new VerificationError("Bạn chưa Chọn Tỉnh/Thành phố");
-//        }
-//        if (district == null) {
-//            return new VerificationError("Bạn chưa Chọn Quận/Huyện");
-//        }
-//        if (ward == null) {
-//            return new VerificationError("Bạn chưa Chọn Phường/Xã");
-//        }
             if (TextUtils.isEmpty(edt_name.getText())) {
                 Toast.showToast(requireContext(), "Bạn chưa nhập Họ tên người đại diện");
                 return;
@@ -453,15 +456,20 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
     public void showImage(String file) {
         if (!IsImageAfter){
             fileImgBefore = file;
-            image_before.setImageURI(Utils.getUrlImage(file), file);
+            Utils.loadImageWithProgressView(requireContext(),image_before,Utils.getUrlImage(file),progressViewBefore);
         } else{
             fileImgAfter = file;
-            image_after.setImageURI(Utils.getUrlImage(file), file);
+            Utils.loadImageWithProgressView(requireContext(),image_after,Utils.getUrlImage(file),progressViewAfter);
         }
     }
 
     @Override
-    public void showSuccess() {
+    public void handlerEditMerchantSuccess() {
+        saveEmployee();
+    }
+
+    @Override
+    public void goToNextStep() {
         if (mCallback != null) {
             mCallback.goToNextStep();
         }
@@ -505,8 +513,9 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         edt_branch.setText(model.getPaymentAccountBranch());
         fileImgBefore = model.getRepresentativePIDImageBefore();
         fileImgAfter = model.getRepresentativePIDImageAfter();
-        image_before.setImageURI(Utils.getUrlImage(model.getRepresentativePIDImageBefore()));
-        image_after.setImageURI(Utils.getUrlImage(model.getRepresentativePIDImageAfter()));
+
+        Utils.loadImageWithProgressView(requireContext(),image_before,Utils.getUrlImage(model.getRepresentativePIDImageBefore()),progressViewBefore);
+        Utils.loadImageWithProgressView(requireContext(),image_after,Utils.getUrlImage(model.getRepresentativePIDImageAfter()),progressViewAfter);
 
         int businessType = Integer.parseInt(mMerchantModel.getBusinessType());
         switch (businessType){
@@ -582,28 +591,32 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
     @SuppressLint("CheckResult")
     private void attemptSendMedia(String path_media) {
+        try {
+            File file = new File(path_media);
+            Observable.fromCallable(() -> {
+                Uri uri = Uri.fromFile(new File(path_media));
+                return BitmapUtils.processingBitmap(uri, getViewContext());
+            }).subscribeOn(Schedulers.computation())
+                    .observeOn(Schedulers.io())
+                    .map(bitmap ->
+                            BitmapUtils.saveImage(bitmap, file.getParent(), "pno" + file.getName(), Bitmap.CompressFormat.JPEG, 50)
+                    )
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    isSavedImage -> {
+                        String path = file.getParent() + File.separator + "pno" + file.getName();
+                        mPresenter.postImage(path);
+                        if (file.exists())
+                            file.delete();
+                    },
+                    onError ->{
+                        Logger.e("error save image");
+                        this.hideProgress();
+                    }
+            );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         this.showProgress();
-        File file = new File(path_media);
-        Observable.fromCallable(() -> {
-            Uri uri = Uri.fromFile(new File(path_media));
-            return BitmapUtils.processingBitmap(uri, getViewContext());
-        }).subscribeOn(Schedulers.computation())
-                .observeOn(Schedulers.io())
-                .map(bitmap ->
-                        BitmapUtils.saveImage(bitmap, file.getParent(), "pno" + file.getName(), Bitmap.CompressFormat.JPEG, 50)
-                )
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                isSavedImage -> {
-                    String path = file.getParent() + File.separator + "pno" + file.getName();
-                    mPresenter.postImage(path);
-                    if (file.exists())
-                        file.delete();
-                },
-                onError ->{
-                    Logger.e("error save image");
-                    this.hideProgress();
-                }
-        );
     }
 
     private void capturePermission() {
@@ -639,6 +652,19 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+
+    }
+    private void saveEmployee(){
+        try {
+            SharedPref sharedPref = new SharedPref(requireActivity());
+            EmployeeModel employeeModel = sharedPref.getEmployeeModel();
+            employeeModel.setBankID(bankModel.getId());
+            employeeModel.setPaymentAccName(edt_name.getText().toString());
+            employeeModel.setPaymentAccNo(edt_account_number.getText().toString());
+            sharedPref.saveEmployee(employeeModel);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
