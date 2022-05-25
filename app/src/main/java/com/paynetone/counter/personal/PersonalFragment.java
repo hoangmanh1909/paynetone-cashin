@@ -19,6 +19,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.core.base.viper.ViewFragment;
 import com.core.base.viper.interfaces.ContainerView;
+import com.paynetone.counter.BuildConfig;
 import com.paynetone.counter.R;
 import com.paynetone.counter.interfaces.RegisterPassData;
 import com.paynetone.counter.login.LoginActivity;
@@ -45,6 +46,8 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
     TextView tv_email;
     @BindView(R.id.rl_merchant_info)
     RelativeLayout rl_merchant_info;
+    @BindView(R.id.id_version)
+    TextView tv_version;
 
     SharedPref sharedPref;
 
@@ -67,6 +70,7 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
         tv_email.setText(employeeModel.getEmail());
         tv_mobile.setText(employeeModel.getMobileNumber());
         tv_name.setText(employeeModel.getFullName());
+        tv_version.setText("v."+BuildConfig.VERSION_NAME);
 
         String mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE,"");
 

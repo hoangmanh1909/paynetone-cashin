@@ -294,7 +294,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
             BankBottomDialog baseDialog = new BankBottomDialog(bankModels, bankModel -> {
                 auto_bank.setText(bankModel.getShortName());
                 this.bankModel = bankModel;
-                Log.e("TAG", "selectBank: "+bankModel.getId().toString() );
             });
             baseDialog.show(getChildFragmentManager(), "WithDrawFragment");
         } else {

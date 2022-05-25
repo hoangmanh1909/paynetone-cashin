@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
 import androidx.appcompat.widget.AppCompatImageView
 import com.paynetone.counter.R
+import kotlin.math.floor
 
 class ProgressView : AppCompatImageView {
     constructor(context: Context?, attrs: AttributeSet, defStyle: Int) : super(context!!, attrs, defStyle) {
@@ -30,11 +31,7 @@ class ProgressView : AppCompatImageView {
     fun setAnimation(frameCount: Int, duration: Int) {
         val a = AnimationUtils.loadAnimation(context,R.anim.anim_loading)
         a.duration = duration.toLong()
-        a.setInterpolator(object : Interpolator {
-            override fun getInterpolation(input: Float): Float {
-                return Math.floor((input * frameCount).toDouble()).toFloat() / frameCount
-            }
-        })
+        a.interpolator = Interpolator { input -> floor((input * frameCount).toDouble()).toFloat() / frameCount }
         startAnimation(a)
     }
 }

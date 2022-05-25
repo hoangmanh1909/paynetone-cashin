@@ -1,6 +1,8 @@
 package com.paynetone.counter.login;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.paynetone.counter.utils.Toast;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.LogRecord;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,12 +74,14 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
                 });
                 dialog.setCancelable(false);
                 dialog.show();
+                clearInputValidate();
                 break;
             case R.id.rootView:
                 AppUtils.hideKeyboard(view);
                 break;
             case R.id.tv_forgot_password:
                 goToRequestOTP();
+                clearInputValidate();
                 break;
         }
     }
@@ -122,7 +127,6 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
             FirebaseMessaging.getInstance().getToken()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()){
-                            Log.e("TAG", "onComplete: "+task.getResult() );
                             firebaseToken = task.getResult();
                         }
                     });
@@ -130,5 +134,20 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
             e.printStackTrace();
         }
 
+    }
+
+    private void clearInputValidate(){
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                prepareClearInputValidate();
+            }
+        }, 500L);
+    }
+    private void prepareClearInputValidate(){
+        edtPhoneNumber.setText("");
+        edtPhoneNumber.clearFocus();
+        edtPass.setText("");
+        edtPass.clearFocus();
     }
 }

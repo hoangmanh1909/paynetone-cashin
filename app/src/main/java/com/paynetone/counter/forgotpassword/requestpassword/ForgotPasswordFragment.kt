@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +53,6 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
     private fun onListener(){
         binding.apply {
             btnSendRequest.setSingleClick {
-//                mPresenter.updatePassword()
                 if (confirmInput()){
                     val phoneNumber = edtMobileNumber.text.toString().trim()
                     val password = edtPassword.text.toString().trim()
@@ -75,27 +76,35 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
     override fun updatePasswordSuccess() {
         Toast.showToast(requireContext(),resources.getString(R.string.str_change_password_success))
         countDownTimer.onFinish()
-        startActivity(Intent(requireActivity(), LoginActivity::class.java))
+        Handler(Looper.getMainLooper()).postDelayed({
+            activity?.finish()
+        }, 750L)
+
     }
 
     private fun countDownOTP(timer: Long) {
-        countDownTimer = object : CountDownTimer(timer, 1000) {
-            @SuppressLint("SetTextI18n")
-            override fun onTick(millisUntilFinished: Long) {
-                var millisUntilFinished = millisUntilFinished
-                val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
-                millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes)
-                val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
-                val textTime = " ${resources.getString(R.string.str_opt_zalo_fragment_forgot_password)} <font color='#03A9F4'>${StringUtils.leftPad(minutes.toString(), 2, '0') + ":" + StringUtils.leftPad(seconds.toString(), 2, '0')}</font>"
-                binding.tvZalo.setText(Html.fromHtml(textTime), TextView.BufferType.SPANNABLE)
-            }
+        try {
+            countDownTimer = object : CountDownTimer(timer, 1000) {
+                @SuppressLint("SetTextI18n")
+                override fun onTick(millisUntilFinished: Long) {
+                    var millisUntilFinished = millisUntilFinished
+                    val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
+                    millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes)
+                    val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
+                    val textTime = " ${resources.getString(R.string.str_opt_zalo_fragment_forgot_password)} <font color='#03A9F4'>${StringUtils.leftPad(minutes.toString(), 2, '0') + ":" + StringUtils.leftPad(seconds.toString(), 2, '0')}</font>"
+                    binding.tvZalo.setText(Html.fromHtml(textTime), TextView.BufferType.SPANNABLE)
+                }
 
-            override fun onFinish() {
-                cancel()
-                activity?.finish()
+                override fun onFinish() {
+                    cancel()
+                    activity?.finish()
+                }
             }
+            countDownTimer.start()
+        }catch (e:Exception){
+            e.printStackTrace()
         }
-        countDownTimer.start()
+
     }
     private fun validatePhoneNumber(): Boolean {
         val email = binding.edtMobileNumber.text.toString().trim()
@@ -144,6 +153,15 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
             return false
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            countDownTimer.onFinish()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
 
