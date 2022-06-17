@@ -27,6 +27,7 @@ import com.core.base.log.Logger;
 import com.core.base.viper.ViewFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.paynetone.counter.BuildConfig;
 import com.paynetone.counter.R;
 import com.paynetone.counter.dialog.BankBottomDialog;
@@ -89,6 +90,10 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
     TextInputEditText edt_address;
     @BindView(R.id.edt_name)
     TextInputEditText edt_name;
+    @BindView(R.id.edt_post_id)
+    TextInputEditText edt_post_id;
+    @BindView(R.id.txt_post_id)
+    TextInputLayout txt_post_id;
     @BindView(R.id.edt_pid_number)
     TextInputEditText edt_pid_number;
     @BindView(R.id.edt_account_number)
@@ -505,6 +510,7 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         }
         auto_bank.setText(bankModel.getShortName());
         edt_name.setText(model.getRepresentativeName());
+        edt_post_id.setText(model.getPosID());
         edt_account_number.setText(model.getPaymentAccountNumber());
         edt_address.setText(model.getAddress());
         edt_mobile_number.setText(model.getMobileNumber());
@@ -529,9 +535,11 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 break;
             case Constants.BUSINESS_TYPE_VIETLOTT:
                 tv_business.setText(getResources().getString(R.string.str_business_vietlott));
+                txt_post_id.setVisibility(View.VISIBLE);
                 break;
             case Constants.BUSINESS_TYPE_SYNTHETIC:
                 tv_business.setText(getResources().getString(R.string.str_business_synthetic));
+                txt_post_id.setVisibility(View.VISIBLE);
                 break;
 
         }
@@ -552,6 +560,8 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 tv_status.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.order_status_c));
                 break;
         }
+        if (businessType==Constants.BUSINESS_TYPE_SYNTHETIC
+                || businessType==Constants.BUSINESS_TYPE_VIETLOTT) btn_ok.setVisibility(View.GONE);
     }
 
     @Override
@@ -660,6 +670,7 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
             employeeModel.setBankID(bankModel.getId());
             employeeModel.setPaymentAccName(edt_name.getText().toString());
             employeeModel.setPaymentAccNo(edt_account_number.getText().toString());
+            employeeModel.setBankName(bankModel.getName());
             sharedPref.saveEmployee(employeeModel);
         }catch (Exception e){
             e.printStackTrace();

@@ -232,6 +232,9 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                 case Constants.PAYMENT_VN_PAY:
                     req.setProviderCode(Constants.PROVIDER_VN_PAY);
                     break;
+                case Constants.PAYMENT_MOCA:
+                    req.setProviderCode(Constants.PROVIDER_MOCA);
+                    break;
             }
         }
 
@@ -260,6 +263,9 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                     break;
                 case Constants.PAYMENT_VN_PAY:
                     req.setPaymentType(Constants.PAYMENT_TYPE_VN_PAY);
+                    break;
+                case Constants.PAYMENT_MOCA:
+                    req.setPaymentType(Constants.PAYMENT_TYPE_MOCA);
             }
         }
         req.setPaymentCate(2);

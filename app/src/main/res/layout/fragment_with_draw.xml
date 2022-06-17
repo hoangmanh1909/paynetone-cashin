@@ -128,7 +128,7 @@
                     android:gravity="start|center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:hint="@string/str_with_draw_bank"
+                    android:text="@string/str_with_draw_bank"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintTop_toBottomOf="@id/tv_with_draw" />
 
@@ -306,6 +306,61 @@
                         android:textSize="@dimen/_11sdp"
                         android:maxLines="1"
                         app:layout_constraintTop_toBottomOf="@id/app_tv_full_name_wallet" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_vietlott"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_post_id_vietlott"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_post_id_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_post_id_vietlott"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_disable_focus"
+                        android:gravity="start|center"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_post_id_vietlott" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/app_tv_full_name_vietlott"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:text="@string/str_full_name_personal_required"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name_post_id_vietlott" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tv_full_name_personal_vietlott"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/bg_textview_with_draw_enable_focus"
+                        android:gravity="start|center"
+                        android:hint="@string/str_full_name_personal"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
+                        android:maxLines="1"
+                        app:layout_constraintTop_toBottomOf="@id/app_tv_full_name_vietlott" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,9 +15,11 @@ import com.core.base.adapter.RecyclerBaseAdapter;
 import com.core.widget.BaseViewHolder;
 import com.paynetone.counter.R;
 import com.paynetone.counter.model.OrderModel;
+import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.response.WithdrawSearchResponse;
 import com.paynetone.counter.utils.Constants;
 import com.paynetone.counter.utils.NumberUtils;
+import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Utils;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class HistoryAdapter  extends RecyclerBaseAdapter {
 
     Activity activity;
     List<WithdrawSearchResponse> mItems;
+    PaynetModel paynetModel = new SharedPref(mContext).getPaynet();
 
     public HistoryAdapter(Context context, List<WithdrawSearchResponse> items) {
         super(context);
@@ -71,18 +74,28 @@ public class HistoryAdapter  extends RecyclerBaseAdapter {
         public void bindView(Object model, int position) {
             WithdrawSearchResponse item = (WithdrawSearchResponse)model;
 
-            Boolean withDrawCateforyBank;
-            if (item.getWithDrawCatefory()==Constants.WITHDRAW_CATEGORY_BANK) withDrawCateforyBank = true;
-            else withDrawCateforyBank = false;
-
             tv_amount.setText(NumberUtils.formatPriceNumber(item.getAmount()) + "đ");
 //            tv_amount.setText(item.getMobileNumber());
             tv_date.setText(item.getTransDate());
             tv_code.setText(item.getRetRefNumber());
-            tv_bank.setText(withDrawCateforyBank ? item.getBankShortName() : item.getWalletName());
-            tv_account_number.setText(withDrawCateforyBank ? item.getAccountNumber() : item.getMobileNumber());
             tv_full_name.setText(item.getFullName());
             tv_status.setText(Utils.getStatusWithdrawName(item.getReturnCode()));
+
+            switch (item.getWithDrawCatefory()){
+                case Constants.WITHDRAW_CATEGORY_BANK:
+                    tv_bank.setText(item.getBankShortName());
+                    tv_account_number.setText(item.getAccountNumber());
+                    break;
+                case Constants.WITHDRAW_CATEGORY_VIETLOTT:
+                    tv_bank.setText("Hạn mức Vietlott");
+                    tv_account_number.setText(paynetModel.getPosID());
+                    break;
+                case Constants.WITHDRAW_CATEGORY_WALLET:
+                    tv_bank.setText(item.getWalletName());
+                    tv_account_number.setText(item.getMobileNumber());
+                    break;
+
+            }
 
             switch (item.getReturnCode()){
 

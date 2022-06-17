@@ -107,11 +107,10 @@
     </style>
 
     <style name="TranslucentBackground">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:fitsSystemWindows">true</item>
-        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
     <style name="TextTitleRegister">
@@ -150,6 +149,33 @@
 
     <style name="fontSemiBold">
         <item name="fontFamily">@font/semi_bold</item>
+    </style>
+
+    <!-- Alert Dialog -->
+    <style name="MyThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialogText</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorBlack2</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorBlack2</item>
+    </style>
+    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBlack2</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:lines">2</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:ellipsize">none</item>
     </style>
 
 </resources>

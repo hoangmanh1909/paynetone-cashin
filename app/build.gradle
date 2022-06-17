@@ -38,6 +38,9 @@ android {
         multiDexEnabled true
         signingConfig signingConfigs.debug
     }
+    configurations.all {
+        resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+    }
     signingConfigs{
         debug {
             keyAlias 'key0'

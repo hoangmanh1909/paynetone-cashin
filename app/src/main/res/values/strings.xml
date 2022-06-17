@@ -32,12 +32,14 @@
     <string name="str_zalo_pay">ZaloPay</string>
     <string name="str_shoppe_pay">ShoppePay</string>
     <string name="str_vn_pay">VNPay</string>
+    <string name="str_moca">Moca</string>
 
     //qr fragment
     <string name="str_qr_viettel">Sử dụng ứng dụng Viettel money để quét mã</string>
     <string name="str_qr_zalo">Sử dụng ứng dụng ZaloPay để quét mã</string>
     <string name="str_qr_shopee">Sử dụng ứng dụng ShopeePay để quét mã</string>
     <string name="str_qr_vn_pay">Sử dụng ứng dụng VNPay để quét mã</string>
+    <string name="str_qr_moca">Sử dụng ứng dụng Moca để quét mã</string>
     <string name="str_code_order">Mã đơn hàng:  </string>
 
     // merchant fragment
@@ -71,6 +73,7 @@
     <string name="str_business_vietlott">Cửa hàng xổ số Vietlott</string>
     <string name="str_business_synthetic">Cửa hàng xổ số tổng hợp</string>
     <string name="str_waiting_approval">Chờ phê duyệt</string>
+    <string name="str_add_profile">Bổ sung hồ sơ</string>
     <string name="str_approved">Đã phê duyệt</string>
     <string name="str_refuse">Từ chối</string>
     <string name="str_representative_information">Thông tin người đại diện</string>
@@ -102,6 +105,7 @@
     // rút tiền
     <string name="str_with_draw_bank">Tài khoản ngân hàng</string>
     <string name="str_with_draw_wallet">Qua ví điện tử</string>
+    <string name="str_with_draw_vietlott">Hạn mức Vietlott</string>
     <string name="str_not_enter_receive_full_name">Bạn chưa nhập tên người nhận</string>
     <string name="str_not_enter_amount">Bạn chưa nhập Số tiền</string>
     <string name="str_not_enter_wallet">Bạn chưa chọn ví rút tiền</string>
@@ -115,6 +119,10 @@
     <string name="str_amount">Số tiền</string>
     <string name="str_full_name_personal">Họ và tên</string>
     <string name="str_selected_wallet">--Chọn ví điện tử--</string>
+    <string name="str_post_id">PostID</string>
+    <string name="str_post_id_required">PostID<font fgcolor='#EA5151'>*</font></string>
+
+    <string name="str_allow_running_background">Không hạn chế hoạt động dưới nền cho ứng dụng.</string>
 
 
 

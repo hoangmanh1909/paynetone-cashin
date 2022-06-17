@@ -44,6 +44,7 @@ public class Constants {
     public static final String PROVIDER_ZALO = "ZALO";
     public static final String PROVIDER_SHOPPE = "SHOPEE";
     public static final String PROVIDER_VN_PAY = "VNPAY";
+    public static final String PROVIDER_MOCA = "GRAB";
 
     public static final String HOME_QR = "HOME_QR";
     public static final String HOME_HISTORY = "HOME_HISTORY";
@@ -61,6 +62,7 @@ public class Constants {
     public static final int PAYMENT_TYPE_VIETTEL=3;
     public static final int PAYMENT_TYPE_ZALO=4;
     public static final int PAYMENT_TYPE_VN_PAY=6;
+    public static final int PAYMENT_TYPE_MOCA =7;
 
     public static final String FORMALITY_TYPE_ONLINE = "1";
     public static final String FORMALITY_TYPE_OFFLINE = "2";
@@ -68,6 +70,7 @@ public class Constants {
     public static final String WAITING_APPROVAL = "A";
     public static final String APPROVED= "P";
     public static final String REFUSE = "R";
+
 
     public static final int PNOLEVEL_STALL = 4; // tài khoản quầy
     public static final int PNOLEVEL_MERCHANT = 1; // tài khoản merchant
@@ -89,8 +92,10 @@ public class Constants {
     public static final int PAYMENT_ZALO_PAY = 2;
     public static final int PAYMENT_SHOPPE_PAY = 3;
     public static final int PAYMENT_VN_PAY = 4;
+    public static final int PAYMENT_MOCA = 5;
 
     public static final int WITHDRAW_CATEGORY_BANK = 1;  // rút tiền ngân hàng
+    public static final int WITHDRAW_CATEGORY_VIETLOTT = 2;  // rút tiền vietlott
     public static final int WITHDRAW_CATEGORY_WALLET = 3; // rút tiền ví
 
     public static final String NOTIFICATION_COUNT = "notification_count";
@@ -109,7 +114,7 @@ public class Constants {
     public static final String BANK_NAME_VIETCOM = "Ngân hàng TMCP Ngoại Thương Việt Nam";
     public static final String BANK_NAME_VIETIN = "Ngân hàng TPCP Công Thương Việt Nam";
     public static final String BANK_NAME_AGRI = "Ngân hàng Nông nghiệp và Phát triển Việt Nam";
-    public static final String BANK_NAME_MB = "Ngân hàng TMCP Á Châu";
+    public static final String BANK_NAME_MB = "Ngân hàng Quân đội";
 
     // wallet
 

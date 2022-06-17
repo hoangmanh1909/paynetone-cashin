@@ -148,6 +148,17 @@ public class MerchantModel {
     @SerializedName("ContractFile")
     @Expose
     private String contractFile;
+    @SerializedName("PosID")
+    @Expose
+    private String posID;
+
+    public String getPosID() {
+        return posID;
+    }
+
+    public void setPosID(String posID) {
+        this.posID = posID;
+    }
 
     public String getqROption() {
         return qROption;

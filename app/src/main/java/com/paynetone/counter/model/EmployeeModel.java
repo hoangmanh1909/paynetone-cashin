@@ -25,6 +25,11 @@ public class EmployeeModel {
     @SerializedName("BankID")
     @Expose
     private Integer bankID;
+
+    @SerializedName("BankName")
+    @Expose
+    private String bankName;
+
     @SerializedName("PaymentAccNo")
     @Expose
     private String paymentAccNo;
@@ -32,6 +37,13 @@ public class EmployeeModel {
     @Expose
     private String paymentAccName;
 
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
 
     public void setBankID(Integer bankID) {
         this.bankID = bankID;

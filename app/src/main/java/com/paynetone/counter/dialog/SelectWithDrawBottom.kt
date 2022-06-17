@@ -11,22 +11,28 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.paynetone.counter.R
 import com.paynetone.counter.databinding.BottomWithDrawBinding
+import com.paynetone.counter.model.SelectWithDraw
 import com.paynetone.counter.utils.BindingAdapter.Companion.setShowOrHideDrawable
-import com.paynetone.counter.utils.ExtraConst.Companion.EXTRA_IS_WITH_DRAW_BANK
+import com.paynetone.counter.utils.Constants.BUSINESS_TYPE_SYNTHETIC
+import com.paynetone.counter.utils.Constants.BUSINESS_TYPE_VIETLOTT
+import com.paynetone.counter.utils.ExtraConst.Companion.EXTRA_BUSINESS_TYPE
+import com.paynetone.counter.utils.ExtraConst.Companion.EXTRA_WITH_DRAW_BANK
 import com.paynetone.counter.utils.autoCleared
 import com.paynetone.counter.utils.setSingleClick
 
-class SelectWithDrawBottom(isSelectWithDrawBank: Boolean) : BottomSheetDialogFragment() {
+class SelectWithDrawBottom(selectWithDraw: SelectWithDraw,businessType:Int) : BottomSheetDialogFragment() {
 
     private var binding: BottomWithDrawBinding by autoCleared()
     private lateinit var callBackListener: CallBackListener
-    private var isSelectWithDrawBank:Boolean?=null
+    private lateinit var selectWithDrawBank:SelectWithDraw
+    private var businessType: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
         arguments?.apply {
-            isSelectWithDrawBank = getBoolean(EXTRA_IS_WITH_DRAW_BANK)
+            selectWithDrawBank = getSerializable(EXTRA_WITH_DRAW_BANK) as SelectWithDraw
+            businessType = getInt(EXTRA_BUSINESS_TYPE)
         }
 
     }
@@ -56,23 +62,45 @@ class SelectWithDrawBottom(isSelectWithDrawBank: Boolean) : BottomSheetDialogFra
     }
 
     private fun initView(){
+        try {
+            binding.apply {
+                layoutBank.setSingleClick {
+                    icTickBank.setShowOrHideDrawable(true)
+                    icTickWallet.setShowOrHideDrawable(false)
+                    icTickVietlott.setShowOrHideDrawable(false)
+                    selectWithDrawBank = SelectWithDraw.BANK
+                    callBackListener.onSelectWithDrawBank(selectWithDrawBank)
+                }
+                layoutWallet.setSingleClick {
+                    icTickBank.setShowOrHideDrawable(false)
+                    icTickVietlott.setShowOrHideDrawable(false)
+                    icTickWallet.setShowOrHideDrawable(true)
+                    selectWithDrawBank = SelectWithDraw.E_WALLET
+                    callBackListener.onSelectWithDrawBank(selectWithDrawBank)
+                }
+                layoutVietlott.setSingleClick {
+                    icTickBank.setShowOrHideDrawable(false)
+                    icTickWallet.setShowOrHideDrawable(false)
+                    icTickVietlott.setShowOrHideDrawable(true)
+                    selectWithDrawBank = SelectWithDraw.VIETLOTT
+                    callBackListener.onSelectWithDrawBank(selectWithDrawBank)
 
-        binding.apply {
-            layoutBank.setSingleClick {
-                callBackListener.onSelectWithDrawBank(true)
-                icTickBank.setShowOrHideDrawable(true)
-                icTickWallet.setShowOrHideDrawable(false)
+                }
+                when(selectWithDrawBank){
+                    SelectWithDraw.BANK -> icTickBank.setShowOrHideDrawable(true)
+                    SelectWithDraw.E_WALLET -> icTickWallet.setShowOrHideDrawable(true)
+                    SelectWithDraw.VIETLOTT -> icTickVietlott.setShowOrHideDrawable(true)
+                }
+                when(businessType){
+                    BUSINESS_TYPE_VIETLOTT, BUSINESS_TYPE_SYNTHETIC -> layoutVietlott.visibility = View.VISIBLE
+                    else ->{}
+                }
             }
-            layoutWallet.setSingleClick {
-                callBackListener.onSelectWithDrawBank(false)
-                icTickBank.setShowOrHideDrawable(false)
-                icTickWallet.setShowOrHideDrawable(true)
-            }
-            isSelectWithDrawBank?.let {
-                if (it) icTickBank.setShowOrHideDrawable(true)
-                else icTickWallet.setShowOrHideDrawable(true)
-            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
+
+
     }
 
     fun onCallBackListener(callBackListener: CallBackListener){
@@ -80,13 +108,14 @@ class SelectWithDrawBottom(isSelectWithDrawBank: Boolean) : BottomSheetDialogFra
     }
 
     interface CallBackListener{
-        fun onSelectWithDrawBank(isSelectWithDrawBank:Boolean)
+        fun onSelectWithDrawBank(selectWithDraw: SelectWithDraw)
     }
     companion object{
         @JvmStatic
-        fun getInstance(isSelectWithDrawBank:Boolean) = SelectWithDrawBottom(isSelectWithDrawBank).apply {
+        fun getInstance(selectWithDraw: SelectWithDraw,businessType:Int) = SelectWithDrawBottom(selectWithDraw,businessType).apply {
             arguments = Bundle().apply {
-                putBoolean(EXTRA_IS_WITH_DRAW_BANK,isSelectWithDrawBank)
+                putSerializable(EXTRA_WITH_DRAW_BANK,selectWithDraw)
+                putInt(EXTRA_BUSINESS_TYPE,businessType)
             }
         }
     }

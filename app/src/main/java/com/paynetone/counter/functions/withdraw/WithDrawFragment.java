@@ -1,6 +1,7 @@
 package com.paynetone.counter.functions.withdraw;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -31,6 +33,7 @@ import com.paynetone.counter.home.HomeContract;
 import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.EmployeeModel;
 import com.paynetone.counter.model.PaynetModel;
+import com.paynetone.counter.model.SelectWithDraw;
 import com.paynetone.counter.model.request.WithdrawRequest;
 import com.paynetone.counter.model.response.WalletResponse;
 import com.paynetone.counter.utils.Constants;
@@ -38,7 +41,6 @@ import com.paynetone.counter.utils.NumberUtils;
 import com.paynetone.counter.utils.PrefConst;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -77,6 +79,16 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     @BindView(R.id.layout_wallet)
     ConstraintLayout layoutWallet;
 
+    // map view vietlott
+
+    @BindView(R.id.tv_full_name_personal_vietlott)
+    AppCompatEditText tv_full_name_personal_vietlott;
+    @BindView(R.id.tv_name_post_id_vietlott)
+    AppCompatTextView tv_name_post_id_vietlott;
+    @BindView(R.id.layout_vietlott)
+    ConstraintLayout layoutVietlott;
+
+
     long amountOutward;
     List<BankModel> mBankModels;
     BankModel mBankModel;
@@ -85,8 +97,9 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     EmployeeModel employeeModel;
     PaynetModel paynetModel;
     private ArrayList<WalletResponse> walletResponses = new ArrayList<>();
-    private  Boolean isSelectWithDrawBank=true;
     private WalletResponse selectedWallet;
+    private SelectWithDraw selectWithDraw = SelectWithDraw.BANK;
+
 
     public static WithDrawFragment getInstance() {
         return new WithDrawFragment();
@@ -136,12 +149,13 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
         });
 
         tv_name_with_draw.setOnClickListener(v -> {
-            SelectWithDrawBottom bottom =  SelectWithDrawBottom.getInstance(isSelectWithDrawBank);
+            SelectWithDrawBottom bottom =  SelectWithDrawBottom.getInstance(selectWithDraw,paynetModel.getBusinessType());
             bottom.show(getChildFragmentManager(),"SelectWithDrawBottom");
-            bottom.onCallBackListener(isSelectWithDrawBank -> {
-                this.isSelectWithDrawBank=isSelectWithDrawBank;
-                showOrHideLayoutWithDrawBank(isSelectWithDrawBank);
+            bottom.onCallBackListener(selectWithDraw->{
+                showOrHideLayoutWithDrawBank(selectWithDraw);
+                this.selectWithDraw = selectWithDraw;
             });
+
 
         });
         tv_name_wallet.setOnClickListener(v -> {
@@ -157,29 +171,8 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
         try {
             tv_full_name_personal_bank.setText(employeeModel.getPaymentAccName());
             tv_name_account_number_bank.setText(employeeModel.getPaymentAccNo());
-            switch (employeeModel.getBankID()){
-                case Constants.BANK_ID_BIDV:
-                    tv_name_bank.setText(Constants.BANK_NAME_BIDV);
-                    break;
-                case Constants.BANK_ID_TECK:
-                    tv_name_bank.setText(Constants.BANK_NAME_TECK);
-                    break;
-                case Constants.BANK_ID_VIETCOM:
-                    tv_name_bank.setText(Constants.BANK_NAME_VIETCOM);
-                    break;
-                case Constants.BANK_ID_VIETIN:
-                    tv_name_bank.setText(Constants.BANK_NAME_VIETIN);
-                    break;
-                case Constants.BANK_ID_AGRI:
-                    tv_name_bank.setText(Constants.BANK_NAME_AGRI);
-                    break;
-                case Constants.BANK_MB:
-                    tv_name_bank.setText(Constants.BANK_NAME_MB);
-                    break;
-                default:
-                    tv_name_bank.setText("");
-                    break;
-            }
+            tv_name_post_id_vietlott.setText(paynetModel.getPosID());
+            tv_name_bank.setText(employeeModel.getBankName());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -204,17 +197,37 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     private void ok() {
         if (confirmInput()){
             WithdrawRequest request = new WithdrawRequest();
-            request.setBankID(isSelectWithDrawBank ? employeeModel.getBankID() : 0);
             request.setMerchantID(paynetModel.getMerchantID());
             request.setPaynetID(paynetModel.getId());
             request.setAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
             request.setFee(0);
             request.setTransAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
-            request.setMobileNumber(isSelectWithDrawBank ? employeeModel.getMobileNumber() : tv_name_number_phone.getText().toString());
-            request.setAccountNumber(isSelectWithDrawBank ? Objects.requireNonNull(tv_name_account_number_bank.getText()).toString() : "");
-            request.setFullName(isSelectWithDrawBank ? employeeModel.getPaymentAccName() : Objects.requireNonNull(tv_full_name_personal_wallet.getText()).toString());
-            request.setWithdrawCategory(isSelectWithDrawBank ? Constants.WITHDRAW_CATEGORY_BANK : Constants.WITHDRAW_CATEGORY_WALLET);
-            request.setWalletID(isSelectWithDrawBank ? 0 : selectedWallet.getId());
+
+            switch (selectWithDraw){
+                case BANK:
+                    request.setBankID(employeeModel.getBankID());
+                    request.setMobileNumber(employeeModel.getMobileNumber());
+                    request.setAccountNumber(Objects.requireNonNull(tv_name_account_number_bank.getText()).toString());
+                    request.setFullName(employeeModel.getPaymentAccName());
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_BANK);
+                    request.setWalletID(0); // default
+                    break;
+                case E_WALLET:
+                    request.setBankID(0);
+                    request.setMobileNumber(tv_name_number_phone.getText().toString());
+                    request.setAccountNumber("");
+                    request.setFullName(Objects.requireNonNull(tv_full_name_personal_wallet.getText()).toString());
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_WALLET);
+                    request.setWalletID(selectedWallet.getId());
+                    break;
+                case VIETLOTT:
+                    request.setBankID(0);
+                    request.setFullName(Objects.requireNonNull(tv_full_name_personal_vietlott.getText()).toString());
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_VIETLOTT);
+                    request.setWalletID(0);
+                    request.setPosID(paynetModel.getPosID());
+
+            }
             mPresenter.withdraw(request);
         }
 
@@ -248,16 +261,30 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
             this.selectedWallet = walletResponse;
         });
     }
-    private void showOrHideLayoutWithDrawBank(Boolean isShow){
-        if (isShow){
-            layoutBank.setVisibility(View.VISIBLE);
-            layoutWallet.setVisibility(View.GONE);
-            tv_name_with_draw.setText(getString(R.string.str_with_draw_bank));
-        }else {
-            layoutWallet.setVisibility(View.VISIBLE);
-            layoutBank.setVisibility(View.GONE);
-            tv_name_with_draw.setText(getString(R.string.str_with_draw_wallet));
-            prepareViewWallet();
+    private void showOrHideLayoutWithDrawBank(SelectWithDraw selectWithDraw){
+        switch (selectWithDraw){
+            case BANK:
+                layoutBank.setVisibility(View.VISIBLE);
+                layoutWallet.setVisibility(View.GONE);
+                layoutVietlott.setVisibility(View.GONE);
+                tv_name_with_draw.setText(getString(R.string.str_with_draw_bank));
+                break;
+            case E_WALLET:
+                layoutWallet.setVisibility(View.VISIBLE);
+                layoutBank.setVisibility(View.GONE);
+                layoutVietlott.setVisibility(View.GONE);
+                tv_name_with_draw.setText(getString(R.string.str_with_draw_wallet));
+                prepareViewWallet();
+                break;
+            case VIETLOTT:
+                layoutVietlott.setVisibility(View.VISIBLE);
+                layoutWallet.setVisibility(View.GONE);
+                layoutBank.setVisibility(View.GONE);
+                tv_name_with_draw.setText(getString(R.string.str_with_draw_vietlott));
+                prepareViewWallet();
+                break;
+
+
         }
     }
     private Boolean validateSelectWallet() {
@@ -275,8 +302,16 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
         }
         return true;
     }
-    private Boolean validateReceiveFullName() {
+    private Boolean validateReceiveFullNameWallet() {
         String fullName = tv_full_name_personal_wallet.getText().toString();
+        if (fullName.isEmpty()) {
+            Toast.showToast(requireContext(),getResources().getString(R.string.str_not_enter_receive_full_name));
+            return false;
+        }
+        return true;
+    }
+    private Boolean validateReceiveFullNameVietlott() {
+        String fullName = tv_full_name_personal_vietlott.getText().toString();
         if (fullName.isEmpty()) {
             Toast.showToast(requireContext(),getResources().getString(R.string.str_not_enter_receive_full_name));
             return false;
@@ -293,12 +328,16 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     }
 
     private Boolean confirmInput(){
-        if (isSelectWithDrawBank){
-            return validateAmount();
-        }else {
-            return  validateSelectWallet() && validatePhoneNumber() && validateReceiveFullName() && validateAmount();
+        switch (selectWithDraw){
+            case BANK:
+                return validateAmount();
+            case E_WALLET:
+                return  validateSelectWallet() && validatePhoneNumber() && validateReceiveFullNameWallet() && validateAmount();
+            case VIETLOTT:
+                return validateReceiveFullNameVietlott() && validateAmount();
+            default:
+                return false;
         }
-
     }
     private void prepareViewWallet(){
         try {

@@ -25,6 +25,17 @@ public class PaynetModel {
     @SerializedName("BusinessType")
     @Expose
     private Integer businessType;
+    @SerializedName("PosID")
+    @Expose
+    private String posID;
+
+    public String getPosID() {
+        return posID;
+    }
+
+    public void setPosID(String posID) {
+        this.posID = posID;
+    }
 
     public Integer getId() {
         return id;

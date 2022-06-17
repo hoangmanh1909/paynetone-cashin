@@ -43,6 +43,17 @@ public class WithdrawRequest {
     @SerializedName("WalletID")
     @Expose
     private int walletID ;
+    @SerializedName("PosID")
+    @Expose
+    private String posID ;
+
+    public String getPosID() {
+        return posID;
+    }
+
+    public void setPosID(String posID) {
+        this.posID = posID;
+    }
 
     public int getWalletID() {
         return walletID;

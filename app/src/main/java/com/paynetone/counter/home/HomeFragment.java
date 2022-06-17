@@ -69,13 +69,18 @@ public class HomeFragment extends ViewFragment<HomeContract.Presenter> implement
         sharedPref = new SharedPref(requireActivity());
         paynetModel = sharedPref.getPaynet();
 
-        if (paynetModel.getBusinessType() == 3) {
-            String mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE,"");
-            if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
-                ll_balance.setVisibility(View.VISIBLE);
-            }
-        } else {
-            ll_balance.setVisibility(View.GONE);
+        switch (paynetModel.getBusinessType()){
+            case Constants.BUSINESS_TYPE_PERSONAL:
+            case Constants.BUSINESS_TYPE_VIETLOTT:
+            case Constants.BUSINESS_TYPE_SYNTHETIC:
+                String mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE,"");
+                if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
+                    ll_balance.setVisibility(View.VISIBLE);
+                }
+                break;
+            default:
+                ll_balance.setVisibility(View.GONE);
+                break;
         }
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new HomeAdapter(getContext(), homeModels,(homeModel, position) -> {

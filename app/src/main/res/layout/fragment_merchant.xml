@@ -184,6 +184,27 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_post_id"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/str_post_id"
+                    android:layout_marginTop="@dimen/anchor_default"
+                    app:boxBackgroundColor="@color/white"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_post_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:background="@color/grey_300"
+                        android:textSize="@dimen/textSizeRegister" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -491,6 +512,7 @@
 
         <Button
             android:id="@+id/btn_ok"
+            android:visibility="gone"
             style="@style/Button"
             android:layout_alignParentBottom="true"
             android:text="@string/str_update" />

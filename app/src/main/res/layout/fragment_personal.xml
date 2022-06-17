@@ -91,7 +91,48 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/rl_setting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/anchor_default"
+                android:background="@color/white"
+                android:orientation="vertical">
 
+                <RelativeLayout
+                    style="@style/RelativeLayoutPersonal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/imgPersonal"
+                            android:layout_height="@dimen/imgPersonal"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/ic_setting" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cho phép ứng dụng chạy nền"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchCompat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                       android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:thumb="@drawable/thumb_selector"
+                        app:track="@drawable/track_selector"/>
+                </RelativeLayout>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -123,6 +164,8 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

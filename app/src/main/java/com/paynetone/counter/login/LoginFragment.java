@@ -72,7 +72,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
                     Intent intent = new Intent(requireActivity(),RegisterActivity.class);
                     startActivity(intent);
                 });
-                dialog.setCancelable(false);
+                dialog.setCancelable(true);
                 dialog.show();
                 clearInputValidate();
                 break;

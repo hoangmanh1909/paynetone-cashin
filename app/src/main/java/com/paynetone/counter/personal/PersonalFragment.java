@@ -3,22 +3,33 @@ package com.paynetone.counter.personal;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.CancellationSignal;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.core.base.viper.ViewFragment;
 import com.core.base.viper.interfaces.ContainerView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.paynetone.counter.BuildConfig;
 import com.paynetone.counter.R;
 import com.paynetone.counter.interfaces.RegisterPassData;
@@ -48,12 +59,18 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
     RelativeLayout rl_merchant_info;
     @BindView(R.id.id_version)
     TextView tv_version;
+    @BindView(R.id.switchCompat)
+    SwitchCompat switchCompat;
+
+    @BindView(R.id.rl_setting)
+    LinearLayout rl_setting;
 
     SharedPref sharedPref;
 
     public static PersonalFragment getInstance() {
         return new PersonalFragment();
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -84,6 +101,14 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isCheckedChangeByCode) {
+                turnOnOffNotification();
+            } else {
+                isCheckedChangeByCode = false;
+            }
+        });
 
     }
 
@@ -125,6 +150,77 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
                     }
                 }).pushView();
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isShowOnOffBackground) {
+            changeStateBackgroundSetting();
+        }
+    }
+
+    private Boolean isShowOnOffBackground = false;
+    private void turnOnOffNotification() {
+        try {
+            if (getActivity()!=null){
+                isShowOnOffBackground=true;
+
+
+                new MaterialAlertDialogBuilder(requireContext(),R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                        .setMessage(R.string.str_allow_running_background)
+                        .setPositiveButton("Cho phép", (dialog, which) -> {
+                            isShowOnOffBackground = false;
+                            Intent intent = new Intent();
+                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("Hủy", (dialog, which) -> {
+                            isShowOnOffBackground = false;
+                            changeStateBackgroundSetting();
+                        })
+                        .setOnCancelListener(dialog -> {
+                            isShowOnOffBackground = false;
+                            changeStateBackgroundSetting();
+                        })
+                        .show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * check and change state allow background setting
+     */
+    private Boolean isCheckedChangeByCode = false;
+    private void changeStateBackgroundSetting() {
+
+        try {
+            int newState = 1;
+            String packageName = getActivity().getPackageName();
+            PowerManager pm = (PowerManager) getActivity().getSystemService(Context.POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                newState = 0;
+                // it is not enabled. Ask the user to do so from the settings.
+            }else {
+                newState = 1;
+                // good news! It works fine even in the background.
+            }
+
+            int currentState;
+
+            if (switchCompat.isChecked()) currentState = 1;
+            else  currentState = 0;
+
+            if (currentState != newState){
+                isCheckedChangeByCode=true;
+            }
+            switchCompat.setChecked(newState == 1);
+        }catch (Exception e){
+
         }
     }
 }

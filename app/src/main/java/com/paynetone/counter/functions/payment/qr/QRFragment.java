@@ -91,6 +91,10 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
                     tv_providers.setText(getResources().getString(R.string.str_qr_shopee));
                     tv_providers_logo.setText(getResources().getString(R.string.str_shoppe_pay));
                     break;
+                case Constants.PROVIDER_MOCA:
+                    img_logo.setImageResource(R.drawable.ic_moca);
+                    tv_providers.setText(getResources().getString(R.string.str_qr_moca));
+                    tv_providers_logo.setText(getResources().getString(R.string.str_moca));
             }
             if (img_qr_code.getVisibility()==View.VISIBLE){
                 Bitmap bitmap = BitmapUtils.generateQRBitmap(orderAddResponse.getReturnURL());

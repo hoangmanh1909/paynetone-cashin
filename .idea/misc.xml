@@ -13,23 +13,29 @@
         <entry key="..\:/Users/ADMIN/Desktop/paynetone-cashin/app/src/main/res/layout/item_dialog.xml" value="0.2453125" />
         <entry key="..\:/Users/ADMIN/Desktop/paynetone-cashin/app/src/main/res/layout/item_option_payment.xml" value="0.2453125" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_splashscreen.xml" value="0.1535" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/ic_outline_image_24.xml" value="0.1" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/bottom_with_draw.xml" value="0.30364583333333334" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/bottom_with_draw_wallet.xml" value="0.30364583333333334" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_account.xml" value="0.34923076923076923" />
-        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_home.xml" value="0.3546875" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_history.xml" value="0.20729166666666668" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_login.xml" value="0.17604166666666668" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_merchant.xml" value="0.17249240121580547" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_outward.xml" value="0.3546875" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_payment.xml" value="0.3546875" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_personal.xml" value="0.1" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_qr.xml" value="0.31302083333333336" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_qr_dynamic.xml" value="0.3546875" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_register.xml" value="0.3546875" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_request_otp.xml" value="0.2351851851851852" />
-        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_with_draw.xml" value="0.3546875" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_with_draw.xml" value="0.2" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_withdrwaw_history.xml" value="0.20729166666666668" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/item_dialog.xml" value="0.3546875" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.116" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

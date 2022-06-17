@@ -14,6 +14,7 @@ import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.BaseRequest;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
+import com.paynetone.counter.utils.Constants;
 import com.paynetone.counter.utils.SharedPref;
 
 import java.util.List;
@@ -51,7 +52,9 @@ public class HomePresenter extends Presenter<HomeContract.View, HomeContract.Int
 
     @Override
     public void getBalance() {
-        if (paynetModel.getBusinessType() == 3) {
+        if (paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_PERSONAL ||
+                paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_VIETLOTT ||
+                paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_SYNTHETIC) {
             BaseRequest baseRequest = new BaseRequest();
             baseRequest.setMerchantID(paynetModel.getMerchantID());
             mInteractor.getBalance(baseRequest, new CommonCallback<SimpleResult>((Activity) mContainerView) {
