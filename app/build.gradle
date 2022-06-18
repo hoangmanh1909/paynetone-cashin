@@ -31,8 +31,8 @@ android {
         applicationId "com.paynetone.counter"
         minSdkVersion project.minSdkVersion as int
         targetSdkVersion project.targetSdkVersion as int
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

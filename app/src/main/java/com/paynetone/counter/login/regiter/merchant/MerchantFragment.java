@@ -40,6 +40,8 @@ import com.paynetone.counter.model.BaseDialogModel;
 import com.paynetone.counter.model.DictionaryModel;
 import com.paynetone.counter.model.EmployeeModel;
 import com.paynetone.counter.model.MerchantModel;
+import com.paynetone.counter.model.PaymentModel;
+import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.RegisterPassDataModel;
 import com.paynetone.counter.model.request.MerchantAddNewRequest;
 import com.paynetone.counter.model.response.DictionaryBusinessServiceResponse;
@@ -172,6 +174,11 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 btn_ok.setVisibility(View.VISIBLE);
             }
         }
+        PaynetModel paynetModel = new SharedPref(getActivity()).getPaynet();
+
+        if (paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_VIETLOTT ||
+                paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_SYNTHETIC) btn_ok.setVisibility(View.GONE);
+
     }
 
     @OnClick({R.id.auto_business_service, R.id.auto_province, R.id.auto_district, R.id.auto_ward,
@@ -349,10 +356,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         req.setServiceType("1");
         req.setMobileNumber(dataModel.getMobileNumber());
         req.setName(dataModel.getMerchantName());
-//        req.setEmail(dataModel.getEmail());
-//        req.setProvinceID(province.getId());
-//        req.setDistrictID(district.getId());
-//        req.setWardID(ward.getId());
         if (!TextUtils.isEmpty(edt_address.getText()))
             req.setAddress(edt_address.getText().toString());
         req.setRepresentativeName(edt_name.getText().toString());
@@ -384,15 +387,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         if (mBusinessService == null) {
             return new VerificationError("Bạn chưa Chọn Loại dịch vụ hàng hóa");
         }
-//        if (province == null) {
-//            return new VerificationError("Bạn chưa Chọn Tỉnh/Thành phố");
-//        }
-//        if (district == null) {
-//            return new VerificationError("Bạn chưa Chọn Quận/Huyện");
-//        }
-//        if (ward == null) {
-//            return new VerificationError("Bạn chưa Chọn Phường/Xã");
-//        }
         if (TextUtils.isEmpty(edt_name.getText())) {
             return new VerificationError("Bạn chưa nhập Họ tên người đại diện");
         }
@@ -486,9 +480,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
 
     @Override
     public void showMerchant(MerchantModel model) {
-//        disableTextInput(false);
-//        if (!TextUtils.isEmpty(model.getBusinessServiceName()))
-//            auto_business_service.setText(model.getBusinessServiceName());
         mMerchantModel = model;
         dataModel = new RegisterPassDataModel();
         dataModel.setMerchantName(model.getName());
@@ -497,10 +488,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
         mBusinessService.setValue(model.getBusinessServiceID().toString());
         mBusinessService.setText(model.getBusinessServiceName());
         auto_business_service.setText(mBusinessService.getText());
-//        auto_province.setText(model.getProvinceName());
-//        auto_district.setText(model.getDistrictName());
-//        auto_ward.setText(model.getWardName());
-//        auto_bank.setText(model.getPaymentAccountBankName());
         bankModel = new BankModel();
         for (BankModel bankModel1 : bankModels) {
             if (bankModel1.getId().toString().equals(model.getPaymentAccountBank())) {
@@ -560,8 +547,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 tv_status.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.order_status_c));
                 break;
         }
-        if (businessType==Constants.BUSINESS_TYPE_SYNTHETIC
-                || businessType==Constants.BUSINESS_TYPE_VIETLOTT) btn_ok.setVisibility(View.GONE);
     }
 
     @Override
