@@ -52,12 +52,6 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     TextInputEditText edt_note;
     @BindView(R.id.recycle)
     RecyclerView recycle;
-//    @BindView(R.id.rd_zalopay)
-//    RadioButton rd_zalopay;
-//    @BindView(R.id.rd_viettel_pay)
-//    RadioButton rd_viettel_pay;
-//    @BindView(R.id.rd_shoppe_pay)
-//    RadioButton rd_shoppe_pay;
 
     SharedPref sharedPref;
     EmployeeModel employeeModel;
@@ -197,20 +191,10 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
             case R.id.rootView:
                 AppUtils.hideKeyboard(v);
                 break;
-//            case R.id.rd_zalopay:
-//                rd_viettel_pay.setChecked(!rd_zalopay.isChecked());
-//                break;
-//            case R.id.rd_viettel_pay:
-//                rd_zalopay.setChecked(!rd_viettel_pay.isChecked());
-//                break;
         }
     }
 
     private void ok() {
-//        if (TextUtils.isEmpty(edt_mobile_number.getText())) {
-//            Toast.showToast(requireContext(), "Bạn chưa nhập Số điện thoại");
-//            return;
-//        }
         if (TextUtils.isEmpty(edt_amount.getText())) {
             Toast.showToast(requireContext(), "Bạn chưa nhập Số tiền");
             return;
@@ -234,6 +218,9 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                     break;
                 case Constants.PAYMENT_MOCA:
                     req.setProviderCode(Constants.PROVIDER_MOCA);
+                    break;
+                case Constants.PAYMENT_VIETQR:
+                    req.setProviderCode(Constants.PROVIDER_VIETQR);
                     break;
             }
         }
@@ -266,6 +253,10 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                     break;
                 case Constants.PAYMENT_MOCA:
                     req.setPaymentType(Constants.PAYMENT_TYPE_MOCA);
+                    break;
+                case Constants.PAYMENT_VIETQR:
+                    req.setPaymentType(Constants.PAYMENT_TYPE_VIETQR);
+                    break;
             }
         }
         req.setPaymentCate(2);

@@ -50,6 +50,7 @@ android {
 
         }
         release {
+//            debuggable true
             keyAlias 'key0'
             keyPassword '123456a@'
             storeFile file("../keystore/paynetone.jks")
@@ -78,7 +79,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+//            minifyEnabled true
+            debuggable true
+//            shrinkResources true
+//            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

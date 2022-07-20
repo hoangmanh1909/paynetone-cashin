@@ -45,6 +45,7 @@ public class Constants {
     public static final String PROVIDER_SHOPPE = "SHOPEE";
     public static final String PROVIDER_VN_PAY = "VNPAY";
     public static final String PROVIDER_MOCA = "GRAB";
+    public static final String PROVIDER_VIETQR = "VIETQR";
 
     public static final String HOME_QR = "HOME_QR";
     public static final String HOME_HISTORY = "HOME_HISTORY";
@@ -63,6 +64,7 @@ public class Constants {
     public static final int PAYMENT_TYPE_ZALO=4;
     public static final int PAYMENT_TYPE_VN_PAY=6;
     public static final int PAYMENT_TYPE_MOCA =7;
+    public static final int PAYMENT_TYPE_VIETQR =8;
 
     public static final String FORMALITY_TYPE_ONLINE = "1";
     public static final String FORMALITY_TYPE_OFFLINE = "2";
@@ -93,6 +95,7 @@ public class Constants {
     public static final int PAYMENT_SHOPPE_PAY = 3;
     public static final int PAYMENT_VN_PAY = 4;
     public static final int PAYMENT_MOCA = 5;
+    public static final int PAYMENT_VIETQR = 6;
 
     public static final int WITHDRAW_CATEGORY_BANK = 1;  // rút tiền ngân hàng
     public static final int WITHDRAW_CATEGORY_VIETLOTT = 2;  // rút tiền vietlott

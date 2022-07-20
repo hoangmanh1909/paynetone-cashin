@@ -28,4 +28,9 @@ public class WithDrawInteractor extends Interactor<WithDrawContract.Presenter>
     public void withdraw(WithdrawRequest withdrawRequest, CommonCallback<SimpleResult> callback) {
         NetWorkController.withdraw(withdrawRequest, callback);
     }
+
+    @Override
+    public void getByMobileNumber(String mobileNumber, CommonCallback<SimpleResult> callback) {
+        NetWorkController.getByMobileNumber(mobileNumber,callback);
+    }
 }

@@ -3,6 +3,7 @@ package com.paynetone.counter.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.core.base.log.Logger;
 import com.paynetone.counter.model.EmployeeModel;
@@ -90,9 +91,9 @@ public class SharedPref {
 
     public void clear() {
         try {
+            editor.remove(Constants.KEY_ANDROID_PAYMENT_MODE);
             editor.remove(Constants.KEY_PAYNET);
             editor.remove(Constants.KEY_SHARE_PREFERENCES);
-            editor.remove(Constants.KEY_ANDROID_PAYMENT_MODE);
             editor.remove(Constants.KEY_EMPLOYEE);
             editor.remove(PrefConst.PREF_IS_LOGIN);
             editor.commit();

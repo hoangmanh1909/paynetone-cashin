@@ -3,6 +3,7 @@ package com.paynetone.counter.functions.payment.qr;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,7 +64,7 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
             tvCode.setText(getResources().getString(R.string.str_code_order).concat( orderAddResponse.getOrderCode()));
             tv_amount.setText(NumberUtils.formatPriceNumber(mOrderAddRequest.getAmount()) + "đ");
 
-            if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_SHOPPE)) {
+            if (mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_SHOPPE) || mOrderAddRequest.getProviderCode().equals(Constants.PROVIDER_VIETQR)) {
                 wb_shoppe.setVisibility(View.VISIBLE);
                 img_qr_code.setVisibility(View.GONE);
             }else {
@@ -95,6 +96,11 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
                     img_logo.setImageResource(R.drawable.ic_moca);
                     tv_providers.setText(getResources().getString(R.string.str_qr_moca));
                     tv_providers_logo.setText(getResources().getString(R.string.str_moca));
+                    break;
+                case Constants.PROVIDER_VIETQR:
+                    img_logo.setImageResource(R.drawable.ic_viet_qr);
+                    tv_providers.setText(getResources().getString(R.string.str_viet_qr));
+                    tv_providers_logo.setText(getResources().getString(R.string.str_viet_qr));
             }
             if (img_qr_code.getVisibility()==View.VISIBLE){
                 Bitmap bitmap = BitmapUtils.generateQRBitmap(orderAddResponse.getReturnURL());
@@ -102,7 +108,11 @@ public class QRFragment extends ViewFragment<QRContract.Presenter> implements QR
             }else {
                 wb_shoppe.getSettings().setJavaScriptEnabled(true);
                 wb_shoppe.loadUrl(orderAddResponse.getReturnURL());
+                wb_shoppe.getSettings().setLoadWithOverviewMode(true);
+                wb_shoppe.getSettings().setUseWideViewPort(true);
             }
+
+
 
         }
     }

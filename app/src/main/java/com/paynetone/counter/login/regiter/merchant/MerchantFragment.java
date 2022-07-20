@@ -158,26 +158,33 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
     public void initLayout() {
         super.initLayout();
 //        disableTextInput(true);
-        rl_navigation_header.setVisibility(View.GONE);
-        rl_status.setVisibility(View.GONE);
-        btn_ok.setVisibility(View.GONE);
-        if (mPresenter != null) {
-            mode = mPresenter.getMode();
-            if (mode.equals(Constants.MERCHANT_MODE_VIEW) || mode.equals(Constants.MERCHANT_MODE_EDIT)) {
-                if (mode.equals(Constants.MERCHANT_MODE_EDIT)) {
-                    dataModel = mPresenter.getPassData();
-                    edt_mobile_number.setText(dataModel.getMobileNumber());
-                    rl_status.setVisibility(View.GONE);
-                } else  rl_status.setVisibility(View.VISIBLE);
+        try {
+            rl_navigation_header.setVisibility(View.GONE);
+            rl_status.setVisibility(View.GONE);
+            btn_ok.setVisibility(View.GONE);
+            if (mPresenter != null) {
+                mode = mPresenter.getMode();
+                if (mode.equals(Constants.MERCHANT_MODE_VIEW) || mode.equals(Constants.MERCHANT_MODE_EDIT)) {
+                    if (mode.equals(Constants.MERCHANT_MODE_EDIT)) {
+                        dataModel = mPresenter.getPassData();
+                        edt_mobile_number.setText(dataModel.getMobileNumber());
+                        rl_status.setVisibility(View.GONE);
+                    } else  rl_status.setVisibility(View.VISIBLE);
 
-                rl_navigation_header.setVisibility(View.VISIBLE);
-                btn_ok.setVisibility(View.VISIBLE);
+                    rl_navigation_header.setVisibility(View.VISIBLE);
+                    btn_ok.setVisibility(View.VISIBLE);
+                }
             }
-        }
-        PaynetModel paynetModel = new SharedPref(getActivity()).getPaynet();
+            PaynetModel paynetModel = new SharedPref(getActivity()).getPaynet();
 
-        if (paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_VIETLOTT ||
-                paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_SYNTHETIC) btn_ok.setVisibility(View.GONE);
+            if (paynetModel!=null){
+                if (paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_VIETLOTT ||
+                        paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_SYNTHETIC) btn_ok.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
 
     }
 

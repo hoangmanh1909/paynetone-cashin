@@ -4,6 +4,7 @@ import com.core.base.viper.interfaces.IInteractor;
 import com.core.base.viper.interfaces.IPresenter;
 import com.core.base.viper.interfaces.PresentView;
 import com.paynetone.counter.model.BankModel;
+import com.paynetone.counter.model.MerchantModel;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.WithdrawRequest;
 import com.paynetone.counter.model.response.WalletResponse;
@@ -18,16 +19,20 @@ public interface WithDrawContract {
         void getWallet(CommonCallback<SimpleResult> callback);
 
         void withdraw(WithdrawRequest withdrawRequest, CommonCallback<SimpleResult> callback);
+
+        void getByMobileNumber(String mobileNumber, CommonCallback<SimpleResult> callback);
     }
 
     interface View extends PresentView<WithDrawContract.Presenter> {
         void showBanks(List<BankModel> bankModels);
         void showSuccess(String retRefNumber);
         void showListWallet(List<WalletResponse> walletResponseList);
+        void showMerchant(MerchantModel model);
     }
 
     interface Presenter extends IPresenter<WithDrawContract.View, WithDrawContract.Interactor> {
         void withdraw(WithdrawRequest withdrawRequest);
         void getWallet();
+        void getByMobileNumber(String mobileNumber);
     }
 }

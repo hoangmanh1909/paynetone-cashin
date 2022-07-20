@@ -86,6 +86,7 @@ public class HistoryAdapter extends RecyclerBaseAdapter {
             }else if (item.getProviderCode().equals(Constants.PROVIDER_VN_PAY)){
                 img_logo.setImageResource(R.drawable.ic_vnpay);
             }else if (item.getProviderCode().equals(Constants.PROVIDER_MOCA)) img_logo.setImageResource(R.drawable.ic_moca);
+            else if (item.getProviderCode().equals(Constants.PROVIDER_VIETQR)) img_logo.setImageResource(R.drawable.ic_viet_qr);
             else img_logo.setImageResource(R.drawable.ic_shoppe_pay);
 
 

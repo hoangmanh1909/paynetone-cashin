@@ -32,6 +32,7 @@ import com.paynetone.counter.functions.withdraw.history.HistoryPresenter;
 import com.paynetone.counter.home.HomeContract;
 import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.EmployeeModel;
+import com.paynetone.counter.model.MerchantModel;
 import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.SelectWithDraw;
 import com.paynetone.counter.model.request.WithdrawRequest;
@@ -118,6 +119,7 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
         sharedPref = new SharedPref(requireActivity());
         employeeModel = sharedPref.getEmployeeModel();
         paynetModel = sharedPref.getPaynet();
+        mPresenter.getByMobileNumber(employeeModel.getMobileNumber());
         initView();
 
         amountOutward = requireActivity().getIntent().getLongExtra(Constants.AMOUNT_OUTWARD, 0);
@@ -169,10 +171,10 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     }
     private void initView(){
         try {
-            tv_full_name_personal_bank.setText(employeeModel.getPaymentAccName());
-            tv_name_account_number_bank.setText(employeeModel.getPaymentAccNo());
+//            tv_full_name_personal_bank.setText(employeeModel.getPaymentAccName());
+//            tv_name_account_number_bank.setText(employeeModel.getPaymentAccNo());
             tv_name_post_id_vietlott.setText(paynetModel.getPosID());
-            tv_name_bank.setText(employeeModel.getBankName());
+//            tv_name_bank.setText(employeeModel.getBankName());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -253,6 +255,14 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
         this.walletResponses.addAll(walletResponseList ==null ? new ArrayList<>():walletResponseList);
         showBottomSheetWallet();
     }
+
+    @Override
+    public void showMerchant(MerchantModel model) {
+        tv_full_name_personal_bank.setText(model.getPaymentAccountName());
+        tv_name_account_number_bank.setText(model.getPaymentAccountNumber());
+        tv_name_bank.setText(model.getPaymentAccountBankName());
+    }
+
     private void showBottomSheetWallet(){
         SelectWithDrawWalletBottom bottom =  SelectWithDrawWalletBottom.getInstance(walletResponses);
         bottom.show(getChildFragmentManager(),"SelectWithDrawWalletBottom");

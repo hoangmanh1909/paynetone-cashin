@@ -24,7 +24,7 @@
     <string name="str_confirm">Xác nhận</string>
     
     //framgent login
-    <string name="str_allow_account_personal_and_stall_login">Chỉ tài khoản có loại hình  kinh doanh cá nhân và tài khoản quầy mới đăng nhập vào app được</string>
+    <string name="str_allow_account_personal_and_stall_login">Chỉ tài khoản cá nhân và tài khoản quầy mới được đăng nhập vào app</string>
 
     //qr dynamic fragment
     <string name="str_title_qr_dynamic">Tạo mã QR Code thanh toán</string>
@@ -33,6 +33,7 @@
     <string name="str_shoppe_pay">ShoppePay</string>
     <string name="str_vn_pay">VNPay</string>
     <string name="str_moca">Moca</string>
+    <string name="str_viet_qr">VietQR</string>
 
     //qr fragment
     <string name="str_qr_viettel">Sử dụng ứng dụng Viettel money để quét mã</string>
@@ -40,6 +41,7 @@
     <string name="str_qr_shopee">Sử dụng ứng dụng ShopeePay để quét mã</string>
     <string name="str_qr_vn_pay">Sử dụng ứng dụng VNPay để quét mã</string>
     <string name="str_qr_moca">Sử dụng ứng dụng Moca để quét mã</string>
+    <string name="str_qr_viet_qr">Sử dụng ứng dụng VietQR để quét mã</string>
     <string name="str_code_order">Mã đơn hàng:  </string>
 
     // merchant fragment

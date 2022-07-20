@@ -7,6 +7,7 @@ import com.core.base.viper.interfaces.ContainerView;
 import com.google.gson.reflect.TypeToken;
 import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.MerchantBalance;
+import com.paynetone.counter.model.MerchantModel;
 import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.BaseRequest;
@@ -31,6 +32,7 @@ public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDra
 
     @Override
     public void start() {
+
     }
 
     @Override
@@ -86,6 +88,28 @@ public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDra
             protected void onError(Call<SimpleResult> call, String message) {
                 super.onError(call, message);
                 mView.hideProgress();
+            }
+        });
+    }
+
+    @Override
+    public void getByMobileNumber(String mobileNumber) {
+        mInteractor.getByMobileNumber(mobileNumber, new CommonCallback<SimpleResult>((Activity) mContainerView) {
+            @Override
+            protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
+                super.onSuccess(call, response);
+
+                if ("00".equals(response.body().getErrorCode())) {
+                    MerchantModel model = NetWorkController.getGson().fromJson(response.body().getData(), MerchantModel.class);
+                    mView.showMerchant(model);
+                } else {
+                    mView.showAlertDialog(response.body().getMessage());
+                }
+            }
+
+            @Override
+            protected void onError(Call<SimpleResult> call, String message) {
+                super.onError(call, message);
             }
         });
     }

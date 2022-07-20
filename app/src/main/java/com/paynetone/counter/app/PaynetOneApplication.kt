@@ -68,7 +68,7 @@ class PaynetOneApplication : MultiDexApplication(), LifecycleObserver {
     override fun onLowMemory() {
         super.onLowMemory()
         try {
-            applicationScope?.cancel()
+            applicationScope?.cancelChildren()
         }catch (e:Exception){
             e.printStackTrace()
         }
