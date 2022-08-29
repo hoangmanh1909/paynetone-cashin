@@ -12,15 +12,19 @@ import android.view.Gravity;
 import android.widget.TextView;
 
 import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.core.utils.ContextUtils;
 import com.paynetone.counter.R;
+import com.paynetone.counter.dialog.ErrorDialog;
 import com.paynetone.counter.dialog.ProcessFragDialog;
 
 public class DialogUtils {
     private static final String TAG = DialogUtils.class.getSimpleName();
     private static volatile ProcessFragDialog progress;
     //private static volatile ProgressDialogGif progress;
+    private static volatile ErrorDialog errorDialog;
 
     private DialogUtils() {
 
@@ -305,6 +309,15 @@ public class DialogUtils {
                 .findViewById(android.R.id.message);
         if (messageView != null) {
             messageView.setGravity(Gravity.CENTER);
+        }
+    }
+    public static void showErrorDialog(String message, FragmentManager manager){
+        if (errorDialog == null) {
+            errorDialog = new ErrorDialog(message);
+        }
+
+        if (!errorDialog.isAdded() && !errorDialog.isVisible()){
+            errorDialog.show(manager,"ErrorDialog");
         }
     }
 

@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.core.base.viper.Presenter;
 import com.core.base.viper.interfaces.ContainerView;
 import com.paynetone.counter.model.SimpleResult;
+import com.paynetone.counter.model.request.GetProviderResponse;
 import com.paynetone.counter.model.request.OrderAddRequest;
 import com.paynetone.counter.model.response.OrderAddResponse;
 import com.paynetone.counter.model.OrderModel;
@@ -19,10 +20,11 @@ public class QRPresenter  extends Presenter<QRContract.View, QRContract.Interact
 
     OrderAddResponse mOrderAddResponse;
     OrderAddRequest mOrderAddRequest;
+    GetProviderResponse providerResponse;
 
-    public QRPresenter(ContainerView containerView, OrderAddResponse orderAddResponse,OrderAddRequest orderAddRequest) {
+    public QRPresenter(ContainerView containerView, OrderAddResponse orderAddResponse,OrderAddRequest orderAddRequest,GetProviderResponse providerResponse) {
         super(containerView);
-
+        this.providerResponse = providerResponse;
         this.mOrderAddResponse = orderAddResponse;
         this.mOrderAddRequest = orderAddRequest;
     }
@@ -36,6 +38,11 @@ public class QRPresenter  extends Presenter<QRContract.View, QRContract.Interact
     @Override
     public OrderAddRequest getOrderAddRequest() {
         return mOrderAddRequest;
+    }
+
+    @Override
+    public GetProviderResponse getProviderResponse() {
+        return providerResponse;
     }
 
     @Override

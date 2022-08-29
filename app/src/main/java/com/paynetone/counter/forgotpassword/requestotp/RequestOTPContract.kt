@@ -13,7 +13,6 @@ class RequestOTPContract {
     }
 
     interface View : PresentView<Presenter> {
-        fun showSuccess()
         fun showError(message: String?)
         fun showSuccessOTP()
     }

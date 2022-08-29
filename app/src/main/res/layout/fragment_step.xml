@@ -18,8 +18,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_15sdp"
+        android:padding="@dimen/_10sdp"
+        android:lineSpacingExtra="@dimen/_5sdp"
         android:textAlignment="center"
-        android:text="Chúc mừng bạn đã đăng ký tài khoản Paynet thành công"
+        android:text="Chúc mừng bạn đã đăng ký tài khoản Merchant Paynet One thành công"
         android:textSize="@dimen/_12sdp"/>
 </LinearLayout>

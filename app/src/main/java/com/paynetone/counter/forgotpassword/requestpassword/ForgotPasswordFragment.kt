@@ -1,7 +1,6 @@
 package com.paynetone.counter.forgotpassword.requestpassword
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -11,25 +10,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import com.core.base.viper.ViewFragment
 import com.paynetone.counter.R
 import com.paynetone.counter.databinding.FragmentForgotPasswordBinding
-import com.paynetone.counter.forgotpassword.requestotp.RequestOTPActivity
-import com.paynetone.counter.login.LoginActivity
+import com.paynetone.counter.dialog.ForgotPassWordSuccessDialog
+import com.paynetone.counter.model.request.ChangePassByOTPRequest
+import com.paynetone.counter.model.request.RequestOtp
 import com.paynetone.counter.model.request.UpdatePasswordRequest
-import com.paynetone.counter.utils.Constants
-import com.paynetone.counter.utils.Toast
-import com.paynetone.counter.utils.hideKeyboard
-import com.paynetone.counter.utils.setSingleClick
-import org.apache.commons.lang3.StringUtils
-import java.util.concurrent.TimeUnit
+import com.paynetone.counter.utils.*
+import com.paynetone.counter.utils.Constants.TYPE_GET_OTP_FORGOT_PASSWORD
 
 class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(), ForgotPasswordContract.View {
 
     private lateinit var binding: FragmentForgotPasswordBinding
     private lateinit var countDownTimer: CountDownTimer
     private val timer by lazy { (3 * 60 * 1000).toLong() }
+    private var isRunning = false
 
     companion object {
         val instance: ForgotPasswordFragment
@@ -46,6 +44,11 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
     }
 
     private fun initView(){
+        binding.apply {
+            val text = "Nhập mã xác thực <br> Quý khách vui lòng nhập mã OTP đã được  gửi về Zalo hoặc tin nhắn <br> vào số điện thoại <font color='#027FFE'>${hideTextPhone(mPresenter.phoneNumber())}</font>."
+            tvTitleOtp.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+        }
         countDownOTP(timer)
         onListener()
     }
@@ -54,32 +57,61 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
         binding.apply {
             btnSendRequest.setSingleClick {
                 if (confirmInput()){
-                    val phoneNumber = edtMobileNumber.text.toString().trim()
-                    val password = edtPassword.text.toString().trim()
-                    val otp = edtOtp.text.toString().trim()
-                    mPresenter.updatePassword(UpdatePasswordRequest(phoneNumber,password,Constants.TYPE_GET_OTP_REGISTER_ACCOUNT,otp))
+                    val password = edtPassword.text.toString()
+                    mPresenter.updatePassword(ChangePassByOTPRequest(mPresenter.phoneNumber(), opTPValue = otpView.otp.toString(), passwordNew = password))
                 }
-            }
-            tvLogin.setSingleClick {
-                activity?.finish()
-                countDownTimer.onFinish()
             }
             rootView.setSingleClick {
                 it.hideKeyboard()
             }
+
+            buttonPasswordToggle.setSingleClick {
+                edtPassword.passwordToggle(requireContext(),buttonPasswordToggle)
+            }
+            buttonConfirmPasswordToggle.setSingleClick {
+                edtConfirmPassword.passwordToggle(requireContext(),buttonConfirmPasswordToggle)
+            }
+            ivBack.setSingleClick {
+                activity?.finish()
+                countDownTimer.onFinish()
+            }
+            tvTimeRequest.setSingleClick {
+                if (!isRunning) mPresenter.getOTP(mPresenter.phoneNumber(),TYPE_GET_OTP_FORGOT_PASSWORD)
+
+            }
+            btnRequestOtp.setSingleClick {
+                if (validateOTP()){
+                    mPresenter.requestOtp(RequestOtp(mobileNumber = mPresenter.phoneNumber(), oTPValue = otpView.otp.toString()))
+                }
+            }
+
 
         }
     }
     override fun showError(message: String?) {
     }
 
-    override fun updatePasswordSuccess() {
-        Toast.showToast(requireContext(),resources.getString(R.string.str_change_password_success))
-        countDownTimer.onFinish()
-        Handler(Looper.getMainLooper()).postDelayed({
-            activity?.finish()
-        }, 750L)
+    override fun showSuccessOTP() {
+        countDownOTP(timer)
+    }
 
+    override fun updatePasswordSuccess() {
+        countDownTimer.onFinish()
+        ForgotPassWordSuccessDialog().show(childFragmentManager,"ForgotPasswordFragment")
+//        activity?.finish()
+
+    }
+
+    override fun requestOtpSuccess() {
+        try {
+            binding.apply {
+                countDownTimer.onFinish()
+                layoutRequestPassword.visibility = View.VISIBLE
+                layoutConfirmOtp.visibility = View.GONE
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     private fun countDownOTP(timer: Long) {
@@ -87,17 +119,21 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
             countDownTimer = object : CountDownTimer(timer, 1000) {
                 @SuppressLint("SetTextI18n")
                 override fun onTick(millisUntilFinished: Long) {
-                    var millisUntilFinished = millisUntilFinished
-                    val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
-                    millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes)
-                    val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
-                    val textTime = " ${resources.getString(R.string.str_opt_zalo_fragment_forgot_password)} <font color='#03A9F4'>${StringUtils.leftPad(minutes.toString(), 2, '0') + ":" + StringUtils.leftPad(seconds.toString(), 2, '0')}</font>"
-                    binding.tvZalo.setText(Html.fromHtml(textTime), TextView.BufferType.SPANNABLE)
+                    isRunning = true
+                    val seconds = millisUntilFinished/1000
+                    if (seconds==0L){
+                        val textTime = "<font color='#03A9F4'>\nGửi lại mã</font>"
+                        binding.tvTimeRequest.text = HtmlCompat.fromHtml(textTime, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                    }else{
+                        val textTime = "<font color='#03A9F4'>\nGửi lại mã (${seconds})</font>"
+                        binding.tvTimeRequest.text = HtmlCompat.fromHtml(textTime, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                    }
+
                 }
 
                 override fun onFinish() {
                     cancel()
-                    activity?.finish()
+                    isRunning = false
                 }
             }
             countDownTimer.start()
@@ -106,34 +142,42 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
         }
 
     }
-    private fun validatePhoneNumber(): Boolean {
-        val email = binding.edtMobileNumber.text.toString().trim()
-        if (email.isBlank()) {
-            Toast.showToast(requireContext(),resources.getString(R.string.str_not_enter_phone_number))
-            return false
-        }
-        return true
-    }
     private fun validatePassword(): Boolean {
-        val password = binding.edtPassword.text.toString().trim()
+        val password = binding.edtPassword.text.toString()
         if (password.isBlank()) {
             Toast.showToast(requireContext(),resources.getString(R.string.str_not_enter_password))
+            return false
+        }
+        if (password.length<6 || password.length>50) {
+            Toast.showToast(requireContext(),resources.getString(R.string.str_message_field_password_invalid))
+            return false
+        }
+        if (!Utils.passwordValidation(password)){
+            Toast.showToast(requireContext(),resources.getString(R.string.str_message_field_password_not_strong))
             return false
         }
         return true
 
     }
     private fun validateConfirmPassword(): Boolean {
-        val confirmPassword = binding.edtConfirmPassword.text.toString().trim()
+        val confirmPassword = binding.edtConfirmPassword.text.toString()
         if (confirmPassword.isBlank()) {
             Toast.showToast(requireContext(),resources.getString(R.string.str_not_enter_confirm_password))
+            return false
+        }
+        if (confirmPassword.length<6 || confirmPassword.length>50){
+            Toast.showToast(requireContext(),resources.getString(R.string.str_message_field_password_invalid))
+            return false
+        }
+        if (!Utils.passwordValidation(confirmPassword)){
+            Toast.showToast(requireContext(),resources.getString(R.string.str_message_field_password_not_strong))
             return false
         }
         return true
     }
     private fun validateNotMatchPassword() : Boolean{
-        val password = binding.edtPassword.text.toString().trim()
-        val confirmPassword = binding.edtConfirmPassword.text.toString().trim()
+        val password = binding.edtPassword.text.toString()
+        val confirmPassword = binding.edtConfirmPassword.text.toString()
         if (password != confirmPassword){
             Toast.showToast(requireContext(),resources.getString(R.string.str_not_match_password))
             return false
@@ -141,7 +185,7 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
         return true
     }
     private fun validateOTP():Boolean{
-        val otp = binding.edtOtp.text.toString().trim()
+        val otp = binding.otpView.otp.toString().trim()
         if (otp.isBlank()){
             Toast.showToast(requireContext(),resources.getString(R.string.str_not_enter_otp))
             return false
@@ -149,10 +193,18 @@ class ForgotPasswordFragment : ViewFragment<ForgotPasswordContract.Presenter>(),
         return true
     }
     private fun confirmInput(): Boolean {
-        if (!validatePhoneNumber() || !validatePassword() || !validateConfirmPassword() || !validateNotMatchPassword() ||!validateOTP()) {
+        if (!validatePassword() || !validateConfirmPassword() || !validateNotMatchPassword()) {
             return false
         }
         return true
+    }
+
+    private fun hideTextPhone(phone:String):String{
+        return if (phone.length<10 || phone.length>10){
+            ""
+        }else{
+            phone.replaceRange(3,8,"*****")
+        }
     }
 
     override fun onDestroy() {

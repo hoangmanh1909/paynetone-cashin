@@ -32,7 +32,21 @@ public class Constants {
     public static final String CMD_MERCHANT_ADD_NEW = "MERCHANT_ADD_NEW";
     public static final String CMD_MERCHANT_EDIT = "MERCHANT_EDIT";
     public static final String CMD_MERCHANT_GET_BY_MOBILE_NUMBER = "MERCHANT_GET_BY_MOBILE_NUMBER";
-    public static final String CMD_UPDATE_PASSWORD_BY_OTP="EMP_UPDATE_PASSWORD_BY_OTP";
+    public static final String EMP_UPDATE_PASSWORD ="EMP_UPDATE_PASSWORD";
+    public static final String EMP_OTP_VERIFY = "EMP_OTP_VERIFY";
+    public static final String DIC_GET_VI_TOPUP_ADDRESS = "DIC_GET_VI_TOPUP_ADDRESS";
+    public static final String TRANS_SEARCH = "TRANS_SEARCH";
+    public static final String DIC_GET_PROVIDERS ="DIC_GET_PROVIDERS";
+    public static final String PAYNET_GET_BY_PARENT ="PAYNET_GET_BY_PARENT";
+    public static final String PAYNET_GET_BALANCE_BY_ID  ="PAYNET_GET_BALANCE_BY_ID";
+    public static final String DIC_GET_POS  ="DIC_GET_POS";
+    public static final String EMP_UPDATE_PASSWORD_BY_OTP ="EMP_UPDATE_PASSWORD_BY_OTP";
+    public static final String EMP_PIN_ADD ="EMP_PIN_ADD";
+    public static final String EMP_PIN_VERIFY ="EMP_PIN_VERIFY";
+    public static final String EMP_PIN_HAS_OR_NOT ="EMP_PIN_HAS_OR_NOT";
+
+    public static final int SCREEN_WIDTH_DESIGN = 375;
+
 
     public static final String WEB_VIEW_URL = "WEB_VIEW_URL";
 
@@ -75,6 +89,8 @@ public class Constants {
 
 
     public static final int PNOLEVEL_STALL = 4; // tài khoản quầy
+    public static final int PNOLEVEL_STORE = 3; // tải khoản cửa hàng
+    public static final int PNOLEVEL_BRANCH = 2; // chi nhánh
     public static final int PNOLEVEL_MERCHANT = 1; // tài khoản merchant
 
     public static final int   BUSINESS_TYPE_ENTERPRISE = 1; // doanh nghiep
@@ -82,6 +98,11 @@ public class Constants {
     public static final int   BUSINESS_TYPE_PERSONAL = 3; //  cá nhân kinh doanh
     public static final int   BUSINESS_TYPE_VIETLOTT = 4; //cửa hàng xổ số vietlott
     public static final int   BUSINESS_TYPE_SYNTHETIC = 5; // cửa hàng xổ số tổng hợp
+
+    public static final String SERVICE_TYPE_QR = "1"; // thanh toán qr code
+    public static final String SERVICE_TYPE_TRA_SAU = "2"; // mua ngay - trả sau
+    public static final String QR_CODE_TINH = "1";
+    public static final String QR_CODE_DONG = "2";
 
     public static final int THRESHOLD_CLICK_TIME = 500;
 
@@ -100,6 +121,7 @@ public class Constants {
     public static final int WITHDRAW_CATEGORY_BANK = 1;  // rút tiền ngân hàng
     public static final int WITHDRAW_CATEGORY_VIETLOTT = 2;  // rút tiền vietlott
     public static final int WITHDRAW_CATEGORY_WALLET = 3; // rút tiền ví
+    public static final int WITHDRAW_CATEGORY_HAN_MUC = 4; // rút tiền han muc
 
     public static final String NOTIFICATION_COUNT = "notification_count";
     public static final String NOTIFICATION_DATA_TRANSFER = "TF_NotificationData";
@@ -112,19 +134,37 @@ public class Constants {
     public static final int BANK_ID_AGRI = 5;
     public static final int BANK_MB=6;
 
-    public static final String BANK_NAME_BIDV = "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam";
-    public static final String BANK_NAME_TECK = "Ngân hàng cổ phần thương mại kỹ thương";
-    public static final String BANK_NAME_VIETCOM = "Ngân hàng TMCP Ngoại Thương Việt Nam";
-    public static final String BANK_NAME_VIETIN = "Ngân hàng TPCP Công Thương Việt Nam";
-    public static final String BANK_NAME_AGRI = "Ngân hàng Nông nghiệp và Phát triển Việt Nam";
-    public static final String BANK_NAME_MB = "Ngân hàng Quân đội";
-
     // wallet
 
     public static final int WALLET_VIETTEL = 1;
     public static final int WALLET_ZALO = 2;
     public static final int WALLET_SHOPEE = 3;
     public static final int WALLET_MOMO = 4;
+
+    //
+    public static final int MERCHANT_ADMIN = 1;
+
+    public static final int ROLE_ADMIN = 1; // admin
+    public static final int ROLE_ACCOUNTANT = 2; // kế toán
+    public static final int ROLE_MANAGER_BRANCH = 3; // quản lý chi nhánh
+    public static final int ROLE_MANAGER_STORE= 4; // quản lý cửa hàng
+    public static final int ROLE_STAFF = 5; // nhân viên
+
+    public static final int TYPE_BANK = 1; // ngân hàng
+    public static final int TYPE_EWALLET = 2 ; // ví điện tử
+    public static final int TYPE_GTGT = 3; // dịch vụ gia tăng
+    public static final int TYPE_PAYMENT_QR = 4; // thanh toán qr
+
+    public static final int TYPE_TAB_MAIN_QR = 1 ; // tab thanh toán qr
+    public static final int TYPE_TAB_MAIN_SERVICE = 2; //tab dịch vụ gia tăng
+
+    public static final String PROVIDER_ACTIVE = "Y";
+    public static final String PROVIDER_NO_ACTIVE = "N";
+
+    public static final String EXIST_PIN_CODE = "Y"; // đã tồn tại pincode
+    public static final String NOT_EXIST_PIN_CODE = "N"; // chưa tạo pincode
+
+
 
 
 

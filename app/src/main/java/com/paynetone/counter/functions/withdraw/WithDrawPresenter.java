@@ -5,13 +5,13 @@ import android.app.Activity;
 import com.core.base.viper.Presenter;
 import com.core.base.viper.interfaces.ContainerView;
 import com.google.gson.reflect.TypeToken;
-import com.paynetone.counter.model.BankModel;
-import com.paynetone.counter.model.MerchantBalance;
 import com.paynetone.counter.model.MerchantModel;
-import com.paynetone.counter.model.PaynetModel;
+import com.paynetone.counter.model.ParamModel;
+import com.paynetone.counter.model.SelectWithDraw;
 import com.paynetone.counter.model.SimpleResult;
-import com.paynetone.counter.model.request.BaseRequest;
+import com.paynetone.counter.model.request.PaynetGetByParentRequest;
 import com.paynetone.counter.model.request.WithdrawRequest;
+import com.paynetone.counter.model.response.PaynetGetByParentResponse;
 import com.paynetone.counter.model.response.WalletResponse;
 import com.paynetone.counter.model.response.WithdrawResponse;
 import com.paynetone.counter.network.CommonCallback;
@@ -25,7 +25,6 @@ import retrofit2.Response;
 
 public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDrawContract.Interactor>
         implements WithDrawContract.Presenter {
-
     public WithDrawPresenter(ContainerView containerView) {
         super(containerView);
     }
@@ -113,4 +112,32 @@ public class WithDrawPresenter  extends Presenter<WithDrawContract.View, WithDra
             }
         });
     }
+
+    @Override
+    public void paynetGetByParentRequest(int parentID) {
+        try{
+            mInteractor.paynetGetByParentRequest(new PaynetGetByParentRequest(parentID), new CommonCallback<SimpleResult>((Activity) mContainerView) {
+                @Override
+                protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
+                    super.onSuccess(call, response);
+                    if ("00".equals(response.body().getErrorCode())) {
+                        ArrayList<PaynetGetByParentResponse> responses = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<ArrayList<PaynetGetByParentResponse>>(){}.getType());
+                        mView.showPaynetGetByParentRequest(responses);
+
+                    } else {
+                        mView.showPaynetGetByParentRequest(new ArrayList<>());
+                    }
+                }
+
+                @Override
+                protected void onError(Call<SimpleResult> call, String message) {
+                    mView.showPaynetGetByParentRequest(new ArrayList<>());
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

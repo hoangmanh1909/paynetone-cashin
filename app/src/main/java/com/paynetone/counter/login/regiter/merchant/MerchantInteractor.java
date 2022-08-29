@@ -1,10 +1,13 @@
 package com.paynetone.counter.login.regiter.merchant;
 
 import com.core.base.viper.Interactor;
+import com.paynetone.counter.model.PostIdRequest;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.MerchantAddNewRequest;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
+
+import okhttp3.MultipartBody;
 
 public class MerchantInteractor extends Interactor<MerchantContract.Presenter>
         implements MerchantContract.Interactor {
@@ -45,6 +48,11 @@ public class MerchantInteractor extends Interactor<MerchantContract.Presenter>
     }
 
     @Override
+    public void postImage(MultipartBody.Part body, CommonCallback<SimpleResult> callback) {
+        NetWorkController.postImage(body,callback);
+    }
+
+    @Override
     public void addMerchant(MerchantAddNewRequest request, CommonCallback<SimpleResult> callback) {
         NetWorkController.addMerchant(request, callback);
     }
@@ -57,5 +65,10 @@ public class MerchantInteractor extends Interactor<MerchantContract.Presenter>
     @Override
     public void getByMobileNumber(String mobileNumber, CommonCallback<SimpleResult> callback) {
         NetWorkController.getByMobileNumber(mobileNumber, callback);
+    }
+
+    @Override
+    public void getPostID(PostIdRequest request, CommonCallback<SimpleResult> callback) {
+        NetWorkController.getPostId(request, callback);
     }
 }

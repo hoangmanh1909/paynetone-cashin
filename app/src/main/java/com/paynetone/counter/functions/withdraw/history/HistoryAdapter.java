@@ -74,44 +74,56 @@ public class HistoryAdapter  extends RecyclerBaseAdapter {
         public void bindView(Object model, int position) {
             WithdrawSearchResponse item = (WithdrawSearchResponse)model;
 
-            tv_amount.setText(NumberUtils.formatPriceNumber(item.getAmount()) + "đ");
+            try {
+                tv_amount.setText(NumberUtils.formatPriceNumber(item.getAmount()) + "đ");
 //            tv_amount.setText(item.getMobileNumber());
-            tv_date.setText(item.getTransDate());
-            tv_code.setText(item.getRetRefNumber());
-            tv_full_name.setText(item.getFullName());
-            tv_status.setText(Utils.getStatusWithdrawName(item.getReturnCode()));
+                tv_date.setText(item.getTransDate());
+                tv_code.setText(item.getRetRefNumber());
+                tv_full_name.setText(item.getFullName());
+                tv_status.setText(Utils.getStatusWithdrawName(item.getReturnCode()));
 
-            switch (item.getWithDrawCatefory()){
-                case Constants.WITHDRAW_CATEGORY_BANK:
-                    tv_bank.setText(item.getBankShortName());
-                    tv_account_number.setText(item.getAccountNumber());
-                    break;
-                case Constants.WITHDRAW_CATEGORY_VIETLOTT:
-                    tv_bank.setText("Hạn mức Vietlott");
-                    tv_account_number.setText(paynetModel.getPosID());
-                    break;
-                case Constants.WITHDRAW_CATEGORY_WALLET:
-                    tv_bank.setText(item.getWalletName());
-                    tv_account_number.setText(item.getMobileNumber());
-                    break;
+                switch (item.getWithDrawCatefory()){
+                    case Constants.WITHDRAW_CATEGORY_BANK:
+                        tv_bank.setText(item.getBankShortName());
+                        tv_account_number.setText(item.getAccountNumber());
+                        break;
+                    case Constants.WITHDRAW_CATEGORY_VIETLOTT:
+                        tv_bank.setText("Hạn mức Vietlott");
+                        tv_account_number.setText(paynetModel.getPosID());
+                        break;
+                    case Constants.WITHDRAW_CATEGORY_WALLET:
+                        tv_bank.setText(item.getWalletName());
+                        tv_account_number.setText(item.getMobileNumber());
+                        break;
+                    case Constants.WITHDRAW_CATEGORY_HAN_MUC:
+                        tv_bank.setText("Tài khoản hạn mức");
+                        if (item.getShopCode().isEmpty())  tv_account_number.setText("");
+                        else tv_account_number.setText("Mã cửa hàng: "+item.getShopCode());
+                        tv_full_name.setText(item.getShopName());
+                        break;
 
+                }
+
+                switch (item.getReturnCode()){
+
+                    case 0:
+                        tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_s));
+                        break;
+                    case 1:
+                        tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_w));
+                        break;
+                    case 2:
+                        tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_status_2));
+                        break;
+                    default:
+                        tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_c));
+                        break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
-            switch (item.getReturnCode()){
 
-                case 0:
-                    tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_s));
-                    break;
-                case 1:
-                    tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_w));
-                    break;
-                case 2:
-                    tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_status_2));
-                    break;
-                default:
-                    tv_status.setBackground(ContextCompat.getDrawable(mContext, R.drawable.order_status_c));
-                    break;
-            }
 
         }
     }

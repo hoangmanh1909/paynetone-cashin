@@ -3,6 +3,7 @@ package com.paynetone.counter.functions.withdraw;
 import com.core.base.viper.Interactor;
 import com.paynetone.counter.home.HomeContract;
 import com.paynetone.counter.model.SimpleResult;
+import com.paynetone.counter.model.request.PaynetGetByParentRequest;
 import com.paynetone.counter.model.request.WithdrawRequest;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
@@ -32,5 +33,10 @@ public class WithDrawInteractor extends Interactor<WithDrawContract.Presenter>
     @Override
     public void getByMobileNumber(String mobileNumber, CommonCallback<SimpleResult> callback) {
         NetWorkController.getByMobileNumber(mobileNumber,callback);
+    }
+
+    @Override
+    public void paynetGetByParentRequest(PaynetGetByParentRequest request, CommonCallback<SimpleResult> callback) {
+        NetWorkController.paynetGetByParentRequest(request,callback);
     }
 }

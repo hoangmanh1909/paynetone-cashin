@@ -22,6 +22,39 @@ public class OrderSearchRequest {
     @SerializedName("MobileNumber")
     @Expose
     private Object mobileNumber;
+    @SerializedName("PaynetID")
+    @Expose
+    private int paynetID ;
+    @SerializedName("BranchCode")
+    @Expose
+    private String branchCode ;
+    @SerializedName("ShopCode")
+    @Expose
+    private String shopCode ;
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public String getShopCode() {
+        return shopCode;
+    }
+
+    public void setShopCode(String shopCode) {
+        this.shopCode = shopCode;
+    }
+
+    public int getPaynetID() {
+        return paynetID;
+    }
+
+    public void setPaynetID(int paynetID) {
+        this.paynetID = paynetID;
+    }
 
     public Integer getEmpID() {
         return empID;

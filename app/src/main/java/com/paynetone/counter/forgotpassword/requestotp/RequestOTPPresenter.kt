@@ -19,10 +19,10 @@ class RequestOTPPresenter(containerView: ContainerView) :
         mInteractor.getOTP(mobile, isForget,object : CommonCallback<SimpleResult>(mContainerView as Activity) {
                 override fun onSuccess(call: Call<SimpleResult>, response: Response<SimpleResult>) {
                     super.onSuccess(call, response)
-                    if ("00" == response.body().errorCode) {
+                    if ("00" == response.body()?.errorCode) {
                         mView.showSuccessOTP()
                     } else {
-                        mView.showError(response.body().message)
+                        mView.showError(response.body()?.message)
                     }
                 }
 

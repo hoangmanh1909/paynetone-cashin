@@ -20,6 +20,8 @@ import com.stepstone.stepper.Step;
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
+import java.util.ArrayList;
+
 public class StepperAdapter extends AbstractFragmentStepAdapter {
     Context mContext;
     RegisterPassData registerPassData;

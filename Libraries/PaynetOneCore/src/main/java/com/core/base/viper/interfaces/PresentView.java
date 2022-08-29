@@ -3,6 +3,7 @@ package com.core.base.viper.interfaces;
 import android.content.DialogInterface;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Views can present on a {@link ContainerView}
@@ -21,6 +22,8 @@ public interface PresentView<P extends IPresenter> extends IView<P> {
   void onNetworkError(boolean shouldShowPopup);
 
   void onRequestSuccess();
+
+  void showErrorDialog(String message, FragmentManager fragmentManager);
 
   FragmentManager getChildFragmentManager();
 

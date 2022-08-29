@@ -19,10 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.paynetone.counter.R;
 import com.paynetone.counter.adapter.BankDialogAdapter;
-import com.paynetone.counter.adapter.BaseDialogAdapter;
 import com.paynetone.counter.callback.BankDialogCallback;
 import com.paynetone.counter.model.BankModel;
-import com.paynetone.counter.model.BaseDialogModel;
 
 import java.util.List;
 

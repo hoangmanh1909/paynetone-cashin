@@ -10,7 +10,6 @@ import com.google.gson.reflect.TypeToken;
 import com.paynetone.counter.login.LoginActivity;
 import com.paynetone.counter.login.regiter.RegisterActivity;
 import com.paynetone.counter.model.EmployeeModel;
-import com.paynetone.counter.model.OrderModel;
 import com.paynetone.counter.model.ParamModel;
 import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.SimpleResult;
@@ -69,6 +68,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 super.onError(call, message);
             }
         });
+
+
 
 //        new Handler().postDelayed(() -> {
 //            /* Create an Intent that will start the Menu-Activity. */

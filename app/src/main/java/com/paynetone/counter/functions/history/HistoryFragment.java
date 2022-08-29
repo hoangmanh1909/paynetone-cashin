@@ -7,13 +7,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.core.base.viper.ViewFragment;
 import com.paynetone.counter.R;
+import com.paynetone.counter.dialog.FilterHistoryPaymentDialog;
 import com.paynetone.counter.model.OrderModel;
+import com.paynetone.counter.utils.SharedPref;
+import com.paynetone.counter.utils.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +35,8 @@ public class HistoryFragment extends ViewFragment<HistoryContract.Presenter> imp
     LinearLayout noData;
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.img_filter)
+    AppCompatImageView img_filter;
 
     HistoryAdapter mAdapter;
     List<OrderModel> mOrderModels;
@@ -49,7 +56,20 @@ public class HistoryFragment extends ViewFragment<HistoryContract.Presenter> imp
         mAdapter = new HistoryAdapter(getContext(), mOrderModels);
         recycle.setAdapter(mAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+
         iv_back.setOnClickListener(view -> mPresenter.back());
+
+        img_filter.setOnClickListener(v -> {
+            if (new SharedPref(requireContext()).isAccountStall()){
+                Toast.showToast(requireContext(),getString(R.string.str_not_authorized_function));
+            }else {
+                new FilterHistoryPaymentDialog(requireContext(), (branchID, storeID, stallID) -> {
+                    mAdapter.clear();
+                    mPresenter.orderSearchFilter(branchID,storeID,stallID);
+                }).show(getChildFragmentManager(),"HistoryFragment");
+            }
+
+        });
     }
 
     @Override

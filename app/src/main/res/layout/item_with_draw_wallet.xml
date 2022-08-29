@@ -20,10 +20,9 @@
                 android:id="@+id/img_wallet"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:background="@drawable/ic_momo" />
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginStart="@dimen/_20sdp" />
 
             <TextView
                 android:id="@+id/tv_name_wallet"

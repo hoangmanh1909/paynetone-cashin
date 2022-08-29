@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_title"
         style="@style/TextTitleRegister"
-        android:text="Thông tin tài khoản" />
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="1. Thông tin tài khoản"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,129 +27,212 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Tên merchant"
-                app:boxBackgroundColor="@color/white"
-                app:endIconMode="clear_text">
+                android:text="@string/str_name_merchant"
+                android:textSize="@dimen/_11sdp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizeRegister" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_name"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/bg_edt_forgot_password"
+                android:hint="@string/str_hint_name_merchant"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/textSizeRegister" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginRegister"
-                android:hint="Số điện thoại đăng nhập"
-                app:boxBackgroundColor="@color/white"
-                app:endIconMode="clear_text">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_name_email"
+                android:textSize="@dimen/_11sdp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_mobile_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:textSize="@dimen/textSizeRegister" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/bg_edt_forgot_password"
+                android:hint="@string/str_hint_name_email"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/textSizeRegister" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginRegister"
-                android:hint="Email"
-                android:visibility="gone"
-                app:boxBackgroundColor="@color/white"
-                app:endIconMode="clear_text">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_name_password"
+                android:textSize="@dimen/_11sdp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizeRegister" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginRegister"
-                android:hint="Mật khẩu"
-                app:boxBackgroundColor="@color/white"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatEditText
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/edt_password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:hint="@string/str_hint_name_password"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:inputType="textPassword"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
                     android:textSize="@dimen/textSizeRegister" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/button_password_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_hide_password"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
 
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginRegister"
-                android:hint="Nhập lại mật khẩu"
-                app:boxBackgroundColor="@color/white"
-                app:passwordToggleEnabled="true">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_name_confirm_password"
+                android:textSize="@dimen/_11sdp" />
 
-                <com.google.android.material.textfield.TextInputEditText
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatEditText
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/edt_re_password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:hint="@string/str_hint_name_confirm_password"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:inputType="textPassword"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
                     android:textSize="@dimen/textSizeRegister" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/button_confirm_password_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_hide_password"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <RelativeLayout
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_name_mobile_number"
+                android:textSize="@dimen/_11sdp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/bg_edt_forgot_password"
+                android:hint="@string/str_hint_name_mobile_number"
+                android:inputType="number"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/textSizeRegister" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_name_otp"
+                android:textSize="@dimen/_11sdp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginRegister">
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/bg_edt_forgot_password">
 
-                <com.google.android.material.textfield.TextInputLayout
-
-                    android:id="@+id/til_otp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/btn_otp"
-                    android:hint="Mã OTP"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_otp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:textSize="@dimen/textSizeRegister" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_otp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@null"
+                    android:hint="@string/str_hint_name_otp"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:maxLength="6"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/textSizeRegister"
+                    app:layout_constraintEnd_toStartOf="@id/btn_otp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/btn_otp"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="Lấy mã OTP"
+                    android:text="@string/str_name_request_otp"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/textSizeRegister" />
-            </RelativeLayout>
+                    android:textSize="@dimen/textSizeRegister"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_policy_terms"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_rules"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintStart_toEndOf="@id/checkbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
+
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.paynetone.counter.network;
 import android.accounts.AuthenticatorException;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.JsonSyntaxException;
 import com.paynetone.counter.R;
@@ -118,6 +119,7 @@ public class CommonCallback <T extends SimpleResult> implements Callback<T> {
         } else if (error instanceof JsonSyntaxException) {
             this.onError(call, "Dữ liệu trả về sai cấu trúc");
         } else {
+            Log.e(TAG, "onFailure: "+ error.getMessage() );
             this.onError(call, "Lỗi kết nối hệ thống");
         }
     }

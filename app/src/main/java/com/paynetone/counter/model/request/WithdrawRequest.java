@@ -46,6 +46,29 @@ public class WithdrawRequest {
     @SerializedName("PosID")
     @Expose
     private String posID ;
+    @SerializedName("ShopID")
+    @Expose
+    private String shopId;
+
+    @SerializedName("ProviderAcntID")
+    @Expose
+    private int providerAcntID=0;
+
+    public int getProviderAcntID() {
+        return providerAcntID;
+    }
+
+    public void setProviderAcntID(int providerAcntID) {
+        this.providerAcntID = providerAcntID;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
 
     public String getPosID() {
         return posID;

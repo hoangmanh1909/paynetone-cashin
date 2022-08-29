@@ -13,8 +13,4 @@ public class HomeInteractor extends Interactor<HomeContract.Presenter>
         super(presenter);
     }
 
-    @Override
-    public void getBalance(BaseRequest baseRequest, CommonCallback<SimpleResult> callback) {
-        NetWorkController.getBalance(baseRequest, callback);
-    }
 }

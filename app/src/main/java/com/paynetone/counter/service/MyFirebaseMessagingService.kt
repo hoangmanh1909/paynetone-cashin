@@ -8,24 +8,28 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.paynetone.counter.R
 import com.paynetone.counter.main.MainActivity
 import com.paynetone.counter.utils.Constants
 import com.paynetone.counter.utils.Constants.NOTIFICATION_COUNT
+import com.paynetone.counter.utils.ExtraConst
 import com.paynetone.counter.utils.SharedPref
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-//    private var broadcaster : LocalBroadcastManager?=null
+    private var broadcaster: LocalBroadcastManager? = null
 
     override fun onCreate() {
         super.onCreate()
-//        broadcaster = LocalBroadcastManager.getInstance(this)
+        broadcaster = LocalBroadcastManager.getInstance(this)
     }
+
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
 
@@ -35,6 +39,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         try {
             val data = Bundle()
             for ((key, value) in remoteMessage.data) {
+                Log.e("TAG", "key: ${key} value: $value", )
                 data.putString(key, value)
             }
 
@@ -52,15 +57,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val body = data.getString("body") ?: ""
 
             var currentId: Int =
-                SharedPref.getInstance(applicationContext).getInt(NOTIFICATION_COUNT,0)
+                SharedPref.getInstance(applicationContext).getInt(NOTIFICATION_COUNT, 0)
             currentId++
-            SharedPref.getInstance(applicationContext).putInt(NOTIFICATION_COUNT,currentId);
+            SharedPref.getInstance(applicationContext).putInt(NOTIFICATION_COUNT, currentId);
             val context = applicationContext
             val defaultAction = Intent(context, MainActivity::class.java)
                 .setAction(Intent.ACTION_DEFAULT)
                 .putExtra(Constants.NOTIFICATION_DATA_TRANSFER, data)
             defaultAction.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK);
-            val mBuilder = NotificationCompat.Builder(context,channelId)
+            val mBuilder = NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.mipmap.ic_app)
 //                        .setColor(ContextCompat.getColor(this,R.color.colorMain))
                 .setContentTitle(title)
@@ -77,14 +82,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         PendingIntent.FLAG_UPDATE_CURRENT
                     )
                 )
-            mNotificationManager.notify(currentId,mBuilder.build())
-//                    val intent = Intent("notify-receive-listener");
-//                    broadcaster?.sendBroadcast(intent)
+            mNotificationManager.notify(currentId, mBuilder.build())
+            val intent = Intent("notify-receive-listener")
+            intent.putExtra(ExtraConst.EXTRA_MESSAGE,data.getString("message"))
+            broadcaster?.sendBroadcast(intent)
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleNotificationAndroidO(
         notificationManager: NotificationManager,

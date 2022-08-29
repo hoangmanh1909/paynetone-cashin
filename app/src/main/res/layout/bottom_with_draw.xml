@@ -104,9 +104,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_han_muc"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/layout_vietlott"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_tick_han_muc"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_circle_tick"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_marginStart="@dimen/_20sdp"
+                android:background="@drawable/ic_han_muc"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"/>
+            <TextView
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/colorBlack1"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:text="@string/str_with_draw_han_muc"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
         <View
             android:id="@+id/viewFooter"
-            app:layout_constraintTop_toBottomOf="@id/layout_vietlott"
+            app:layout_constraintTop_toBottomOf="@id/layout_han_muc"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_20sdp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

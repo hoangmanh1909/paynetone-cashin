@@ -3,7 +3,9 @@ package com.paynetone.counter.login;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import com.core.base.viper.ViewFragment;
 import com.core.utils.AppUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.paynetone.counter.dialog.SelectBusinessTypeDialog;
 import com.paynetone.counter.forgotpassword.requestotp.RequestOTPActivity;
@@ -40,6 +43,11 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
     SharedPref sharedPref;
     String firebaseToken = "";
 
+    @BindView(R.id.textFieldPassword)
+    TextInputLayout textFieldPassword;
+    @BindView(R.id.textFieldMobileNumber)
+    TextInputLayout textFieldMobileNumber;
+
     public static LoginFragment getInstance() {
         return new LoginFragment();
     }
@@ -58,22 +66,19 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
         if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
             ll_register.setVisibility(View.VISIBLE);
         }
-        getFirebaseMessageToken();
+        changeTextListener();
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register,R.id.rootView,R.id.tv_forgot_password})
     public void OnClick(View view) {
+        if (!isClickAble()) return;
         switch (view.getId()) {
             case R.id.btn_login:
                 login();
                 break;
             case R.id.btn_register:
-                SelectBusinessTypeDialog dialog = new SelectBusinessTypeDialog(requireContext(), () -> {
-                    Intent intent = new Intent(requireActivity(),RegisterActivity.class);
-                    startActivity(intent);
-                });
-                dialog.setCancelable(true);
-                dialog.show();
+                Intent intent = new Intent(requireActivity(),RegisterActivity.class);
+                startActivity(intent);
                 clearInputValidate();
                 break;
             case R.id.rootView:
@@ -87,27 +92,72 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
     }
 
     private void login() {
+        textFieldMobileNumber.setError("");
+        textFieldPassword.setError("");
         String phoneNumber = Objects.requireNonNull(edtPhoneNumber.getText()).toString();
         String passWord = Objects.requireNonNull(edtPass.getText()).toString();
         if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.showToast(getActivity(), getString(R.string.error_empty_phone));
+            textFieldMobileNumber.setError(getString(R.string.error_empty_phone));
             return;
         }
         if (!org.apache.commons.lang3.math.NumberUtils.isDigits(phoneNumber) || phoneNumber.contains(".") || phoneNumber.contains(",")) {
-            Toast.showToast(getActivity(), getString(R.string.error_warning_phone));
+            textFieldMobileNumber.setError(getString(R.string.error_warning_phone));
             return;
         }
         String phone = NumberUtils.convertVietNamPhoneNumber(phoneNumber);
         if (phone.length() != 10) {
-            Toast.showToast(getActivity(), getString(R.string.error_warning_phone));
+            textFieldMobileNumber.setError(getString(R.string.error_warning_phone));
             return;
         }
         if (TextUtils.isEmpty(passWord)) {
-            Toast.showToast(getActivity(), getString(R.string.error_password_empty));
+            textFieldPassword.setError(getString(R.string.error_password_empty));
             return;
         }
-
+//        if (passWord.length()<6){
+//            textFieldPassword.setError(getString(R.string.message_field_password_invalid));
+//            return;
+//        }
+        getFirebaseMessageToken();
         mPresenter.login(phone, passWord,firebaseToken);
+    }
+
+    private void changeTextListener(){
+        edtPhoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String mobile = s.toString();
+                if (mobile.length()>0) textFieldMobileNumber.setError("");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edtPass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String mobile = s.toString();
+                if (mobile.length()>0) textFieldPassword.setError("");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -150,4 +200,6 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
         edtPass.setText("");
         edtPass.clearFocus();
     }
+
+
 }

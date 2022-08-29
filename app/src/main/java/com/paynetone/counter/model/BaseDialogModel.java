@@ -19,4 +19,12 @@ public class BaseDialogModel {
     public void setText(String text) {
         this.text = text;
     }
+
+    public BaseDialogModel(String value, String text) {
+        this.value = value;
+        this.text = text;
+    }
+
+    public BaseDialogModel() {
+    }
 }

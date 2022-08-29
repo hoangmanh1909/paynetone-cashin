@@ -6,6 +6,7 @@ import com.core.base.viper.interfaces.PresentView;
 import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.DictionaryModel;
 import com.paynetone.counter.model.MerchantModel;
+import com.paynetone.counter.model.PostIdRequest;
 import com.paynetone.counter.model.RegisterPassDataModel;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.MerchantAddNewRequest;
@@ -13,6 +14,8 @@ import com.paynetone.counter.model.response.DictionaryBusinessServiceResponse;
 import com.paynetone.counter.network.CommonCallback;
 
 import java.util.List;
+
+import okhttp3.MultipartBody;
 
 public interface MerchantContract {
     interface Interactor extends IInteractor<MerchantContract.Presenter> {
@@ -28,11 +31,15 @@ public interface MerchantContract {
 
         void postImage(String filePath, CommonCallback<SimpleResult> callback);
 
+        void postImage(MultipartBody.Part body,CommonCallback<SimpleResult> callback);
+
         void addMerchant(MerchantAddNewRequest request, CommonCallback<SimpleResult> callback);
 
         void editMerchant(MerchantAddNewRequest request, CommonCallback<SimpleResult> callback);
 
         void getByMobileNumber(String mobileNumber, CommonCallback<SimpleResult> callback);
+
+        void getPostID(PostIdRequest request, CommonCallback<SimpleResult> callback);
     }
 
     interface View extends PresentView<MerchantContract.Presenter> {
@@ -57,6 +64,7 @@ public interface MerchantContract {
         void showMerchant(MerchantModel model);
 
         void gotoSplashWhenUpdateMerchant();
+        void showPostId(int postId);
     }
 
     interface Presenter extends IPresenter<MerchantContract.View, MerchantContract.Interactor> {
@@ -70,8 +78,12 @@ public interface MerchantContract {
 
         void postImage(String filePath);
 
+        void postImage(MultipartBody.Part body);
+
         void addMerchant(MerchantAddNewRequest request);
 
         void editMerchant(MerchantAddNewRequest request);
+
+        void getPostId(int id);
     }
 }

@@ -85,6 +85,17 @@ public class OrderAddRequest {
     @SerializedName("MerchantID")
     @Expose
     private int merchantID;
+    @SerializedName("ProviderAcntID")
+    @Expose
+    private int providerAcntID;
+
+    public int getProviderAcntID() {
+        return providerAcntID;
+    }
+
+    public void setProviderAcntID(int providerAcntID) {
+        this.providerAcntID = providerAcntID;
+    }
 
     public int getMerchantID() {
         return merchantID;

@@ -3,6 +3,7 @@ package com.paynetone.counter.functions.payment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.core.base.viper.Presenter;
 import com.core.base.viper.interfaces.ContainerView;
@@ -65,11 +66,12 @@ public class PaymentPresenter extends Presenter<PaymentContract.View, PaymentCon
                 super.onSuccess(call, response);
 
                 if ("00".equals(response.body().getErrorCode())) {
+                    Log.e("TAG", "onSuccess: 121" );
                     OrderAddResponse orderAddResponse = NetWorkController.getGson().fromJson(response.body().getData(), OrderAddResponse.class);
 //                    Intent intent = new Intent(activity, QRActivity.class);
 //                    intent.putExtra(Constants.WEB_VIEW_URL,orderAddResponse.getReturnURL());
 //                    activity.startActivity(intent);
-                    new QRPresenter(mContainerView, orderAddResponse, mOrderAddRequest).pushView();
+//                    new QRPresenter(mContainerView, orderAddResponse, mOrderAddRequest).pushView();
                 } else {
                     mView.showAlertDialog(response.body().getMessage());
                 }

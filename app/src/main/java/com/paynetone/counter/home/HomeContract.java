@@ -12,14 +12,13 @@ import java.util.List;
 
 public interface HomeContract {
     interface Interactor extends IInteractor<Presenter> {
-        void getBalance(BaseRequest baseRequest, CommonCallback<SimpleResult> callback);
+
     }
 
     interface View extends PresentView<Presenter> {
-        void showBalance(List<MerchantBalance> merchantBalances);
     }
 
     interface Presenter extends IPresenter<View, Interactor> {
-        void getBalance();
+
     }
 }

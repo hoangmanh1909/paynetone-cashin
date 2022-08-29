@@ -30,41 +30,41 @@
                         android:id="@+id/tv_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="202100001"
                         android:padding="@dimen/paddingItemWithdraw"
-                        android:textSize="@dimen/_11sdp"
+                        android:text="202100001"
                         android:textColor="@color/black"
+                        android:textSize="@dimen/_11sdp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_bank"
-                        android:paddingTop="@dimen/_2sdp"
-                        android:textSize="@dimen/_10sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:padding="@dimen/paddingItemWithdraw"
-                        android:text="BIDV" />
+                        android:paddingTop="@dimen/_2sdp"
+                        android:text="BIDV"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/tv_account_number"
-                        android:paddingTop="@dimen/_2sdp"
-                        android:textSize="@dimen/_10sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:padding="@dimen/paddingItemWithdraw"
-                        android:text="12010001" />
+                        android:paddingTop="@dimen/_2sdp"
+                        android:text="12010001"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/tv_full_name"
-                        android:paddingTop="@dimen/_2sdp"
-                        android:textSize="@dimen/_10sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:padding="@dimen/paddingItemWithdraw"
-                        android:text="Nguyen Van A" />
+                        android:paddingTop="@dimen/_2sdp"
+                        android:text="Nguyen Van A"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
 
                 </LinearLayout>
 
@@ -99,8 +99,10 @@
                         android:id="@+id/tv_status"
                         style="@style/TextPayment"
                         android:layout_width="wrap_content"
+                        android:minWidth="@dimen/_90sdp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:gravity="center"
                         android:background="@drawable/order_status_w"
                         android:paddingStart="@dimen/_6sdp"
                         android:paddingTop="@dimen/_2sdp"

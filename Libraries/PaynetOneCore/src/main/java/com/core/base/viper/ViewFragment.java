@@ -11,9 +11,14 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 /**
  * Fragments that stand for View
@@ -24,6 +29,7 @@ public abstract class ViewFragment<P extends IPresenter>
   protected P mPresenter;
   protected boolean mIsInitialized = false;
   private boolean mViewHidden;
+
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,6 +144,13 @@ public abstract class ViewFragment<P extends IPresenter>
   }
 
   @Override
+  public void showErrorDialog(String message, FragmentManager fragmentManager) {
+    if (ContextUtils.isValidContext(getBaseActivity())) {
+      getBaseActivity().showErrorDialog(message,fragmentManager);
+    }
+  }
+
+  @Override
   public Activity getViewContext() {
     return getActivity();
   }
@@ -189,4 +202,27 @@ public abstract class ViewFragment<P extends IPresenter>
   public boolean isShowing() {
     return isResumed() && this == BaseActivity.getTopFragment(getFragmentManager());
   }
+
+
+  //============================
+  //======  Click Manager  =====
+  //============================
+  private Boolean mIsClickAble = true;
+  private Handler mHandlerClick = new Handler();
+  private Runnable changeStateClickAble = new Runnable() {
+    @Override
+    public void run() {
+      mIsClickAble = true;
+    }
+  };
+  protected Boolean isClickAble() {
+    if (mIsClickAble) {
+      mIsClickAble = false;
+      mHandlerClick.removeCallbacks(changeStateClickAble);
+      mHandlerClick.postDelayed(changeStateClickAble, 500);
+      return true;
+    }
+    return false;
+  }
+
 }

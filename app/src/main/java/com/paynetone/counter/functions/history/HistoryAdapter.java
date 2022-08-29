@@ -60,8 +60,6 @@ public class HistoryAdapter extends RecyclerBaseAdapter {
         TextView tv_amount;
         @BindView(R.id.tv_date)
         TextView tv_date;
-        @BindView(R.id.tv_note)
-        TextView tv_note;
         @BindView(R.id.tv_status)
         TextView tv_status;
 
@@ -77,7 +75,6 @@ public class HistoryAdapter extends RecyclerBaseAdapter {
 //            tv_amount.setText(item.getMobileNumber());
             tv_date.setText(item.getOrderDate());
             tv_code.setText(item.getCode());
-            tv_note.setText(item.getOrderDes());
             tv_status.setText(Utils.getStatusName(item.getStatus()));
             if (item.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);

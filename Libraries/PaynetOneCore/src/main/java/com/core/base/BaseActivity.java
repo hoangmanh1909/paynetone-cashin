@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.List;
 
@@ -110,6 +111,8 @@ public abstract class BaseActivity extends BaseGlobalActivity {
   public abstract void showProgress();
 
   public abstract void hideProgress();
+
+  public abstract void showErrorDialog(String message, FragmentManager fragmentManager);
 
   public abstract void onRequestError(String errorCode, String errorMessage);
 

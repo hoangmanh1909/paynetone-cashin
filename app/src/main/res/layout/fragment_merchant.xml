@@ -25,14 +25,22 @@
             android:id="@+id/tv_title"
             style="@style/TextViewTitleHeader"
             android:layout_centerInParent="true"
-            android:text="@string/str_title_fragment_merchant" />
+            android:text="ĐĂNG KÝ TÀI KHOẢN" />
     </RelativeLayout>
+
+    <TextView
+        style="@style/TextTitleRegister"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="2. Thông tin tài khoản"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/rl_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,451 +79,1043 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/anchor_default"
-                    android:text="@string/str_business_information"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp"
-                    android:textStyle="bold" />
+                    android:text="Chọn loại hình kinh doanh" />
 
-                <RelativeLayout
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_business"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="center|start"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/str_business_enterprise"
+                    android:textSize="@dimen/_11sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/anchor_default">
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Chọn hình thức kinh doanh " />
 
-                    <TextView
-                        android:id="@+id/lbl_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_business_type" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_formality"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="center|start"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/str_formality_online"
+                    android:textSize="@dimen/_11sdp" />
 
-                    <TextView
-                        android:id="@+id/tv_business"
-                        style="@style/TextPayment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="@dimen/anchor_default"
-                        android:layout_toEndOf="@+id/lbl_1"
-                        android:text="@string/str_business_personal"
-                        android:textAlignment="textEnd" />
-                </RelativeLayout>
-
-                <RelativeLayout
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/anchor_default">
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_service" />
 
-                    <TextView
-                        android:id="@+id/lbl_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_formality_type" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_service_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="center|start"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/str_service_qr"
+                    android:textSize="@dimen/_11sdp" />
 
-                    <TextView
-                        android:id="@+id/tv_formality"
-                        style="@style/TextPayment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="@dimen/anchor_default"
-                        android:layout_toEndOf="@+id/lbl_2"
-                        android:text="@string/str_formality_offline"
-                        android:textAlignment="textEnd" />
-                </RelativeLayout>
-
-                <RelativeLayout
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/anchor_default">
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_qr_option" />
 
-                    <TextView
-                        android:id="@+id/lbl_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_service" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_qr_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="center|start"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/str_qr_code_tinh"
+                    android:textSize="@dimen/_11sdp" />
 
-                    <TextView
-                        style="@style/TextPayment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="@dimen/anchor_default"
-                        android:layout_toEndOf="@+id/lbl_3"
-                        android:text="@string/str_qr_code"
-                        android:textAlignment="textEnd" />
-                </RelativeLayout>
+
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:padding="@dimen/anchor_default">-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/lbl_1"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/str_business_type" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tv_business"-->
+                <!--                        style="@style/TextPayment"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:layout_marginStart="@dimen/anchor_default"-->
+                <!--                        android:layout_toEndOf="@+id/lbl_1"-->
+                <!--                        android:text="@string/str_business_personal"-->
+                <!--                        android:textAlignment="textEnd" />-->
+                <!--                </RelativeLayout>-->
+
 
                 <View style="@style/Divider" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/anchor_default"
+                    android:gravity="center"
                     android:padding="@dimen/anchor_default"
                     android:text="@string/str_business_registration_information"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_phone_number" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_mobile_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_disble_focus_text"
+                    android:focusable="false"
+                    android:gravity="start|center"
                     android:hint="@string/str_phone_number"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:minLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_mobile_number"
+                <LinearLayout
+                    android:id="@+id/layout_tax_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_tax_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:background="@color/grey_300"
-                        android:maxLength="10"
-                        android:textSize="@dimen/textSizeRegister" />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_tax_code_required" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_tax_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_tax_code"
+                        android:inputType="number"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_post_id"
+
+                <LinearLayout
+                    android:id="@+id/layout_fax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_fax" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_fax"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_fax"
+                        android:inputType="number"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_business_registration_number"
+                    android:layout_width="match_parent"
                     android:visibility="gone"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/str_post_id"
-                    android:layout_marginTop="@dimen/anchor_default"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
+                    android:orientation="vertical">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_post_id"
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:background="@color/grey_300"
-                        android:textSize="@dimen/textSizeRegister" />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_business_registration_number" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_business_registration_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_business_registration_number"
+                        android:inputType="number"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+
+                <LinearLayout
+                    android:id="@+id/layout_company"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_company_name" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_name_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_company_name"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/st_name_qr" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_name_qr"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="start|center"
+                    android:hint="@string/st_hint_name_qr"
+                    android:minLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_business_service" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/auto_business_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:drawableEnd="@drawable/ic_arrow_down_merchant"
+                    android:gravity="start|center"
                     android:hint="@string/str_select_service_type"
-                    app:boxBackgroundColor="@color/white">
+                    android:inputType="none"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/textSizeRegister"
+                    tools:ignore="LabelFor" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_business_service"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:inputType="none"
-                        android:textSize="@dimen/textSizeRegister"
-                        tools:ignore="LabelFor" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_province" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/auto_province"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:drawableEnd="@drawable/ic_arrow_down_merchant"
+                    android:gravity="start|center"
                     android:hint="@string/str_province_city"
-                    android:visibility="gone"
-                    app:boxBackgroundColor="@color/white">
+                    android:inputType="none"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="LabelFor" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_province"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:inputType="none"
-                        android:textSize="@dimen/textSizeRegister"
-                        tools:ignore="LabelFor" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_district" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/auto_district"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:drawableEnd="@drawable/ic_arrow_down_merchant"
+                    android:gravity="start|center"
                     android:hint="@string/str_district"
-                    android:visibility="gone"
-                    app:boxBackgroundColor="@color/white">
+                    android:inputType="none"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="LabelFor" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_district"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:inputType="none"
-                        android:textSize="@dimen/textSizeRegister"
-                        tools:ignore="LabelFor" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_ward" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/auto_ward"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:drawableEnd="@drawable/ic_arrow_down_merchant"
+                    android:gravity="start|center"
                     android:hint="@string/str_wards"
-                    android:visibility="gone"
-                    app:boxBackgroundColor="@color/white">
+                    android:inputType="none"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="LabelFor" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_ward"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:inputType="none"
-                        android:textSize="@dimen/textSizeRegister"
-                        tools:ignore="LabelFor" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
-                    android:hint="@string/str_detailed_address"
-                    android:visibility="gone"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_address" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_address"
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:hint="Nhập địa chỉ"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="LabelFor" />
+
+                <LinearLayout
+                    android:id="@+id/layout_post_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSizeRegister" />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_post_id_required" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_post_id_default"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_1sdp"
+                            android:background="#E8E3E3"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edt_post_id"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:background="@null"
+                            android:hint="@string/str_hint_post_id"
+                            android:inputType="number"
+                            android:maxLength="12"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textSize="@dimen/_11sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tv_post_id_default"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/anchor_default"
+                    android:gravity="center"
                     android:padding="@dimen/anchor_default"
                     android:text="@string/str_representative_information"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/st_full_name"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSizeRegister" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
-                    android:hint="@string/str_number_gttt"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_pid_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="12"
-                        android:textSize="@dimen/textSizeRegister" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:text="@string/str_full_name_personal_required" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="start|center"
+                    android:hint="@string/st_full_name"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_office"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_office_required" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@string/str_photo_font"
-                            android:textAlignment="center"
-                            android:textColor="@color/black" />
-
-<!--                        <com.facebook.drawee.view.SimpleDraweeView-->
-<!--                            android:id="@+id/img_before"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="@dimen/_100sdp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:layout_margin="@dimen/_10sdp"-->
-<!--                            android:scaleType="center"-->
-<!--                            app:placeholderImage="@drawable/ic_placehoder_image"-->
-<!--                            app:placeholderImageScaleType="fitCenter"-->
-<!--                            app:progressBarAutoRotateInterval="1000"-->
-<!--                            app:progressBarImage="@drawable/loading"-->
-<!--                            app:progressBarImageScaleType="centerInside"-->
-<!--                            app:viewAspectRatio="1" />-->
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_100sdp"
-                            android:layout_margin="@dimen/_10sdp">
-                            <ImageView
-                                android:id="@+id/img_before"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:src="@drawable/ic_outline_image_24"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center" />
-                            <com.paynetone.counter.widgets.ProgressView
-                                android:id="@+id/progress_before"
-                                android:layout_width="@dimen/_40sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/loading"
-                                android:visibility="gone"
-                                app:duration="800"
-                                app:frameCount="12"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@string/str_photo_backside"
-                            android:textAlignment="center"
-                            android:textColor="@color/black" />
-
-<!--                        <com.facebook.drawee.view.SimpleDraweeView-->
-<!--                            android:id="@+id/img_after"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="@dimen/_100sdp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:layout_margin="@dimen/_10sdp"-->
-<!--                            android:scaleType="center"-->
-<!--                            app:placeholderImage="@drawable/ic_outline_image_24"-->
-<!--                            app:placeholderImageScaleType="fitCenter"-->
-<!--                            app:progressBarAutoRotateInterval="1000"-->
-<!--                            app:progressBarImage="@drawable/loading"-->
-<!--                            app:progressBarImageScaleType="centerInside"-->
-<!--                            app:viewAspectRatio="1" />-->
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_100sdp"
-                            android:layout_margin="@dimen/_10sdp">
-
-                            <ImageView
-                                android:id="@+id/img_after"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_100sdp"
-                                android:src="@drawable/ic_outline_image_24" />
-                            <com.paynetone.counter.widgets.ProgressView
-                                android:id="@+id/progress_after"
-                                android:layout_width="@dimen/_40sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/loading"
-                                android:visibility="gone"
-                                app:duration="800"
-                                app:frameCount="12"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_office"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_office"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layout_mobile_number_represent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_name_phone_number" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_mobile_number_represent"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_name_mobile_number"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_number_cttt_requied" />
+
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_pid_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="start|center"
+                    android:hint="@string/str_number_gttt"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="@string/str_photo_font"
+                    android:textColor="@color/black" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/img_before"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_cttt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.paynetone.counter.widgets.ProgressView
+                        android:id="@+id/progress_before"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/loading"
+                        android:visibility="gone"
+                        app:duration="800"
+                        app:frameCount="12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="@string/str_photo_backside"
+                    android:textColor="@color/black" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/img_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_cttt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.paynetone.counter.widgets.ProgressView
+                        android:id="@+id/progress_after"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/loading"
+                        android:visibility="gone"
+                        app:duration="800"
+                        app:frameCount="12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Người đại diện có phải người ký hợp đồng" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <RadioButton
+                            android:id="@+id/radio_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:checked="true"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:text="Có"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/viewLine"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <RadioButton
+                            android:id="@+id/radio_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:text="Không"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/viewLine"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/anchor_default"
+                    android:gravity="center"
                     android:padding="@dimen/anchor_default"
                     android:text="@string/str_billing_information"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_name_personal_bank_required" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_name_personal_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="start|center"
+                    android:hint="@string/str_hint_personal_bank"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_account_number_required" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_account_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:gravity="start|center"
                     android:hint="@string/str_account_number"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
+                    android:inputType="number"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_account_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSizeRegister" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_bank_required" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/auto_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:drawableEnd="@drawable/ic_arrow_down_merchant"
+                    android:gravity="start|center"
+                    android:hint="@string/str_select_bank"
+                    android:inputType="none"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="LabelFor" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Chi nhánh" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_branch"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:hint="@string/str_branch_bank"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="LabelFor" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/anchor_default"
-                    android:hint="@string/str_select_bank"
-                    app:boxBackgroundColor="@color/white">
+                    android:gravity="center"
+                    android:padding="@dimen/anchor_default"
+                    android:text="Chứng từ cần thiết"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_bank"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name_img_business_registration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_business_registration_required" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/img_business_registration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_cttt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.paynetone.counter.widgets.ProgressView
+                        android:id="@+id/progress_business_registration"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/loading"
+                        android:visibility="gone"
+                        app:duration="800"
+                        app:frameCount="12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name_img_address_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/str_address_sale_required" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/img_address_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_cttt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.paynetone.counter.widgets.ProgressView
+                        android:id="@+id/progress_address_sale"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/loading"
+                        android:visibility="gone"
+                        app:duration="800"
+                        app:frameCount="12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_img_tax_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_name_img_tax_code"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:inputType="none"
-                        android:textSize="@dimen/textSizeRegister"
-                        tools:ignore="LabelFor" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="start"
+                        android:text="@string/str_image_tax_code_required"
+                        android:textColor="@color/black" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/anchor_default"
-                    android:hint="@string/str_branch_bank"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_branch"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSizeRegister" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:padding="@dimen/_5sdp">
+
+                        <ImageView
+                            android:id="@+id/img_tax_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_cttt"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.paynetone.counter.widgets.ProgressView
+                            android:id="@+id/progress_tax_code"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/loading"
+                            android:visibility="gone"
+                            app:duration="800"
+                            app:frameCount="12"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="start"
+                    android:text="@string/str_other"
+                    android:textColor="@color/black" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/bg_edt_forgot_password"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/img_other"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_cttt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.paynetone.counter.widgets.ProgressView
+                        android:id="@+id/progress_other"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/loading"
+                        android:visibility="gone"
+                        app:duration="800"
+                        app:frameCount="12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_business_online"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/anchor_default"
+                        android:gravity="center"
+                        android:padding="@dimen/anchor_default"
+                        android:text="@string/str_formality_online"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/str_link" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:gravity="start|center"
+                        android:hint="@string/str_hint_link"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="start"
+                        android:text="@string/str_app"
+                        android:textColor="@color/black" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/bg_edt_forgot_password"
+                        android:padding="@dimen/_5sdp">
+
+                        <ImageView
+                            android:id="@+id/img_formality_online"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_cttt"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.paynetone.counter.widgets.ProgressView
+                            android:id="@+id/progress_formality_online"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/loading"
+                            android:visibility="gone"
+                            app:duration="800"
+                            app:frameCount="12"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <Button
             android:id="@+id/btn_ok"
-            android:visibility="gone"
             style="@style/Button"
             android:layout_alignParentBottom="true"
-            android:text="@string/str_update" />
+            android:text="@string/str_update"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -99,10 +99,10 @@
         app:layout_constraintTop_toBottomOf="@id/layout_account">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_10sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_with_draw"
@@ -129,6 +129,7 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="@string/str_with_draw_bank"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintTop_toBottomOf="@id/tv_with_draw" />
 
@@ -143,9 +144,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_bank"
-                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
 
@@ -218,9 +219,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_wallet"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
 
@@ -241,9 +242,9 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/bg_textview_with_draw_enable_focus"
                         android:gravity="start|center"
+                        android:hint="@string/str_selected_wallet"
                         android:paddingStart="@dimen/_11sdp"
                         android:paddingEnd="@dimen/_10sdp"
-                        android:hint="@string/str_selected_wallet"
                         android:textSize="@dimen/_11sdp"
 
                         app:layout_constraintTop_toBottomOf="@id/tv_wallet" />
@@ -275,12 +276,12 @@
                         android:background="@drawable/bg_textview_with_draw_enable_focus"
                         android:gravity="start|center"
                         android:hint="@string/str_phone_number"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:paddingEnd="@dimen/_10sdp"
                         android:inputType="number"
                         android:maxLength="10"
-                        android:textSize="@dimen/_11sdp"
                         android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/_11sdp"
                         app:layout_constraintTop_toBottomOf="@id/tv_number_phone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -301,18 +302,18 @@
                         android:background="@drawable/bg_textview_with_draw_enable_focus"
                         android:gravity="start|center"
                         android:hint="@string/str_full_name_personal"
+                        android:maxLines="1"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
                         android:textSize="@dimen/_11sdp"
-                        android:maxLines="1"
                         app:layout_constraintTop_toBottomOf="@id/app_tv_full_name_wallet" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_vietlott"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
 
@@ -356,12 +357,131 @@
                         android:background="@drawable/bg_textview_with_draw_enable_focus"
                         android:gravity="start|center"
                         android:hint="@string/str_full_name_personal"
+                        android:maxLines="1"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
                         android:textSize="@dimen/_11sdp"
-                        android:maxLines="1"
                         app:layout_constraintTop_toBottomOf="@id/app_tv_full_name_vietlott" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_han_muc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nạp hạn mức cho cửa hàng"
+                            app:layout_constraintBottom_toBottomOf="@id/checkbox"
+                            app:layout_constraintStart_toEndOf="@id/checkbox"
+                            app:layout_constraintTop_toTopOf="@id/checkbox" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_branch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/layout_checkbox">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_name_branch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:text="@string/str_branch_required"
+                            android:textColor="@color/colorBlack2"
+                            android:textSize="@dimen/_11sdp"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_branch"
+                            android:enabled="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@drawable/bg_textview_with_draw_disable_focus"
+                            android:gravity="start|center"
+                            android:hint="@string/str_branch_hint_name"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textSize="@dimen/_11sdp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name_branch" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/ic_arrow_down"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_branch"
+                            app:layout_constraintEnd_toEndOf="@id/tv_branch"
+                            app:layout_constraintTop_toTopOf="@id/tv_branch" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_store"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/layout_branch">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_name_store"
+                            android:enabled="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:text="@string/str_store_required"
+                            android:textColor="@color/colorBlack2"
+                            android:textSize="@dimen/_11sdp"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_store"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@drawable/bg_textview_with_draw_disable_focus"
+                            android:gravity="start|center"
+                            android:hint="@string/str_store_hint_name"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textSize="@dimen/_11sdp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name_store" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/ic_arrow_down"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_store"
+                            app:layout_constraintEnd_toEndOf="@id/tv_store"
+                            app:layout_constraintTop_toTopOf="@id/tv_store" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -374,7 +494,7 @@
                 android:textSize="@dimen/_11sdp"
                 app:layout_constraintTop_toBottomOf="@+id/layout_with_draw" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"

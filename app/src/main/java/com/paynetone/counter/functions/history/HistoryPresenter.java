@@ -38,30 +38,70 @@ public class HistoryPresenter extends Presenter<HistoryContract.View, HistoryCon
 
     @Override
     public void orderSearch() {
-        mView.showProgress();
+        try{
+            mView.showProgress();
+            OrderSearchRequest request = new OrderSearchRequest();
+            request.setEmpID(employeeModel.getId());
+            request.setPaynetID(employeeModel.getPaynetID());
 
-        OrderSearchRequest request = new OrderSearchRequest();
-        request.setEmpID(employeeModel.getId());
+            mInteractor.orderSearch(request, new CommonCallback<SimpleResult>((Activity) mContainerView) {
+                @Override
+                protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
+                    super.onSuccess(call, response);
 
-        mInteractor.orderSearch(request, new CommonCallback<SimpleResult>((Activity) mContainerView) {
-            @Override
-            protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
-                super.onSuccess(call, response);
-
-                if ("00".equals(response.body().getErrorCode())) {
-                    List<OrderModel> order = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<OrderModel>>() {
-                    }.getType());
-                    mView.showOrders(order);
-                } else {
-                    mView.showAlertDialog(response.body().getMessage());
+                    if ("00".equals(response.body().getErrorCode())) {
+                        List<OrderModel> order = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<OrderModel>>() {
+                        }.getType());
+                        mView.showOrders(order);
+                    } else {
+                        mView.showAlertDialog(response.body().getMessage());
+                    }
                 }
-            }
 
-            @Override
-            protected void onError(Call<SimpleResult> call, String message) {
-                super.onError(call, message);
-            }
-        });
+                @Override
+                protected void onError(Call<SimpleResult> call, String message) {
+                    super.onError(call, message);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void orderSearchFilter(Integer branchID, Integer storeID,Integer stallID) {
+        try{
+            mView.showProgress();
+            OrderSearchRequest request = new OrderSearchRequest();
+            request.setPaynetID(employeeModel.getPaynetID());
+
+            if (branchID != null) request.setPaynetID(branchID);
+            if (storeID != null) request.setPaynetID(storeID);
+            if (stallID != null) request.setPaynetID(stallID);
+
+            mInteractor.orderSearch(request, new CommonCallback<SimpleResult>((Activity) mContainerView) {
+                @Override
+                protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
+                    super.onSuccess(call, response);
+
+                    if ("00".equals(response.body().getErrorCode())) {
+                        List<OrderModel> order = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<OrderModel>>() {
+                        }.getType());
+                        mView.showOrders(order);
+                    } else {
+                        mView.showAlertDialog(response.body().getMessage());
+                    }
+                }
+
+                @Override
+                protected void onError(Call<SimpleResult> call, String message) {
+                    super.onError(call, message);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

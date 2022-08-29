@@ -17,7 +17,17 @@ public class BaseRequest {
     @SerializedName("IsForget")
     @Expose
     private String isForget;
+    @SerializedName("PaynetID")
+    @Expose
+    private int paynetID ;
 
+    public int getPaynetID() {
+        return paynetID;
+    }
+
+    public void setPaynetID(int paynetID) {
+        this.paynetID = paynetID;
+    }
 
     public String getMobileNumber() {
         return mobileNumber;

@@ -56,6 +56,29 @@ public class WithdrawSearchResponse {
     @SerializedName("WithDrawCatefory")
     @Expose
     private int withDrawCatefory;
+    @SerializedName("ShopName")
+    @Expose
+    private String shopName;
+
+    @SerializedName("ShopCode")
+    @Expose
+    private String shopCode;
+
+    public String getShopCode() {
+        return shopCode;
+    }
+
+    public void setShopCode(String shopCode) {
+        this.shopCode = shopCode;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
 
     public String getWalletCode() {
         return walletCode;

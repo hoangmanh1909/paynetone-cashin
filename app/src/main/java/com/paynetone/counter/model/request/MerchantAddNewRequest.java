@@ -103,6 +103,17 @@ public class MerchantAddNewRequest {
     @SerializedName("ImagesApp")
     @Expose
     private String imagesApp;
+    @SerializedName("PosID")
+    @Expose
+    private String posID;
+
+    public String getPosID() {
+        return posID;
+    }
+
+    public void setPosID(String posID) {
+        this.posID = posID;
+    }
 
     public Integer getiD() {
         return iD;

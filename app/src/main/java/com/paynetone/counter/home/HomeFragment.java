@@ -2,25 +2,35 @@ package com.paynetone.counter.home;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.core.base.viper.ViewFragment;
 import com.paynetone.counter.R;
+import com.paynetone.counter.dialog.DevelopDialog;
+import com.paynetone.counter.dialog.ListBankQRDialog;
 import com.paynetone.counter.functions.history.HistoryActivity;
 import com.paynetone.counter.functions.outward.OutwardActivity;
+import com.paynetone.counter.functions.qr.OptionAmountAdapter;
+import com.paynetone.counter.functions.qr.OptionPaymentAdapter;
 import com.paynetone.counter.functions.qr.QRDynamicActivity;
 import com.paynetone.counter.functions.withdraw.WithDrawActivity;
 import com.paynetone.counter.model.HomeModel;
 import com.paynetone.counter.model.MerchantBalance;
+import com.paynetone.counter.model.PaymentModel;
 import com.paynetone.counter.model.PaynetModel;
+import com.paynetone.counter.model.request.GetProviderResponse;
 import com.paynetone.counter.utils.Constants;
+import com.paynetone.counter.utils.ExtraConst;
+import com.paynetone.counter.utils.MarginDecoration;
 import com.paynetone.counter.utils.NumberUtils;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
@@ -33,24 +43,16 @@ import butterknife.BindView;
 
 public class HomeFragment extends ViewFragment<HomeContract.Presenter> implements HomeContract.View {
 
-    @BindView(R.id.recycle)
-    RecyclerView recyclerView;
-    @BindView(R.id.tv_amount_w)
-    TextView tv_amount_w;
-    @BindView(R.id.tv_amount_p)
-    TextView tv_amount_p;
-    @BindView(R.id.ll_balance)
-    LinearLayout ll_balance;
-    @BindView(R.id.rl_withdraw)
-    RelativeLayout rl_withdraw;
-    @BindView(R.id.rl_outward)
-    RelativeLayout rl_outward;
+    @BindView(R.id.recycleBank)
+    RecyclerView recyclerViewBank;
+    @BindView(R.id.recyclePayment)
+    RecyclerView recyclePayment;
+    @BindView(R.id.recycleEWallet)
+    RecyclerView recyclerViewEWallet;
 
-    HomeAdapter adapter;
-    List<HomeModel> homeModels = new ArrayList<>();
-    SharedPref sharedPref;
-    PaynetModel paynetModel;
-    long amountP = 0;
+    OptionPaymentAdapter bankAdapter;
+    OptionPaymentAdapter eWalletAdapter;
+    OptionPaymentAdapter paymentQrAdapter;
 
     public static HomeFragment getInstance() {
         return new HomeFragment();
@@ -64,86 +66,54 @@ public class HomeFragment extends ViewFragment<HomeContract.Presenter> implement
     @Override
     public void initLayout() {
         super.initLayout();
+    }
 
-        this.itemHome();
-        sharedPref = new SharedPref(requireActivity());
-        paynetModel = sharedPref.getPaynet();
-
-        switch (paynetModel.getBusinessType()){
-            case Constants.BUSINESS_TYPE_PERSONAL:
-            case Constants.BUSINESS_TYPE_VIETLOTT:
-            case Constants.BUSINESS_TYPE_SYNTHETIC:
-                String mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE,"");
-                if(mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)){
-                    ll_balance.setVisibility(View.VISIBLE);
+    public void initAdapter(ArrayList<GetProviderResponse> providers){
+        if (bankAdapter==null) bankAdapter = new OptionPaymentAdapter(getContext(), item -> {
+            if (item.isActive().equals(Constants.PROVIDER_ACTIVE)){
+                if (item.getItemGroup()){
+                    new ListBankQRDialog(providers).show(getChildFragmentManager(),"HomeFragment");
+                }else {
+                    Intent intent = new Intent(requireActivity(), QRDynamicActivity.class);
+                    intent.putExtra(ExtraConst.EXTRA_PROVIDER_RESPONSE,item);
+                    startActivity(intent);
                 }
-                break;
-            default:
-                ll_balance.setVisibility(View.GONE);
-                break;
-        }
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        adapter = new HomeAdapter(getContext(), homeModels,(homeModel, position) -> {
-            if (homeModel.getServiceCode().equals(Constants.HOME_QR)) {
-                Intent intent = new Intent(requireActivity(), QRDynamicActivity.class);
-                startActivity(intent);
-            } else if (homeModel.getServiceCode().equals(Constants.HOME_HISTORY)) {
-                Intent intent = new Intent(requireActivity(), HistoryActivity.class);
-                startActivity(intent);
+            }else{
+                new DevelopDialog(requireContext()).show(getChildFragmentManager(),"HomeFragment");
             }
-        }) ;
+        }, OptionPaymentAdapter.ProviderEnum.BANK,providers);
+        recyclerViewBank.setAdapter(bankAdapter);
+        recyclerViewBank.addItemDecoration(new MarginDecoration(20,4));
 
-        recyclerView.setAdapter(adapter);
-
-        rl_withdraw.setOnClickListener(view -> {
-//            if (amountP > 0) {
-                Intent intent = new Intent(requireActivity(), WithDrawActivity.class);
-                intent.putExtra(Constants.AMOUNT_OUTWARD, amountP);
+        if (paymentQrAdapter ==null)  paymentQrAdapter = new OptionPaymentAdapter(getContext(), item -> {
+            if (item.isActive().equals(Constants.PROVIDER_ACTIVE)){
+                Intent intent = new Intent(requireActivity(), QRDynamicActivity.class);
+                intent.putExtra(ExtraConst.EXTRA_PROVIDER_RESPONSE,item);
                 startActivity(intent);
-//            } else {
-//                Toast.showToast(requireContext(), "Tài khoản đã đối soát không đủ số dư rút tiền");
-//            }
-        });
-        rl_outward.setOnClickListener(view -> {
-            Intent intent = new Intent(requireActivity(), OutwardActivity.class);
-            startActivity(intent);
-        });
+            }else{
+                new DevelopDialog(requireContext()).show(getChildFragmentManager(),"HomeFragment");
+            }
+        }, OptionPaymentAdapter.ProviderEnum.PAYMENT_QR,providers);
+        recyclePayment.setAdapter(paymentQrAdapter);
+        recyclePayment.addItemDecoration(new MarginDecoration(20,4));
+
+        if (eWalletAdapter==null) eWalletAdapter = new OptionPaymentAdapter(getContext(), item -> {
+            if (item.isActive().equals(Constants.PROVIDER_ACTIVE)){
+                Intent intent = new Intent(requireActivity(), QRDynamicActivity.class);
+                intent.putExtra(ExtraConst.EXTRA_PROVIDER_RESPONSE,item);
+                startActivity(intent);
+            }else {
+                new DevelopDialog(requireContext()).show(getChildFragmentManager(),"HomeFragment");
+            }
+        }, OptionPaymentAdapter.ProviderEnum.E_WALLET,providers);
+        recyclerViewEWallet.setAdapter(eWalletAdapter);
+        recyclerViewEWallet.addItemDecoration(new MarginDecoration(20,4));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        if (mPresenter != null)
-            mPresenter.getBalance();
     }
 
-    private void itemHome() {
-        Resources res = getResources();
-
-        HomeModel homeModel = new HomeModel();
-
-        homeModel.setLogo(R.drawable.ic_qr_dong);
-        homeModel.setServiceCode(Constants.HOME_QR);
-        homeModel.setTitle(res.getString(R.string.home_qr_online));
-        homeModels.add(homeModel);
-
-        homeModel = new HomeModel();
-        homeModel.setLogo(R.drawable.ic_history);
-        homeModel.setServiceCode(Constants.HOME_HISTORY);
-        homeModel.setTitle(res.getString(R.string.home_history));
-        homeModels.add(homeModel);
-    }
-
-    @Override
-    public void showBalance(List<MerchantBalance> merchantBalances) {
-        for (MerchantBalance merchantBalance : merchantBalances) {
-            if (merchantBalance.getAccountType().equals("W")) {
-                tv_amount_w.setText(NumberUtils.formatPriceNumber(merchantBalance.getBalance()) + " đ");
-            } else if (merchantBalance.getAccountType().equals("P")) {
-                amountP = merchantBalance.getBalance();
-                tv_amount_p.setText(NumberUtils.formatPriceNumber(merchantBalance.getBalance()) + " đ");
-            }
-        }
-    }
 }

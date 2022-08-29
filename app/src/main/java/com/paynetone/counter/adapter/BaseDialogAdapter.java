@@ -1,6 +1,5 @@
 package com.paynetone.counter.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -17,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.paynetone.counter.R;
-import com.paynetone.counter.model.BankModel;
 import com.paynetone.counter.model.BaseDialogModel;
 
 import java.util.ArrayList;

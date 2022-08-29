@@ -1,20 +1,36 @@
 package com.paynetone.counter.functions.qr;
 
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatRadioButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.core.base.log.Logger;
 import com.core.base.viper.ViewFragment;
 import com.core.base.viper.interfaces.ContainerView;
@@ -28,16 +44,23 @@ import com.paynetone.counter.model.PaymentModel;
 import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.request.OrderAddRequest;
 import com.paynetone.counter.utils.Constants;
+import com.paynetone.counter.utils.CurrencyTextWatcher;
+import com.paynetone.counter.utils.InputFilterCharacter;
+import com.paynetone.counter.utils.InputFilterCharacterNumber;
 import com.paynetone.counter.utils.MarginDecoration;
 import com.paynetone.counter.utils.NumberUtils;
 import com.paynetone.counter.utils.SharedPref;
 import com.paynetone.counter.utils.Toast;
+import com.paynetone.counter.utils.Utils;
 
 import java.sql.Array;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,9 +70,13 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     @BindView(R.id.edt_mobile_number)
     TextInputEditText edt_mobile_number;
     @BindView(R.id.edt_amount)
-    TextInputEditText edt_amount;
+    EditText edt_amount;
+    @BindView(R.id.tv_format_amount)
+    AppCompatTextView tv_format_amount;
+    @BindView(R.id.tv_error_amount)
+    AppCompatTextView tv_error_amount;
     @BindView(R.id.edt_note)
-    TextInputEditText edt_note;
+    EditText edt_note;
     @BindView(R.id.recycle)
     RecyclerView recycle;
 
@@ -60,11 +87,15 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     List<OptionAmount> optionAmounts;
     OptionAmount mOptionAmount;
 
-    @BindView(R.id.rvPayment)
-    RecyclerView rvPayment;
-    OptionPaymentAdapter optionPaymentAdapter;
+//    @BindView(R.id.rvPayment)
+//    RecyclerView rvPayment;
+//    OptionPaymentAdapter optionPaymentAdapter;
 
-    PaymentModel paymentModel;
+    @BindView(R.id.img_logo)
+    AppCompatImageView imgLogo;
+    @BindView(R.id.tv_title)
+    AppCompatTextView tvTitle;
+
 
     int mPosition;
 
@@ -77,6 +108,7 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         return R.layout.fragment_qr_dynamic;
     }
 
+
     @Override
     public void initLayout() {
         super.initLayout();
@@ -85,30 +117,47 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
         employeeModel = sharedPref.getEmployeeModel();
         paynetModel = sharedPref.getPaynet();
 
+        if (mPresenter.getProviderResponse().getPaymentType() == Constants.PAYMENT_TYPE_VIETQR){ // không cho phép nhập tiếng việt
+            InputFilter[] filters = new InputFilter[2];
+            filters[0] = new InputFilterCharacter.LengthFilter(19); //Filter to 19 characters
+            filters[1] = new InputFilterCharacter();
+            edt_note.setFilters(filters);
+
+        }
+        InputFilter[] filters = new InputFilter[2];
+        filters[0] = new InputFilterCharacterNumber.LengthFilter(11);
+        filters[1] = new InputFilterCharacterNumber();
+        edt_amount.setFilters(filters);
+
+        tvTitle.setText(mPresenter.getProviderResponse().getName());
+        Glide.with(imgLogo)
+                .load(Utils.getUrlImage(mPresenter.getProviderResponse().getIcon()))
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(imgLogo);
+
+        edt_amount.addTextChangedListener(new CurrencyTextWatcher(edt_amount));
         edt_amount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                edt_amount.removeTextChangedListener(this);
-                if (!TextUtils.isEmpty(charSequence.toString())) {
-                    try {
-                        edt_amount.setText(NumberUtils.formatPriceNumber(Integer.parseInt(charSequence.toString().replace(",", ""))));
-                    } catch (Exception ex) {
-                        Logger.w(ex);
-                    }
-                }
-                edt_amount.addTextChangedListener(this);
-                edt_amount.setSelection(edt_amount.getText().length());
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length()>0) tv_format_amount.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack3));
+                else tv_format_amount.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_400));
+
+                if (s.toString().length() < 6 ) tv_error_amount.setVisibility(View.VISIBLE);
+                else tv_error_amount.setVisibility(View.GONE);
+
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
+
             }
         });
+
         edt_amount.setText(NumberUtils.formatPriceNumber(10000));
         addOptionAmount();
         initAdapter();
@@ -128,22 +177,14 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
                 });
                 if (mPosition == position) {
                     ((ViewHolder) holder).tv_amount.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_card_amount));
-                    ((ViewHolder) holder).tv_amount.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                     ((ViewHolder) holder).tv_amount.setTypeface(Typeface.DEFAULT_BOLD);
                 } else {
-                    ((ViewHolder) holder).tv_amount.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
-                    ((ViewHolder) holder).tv_amount.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+                    ((ViewHolder) holder).tv_amount.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_card_amount_default));
                     ((ViewHolder) holder).tv_amount.setTypeface(Typeface.DEFAULT);
                 }
             }
         };
         recycle.setAdapter(adapter);
-
-        if (optionPaymentAdapter==null) optionPaymentAdapter = new OptionPaymentAdapter(getContext(), item -> {
-            this.paymentModel = item;
-        });
-        rvPayment.setAdapter(optionPaymentAdapter);
-        rvPayment.addItemDecoration(new MarginDecoration(20,2));
 
     }
 
@@ -195,74 +236,55 @@ public class QRDynamicFragment extends ViewFragment<QRDynamicContract.Presenter>
     }
 
     private void ok() {
-        if (TextUtils.isEmpty(edt_amount.getText())) {
-            Toast.showToast(requireContext(), "Bạn chưa nhập Số tiền");
-            return;
-        }
-
-        OrderAddRequest req = new OrderAddRequest();
-        if (paymentModel==null)  req.setProviderCode(Constants.PROVIDER_VIETTEL);
-        else {
-            switch (paymentModel.getId()){
-                case Constants.PAYMENT_VIETTEL_PAY:
-                    req.setProviderCode(Constants.PROVIDER_VIETTEL);
-                    break;
-                case Constants.PAYMENT_ZALO_PAY:
-                    req.setProviderCode(Constants.PROVIDER_ZALO);
-                    break;
-                case Constants.PAYMENT_SHOPPE_PAY:
-                    req.setProviderCode(Constants.PROVIDER_SHOPPE);
-                    break;
-                case Constants.PAYMENT_VN_PAY:
-                    req.setProviderCode(Constants.PROVIDER_VN_PAY);
-                    break;
-                case Constants.PAYMENT_MOCA:
-                    req.setProviderCode(Constants.PROVIDER_MOCA);
-                    break;
-                case Constants.PAYMENT_VIETQR:
-                    req.setProviderCode(Constants.PROVIDER_VIETQR);
-                    break;
+        try {
+            if (TextUtils.isEmpty(edt_amount.getText())) {
+                Toast.showToast(requireContext(), "Bạn chưa nhập Số tiền");
+                return;
             }
-        }
-
-        req.setMobileNumber(Objects.requireNonNull(edt_mobile_number.getText()).toString());
-        req.setServiceID(1);
-        req.setAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
-        req.setFee(0);
-        req.setTransAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
-        req.setOrderDes(Objects.requireNonNull(edt_note.getText()).toString());
-        req.setChannel(Constants.CHANNEL);
-        req.setEmpID(employeeModel.getId());
-        req.setPaynetID(employeeModel.getPaynetID());
-        req.setTransCategory(1);
-
-        if (paymentModel==null) req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL);
-        else {
-            switch (paymentModel.getId()){
-                case Constants.PAYMENT_VIETTEL_PAY:
-                    req.setPaymentType(Constants.PAYMENT_TYPE_VIETTEL);
-                    break;
-                case Constants.PAYMENT_ZALO_PAY:
-                    req.setPaymentType(Constants.PAYMENT_TYPE_ZALO);
-                    break;
-                case Constants.PAYMENT_SHOPPE_PAY:
-                    req.setPaymentType(Constants.PAYMENT_TYPE_SHOPEE);
-                    break;
-                case Constants.PAYMENT_VN_PAY:
-                    req.setPaymentType(Constants.PAYMENT_TYPE_VN_PAY);
-                    break;
-                case Constants.PAYMENT_MOCA:
-                    req.setPaymentType(Constants.PAYMENT_TYPE_MOCA);
-                    break;
-                case Constants.PAYMENT_VIETQR:
-                    req.setPaymentType(Constants.PAYMENT_TYPE_VIETQR);
-                    break;
+            int amount = Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", ""));
+            if (amount<10000){
+                Toast.showToast(requireContext(), "Số tiền giao dịch tối thiểu là 10.000đ");
+                return;
             }
+            if (amount>10000000){
+                Toast.showToast(requireContext(), "Số tiền giao dịch tối đa là 10.000.000đ");
+                return;
+            }
+            OrderAddRequest req = new OrderAddRequest();
+            if(mPresenter.getProviderResponse().getPaymentType() ==Constants.PAYMENT_TYPE_VIETQR)
+                req.setOrderDes(convertToStringEnglish(edt_note.getText().toString()));
+            else req.setOrderDes(Objects.requireNonNull(edt_note.getText()).toString());
+            req.setProviderCode(mPresenter.getProviderResponse().getCode());
+            req.setMobileNumber(Objects.requireNonNull(edt_mobile_number.getText()).toString());
+            req.setServiceID(1);
+            req.setAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
+            req.setFee(0);
+            req.setTransAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
+            req.setChannel(Constants.CHANNEL);
+            req.setEmpID(employeeModel.getId());
+            req.setPaynetID(employeeModel.getPaynetID());
+            req.setPaymentType(mPresenter.getProviderResponse().getPaymentType());
+            req.setTransCategory(1);
+            req.setPaymentCate(2);
+            req.setMerchantID(paynetModel.getMerchantID());
+            req.setProviderAcntID(mPresenter.getProviderResponse().getId());
+            mPresenter.orderAdd(req);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        req.setPaymentCate(2);
-        req.setMerchantID(paynetModel.getMerchantID());
-        new PaymentPresenter((ContainerView) requireActivity(), req).pushView();
+
+
     }
 
+    private String convertToStringEnglish(String str) { // convert string vietnamese to english
+        try {
+            String temp = Normalizer.normalize(str, Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            return pattern.matcher(temp).replaceAll("").toLowerCase(Locale.ROOT).replace("đ", "d");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

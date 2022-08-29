@@ -159,6 +159,22 @@ dependencies {
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    // Lottie
+    def lottieComposeVersion = "5.2.0"
+    implementation "com.airbnb.android:lottie-compose:$lottieComposeVersion"
+
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx' // kotlin
+
+    //drop and drag recyclerview
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.1.1'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    implementation 'com.github.poovamraj:PinEditTextField:1.2.6'
+    implementation 'com.chaos.view:pinview:1.4.4'
+
 }
 repositories {
     mavenCentral()

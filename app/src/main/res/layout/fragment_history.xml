@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -24,6 +25,16 @@
             android:layout_centerInParent="true"
             android:text="Lịch sử đơn hàng" />
     </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_filter"
+        android:src="@drawable/ic_filter"
+        android:layout_gravity="end"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"/>
 
     <com.paynetone.counter.view.CustomRecyclerView
         android:layout_width="match_parent"

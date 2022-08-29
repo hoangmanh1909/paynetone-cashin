@@ -2,6 +2,7 @@ package com.paynetone.counter.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,14 +19,19 @@ import com.paynetone.counter.R;
 import com.paynetone.counter.widgets.ProgressView;
 
 import java.io.IOException;
+import java.security.KeyStore;
 import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
@@ -82,35 +88,26 @@ public class Utils {
 
         try {
             // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-                @Override
-                public void checkClientTrusted(
-                        java.security.cert.X509Certificate[] chain,
-                        String authType) throws CertificateException {
-                }
-
-                @Override
-                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                    return new java.security.cert.X509Certificate[0];
-                }
-
-                @Override
-                public void checkServerTrusted(
-                        java.security.cert.X509Certificate[] chain,
-                        String authType) throws CertificateException {
-                }
-
-            }};
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
+                    TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init((KeyStore) null);
+            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+            if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+                throw new IllegalStateException("Unexpected default trust managers:"
+                        + Arrays.toString(trustManagers));
+            }
+            X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
 
             // Install the all-trusting trust manager
             final SSLContext tls = SSLContext.getInstance("TLS");
-            tls.init(null, trustAllCerts,
+            tls.init(null, new TrustManager[] { trustManager },
                     new java.security.SecureRandom());
             // Create an ssl socket factory with our all-trusting manager
             final SSLSocketFactory sslSocketFactory = tls
                     .getSocketFactory();
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.sslSocketFactory(sslSocketFactory, trustManager);
             HostnameVerifier hostnameVerifier = new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
@@ -119,7 +116,6 @@ public class Utils {
             };
             builder.readTimeout(readTimeOut, TimeUnit.SECONDS)
                     .connectTimeout(connectTimeOut, TimeUnit.SECONDS)
-                    .sslSocketFactory(sslSocketFactory)
                     .hostnameVerifier(hostnameVerifier);//org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER
 
             if (BuildConfig.DEBUG) {
@@ -168,8 +164,42 @@ public class Utils {
                     }
                 })
 //                .placeholder(R.drawable.loading) // any placeholder to load at start// any image in case of error
-                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView);  // imageview object
+    }
+
+    public static boolean passwordValidation(String password) {
+
+        if(password.length()>=6) {
+            Pattern letter = Pattern.compile("(?=.*[A-Z])(?=.*[a-z]).*");
+            Pattern digit = Pattern.compile("[0-9]");
+            Pattern special = Pattern.compile ("[!@#$%&*()_+=|?{}.;\\[\\]~-]");
+
+            Matcher hasLetter = letter.matcher(password);
+            Matcher hasDigit = digit.matcher(password);
+            Matcher hasSpecial = special.matcher(password);
+
+            return hasLetter.find() && hasDigit.find() && hasSpecial.find();
+
+        }
+        else
+            return false;
+
+    }
+    public static boolean isBlank(String text) {
+        return text == null || text.trim().equals("");
+    }
+
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
+    public static boolean checkEmail(String email) {
+        return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
     }
 }

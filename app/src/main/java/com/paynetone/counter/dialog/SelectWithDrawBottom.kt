@@ -66,6 +66,7 @@ class SelectWithDrawBottom(selectWithDraw: SelectWithDraw,businessType:Int) : Bo
             binding.apply {
                 layoutBank.setSingleClick {
                     icTickBank.setShowOrHideDrawable(true)
+                    icTickHanMuc.setShowOrHideDrawable(false)
                     icTickWallet.setShowOrHideDrawable(false)
                     icTickVietlott.setShowOrHideDrawable(false)
                     selectWithDrawBank = SelectWithDraw.BANK
@@ -74,6 +75,7 @@ class SelectWithDrawBottom(selectWithDraw: SelectWithDraw,businessType:Int) : Bo
                 layoutWallet.setSingleClick {
                     icTickBank.setShowOrHideDrawable(false)
                     icTickVietlott.setShowOrHideDrawable(false)
+                    icTickHanMuc.setShowOrHideDrawable(false)
                     icTickWallet.setShowOrHideDrawable(true)
                     selectWithDrawBank = SelectWithDraw.E_WALLET
                     callBackListener.onSelectWithDrawBank(selectWithDrawBank)
@@ -81,15 +83,25 @@ class SelectWithDrawBottom(selectWithDraw: SelectWithDraw,businessType:Int) : Bo
                 layoutVietlott.setSingleClick {
                     icTickBank.setShowOrHideDrawable(false)
                     icTickWallet.setShowOrHideDrawable(false)
+                    icTickHanMuc.setShowOrHideDrawable(false)
                     icTickVietlott.setShowOrHideDrawable(true)
                     selectWithDrawBank = SelectWithDraw.VIETLOTT
                     callBackListener.onSelectWithDrawBank(selectWithDrawBank)
 
                 }
+                layoutHanMuc.setSingleClick {
+                    icTickBank.setShowOrHideDrawable(false)
+                    icTickWallet.setShowOrHideDrawable(false)
+                    icTickVietlott.setShowOrHideDrawable(false)
+                    icTickHanMuc.setShowOrHideDrawable(true)
+                    selectWithDrawBank = SelectWithDraw.HAN_MUC
+                    callBackListener.onSelectWithDrawBank(selectWithDrawBank)
+                }
                 when(selectWithDrawBank){
                     SelectWithDraw.BANK -> icTickBank.setShowOrHideDrawable(true)
                     SelectWithDraw.E_WALLET -> icTickWallet.setShowOrHideDrawable(true)
                     SelectWithDraw.VIETLOTT -> icTickVietlott.setShowOrHideDrawable(true)
+                    SelectWithDraw.HAN_MUC -> icTickHanMuc.setShowOrHideDrawable(true)
                 }
                 when(businessType){
                     BUSINESS_TYPE_VIETLOTT, BUSINESS_TYPE_SYNTHETIC -> layoutVietlott.visibility = View.VISIBLE

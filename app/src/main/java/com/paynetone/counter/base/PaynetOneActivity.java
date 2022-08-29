@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.core.base.ContainerActivity;
 import com.core.base.viper.ViewFragment;
 import com.paynetone.counter.utils.DialogUtils;
@@ -27,6 +30,11 @@ public abstract class PaynetOneActivity  extends ContainerActivity {
     @Override
     public void hideProgress() {
         DialogUtils.dismissProgressDialog();
+    }
+
+    @Override
+    public void showErrorDialog(String message, FragmentManager fragmentManager) {
+        DialogUtils.showErrorDialog(message,fragmentManager);
     }
 
     @Override

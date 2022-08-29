@@ -75,11 +75,20 @@ public class OutwardAdapter extends RecyclerBaseAdapter {
             tv_date.setText(item.getTransDate());
             tv_code.setText(item.getOrderCode());
             tv_note.setText(item.getTransReason());
+
             if (item.getProviderCode().equals(Constants.PROVIDER_ZALO)) {
                 img_logo.setImageResource(R.drawable.zalopay);
             }
-            else {
+            else if (item.getProviderCode().equals(Constants.PROVIDER_VIETTEL)){
                 img_logo.setImageResource(R.drawable.viettel_money);
+            }else if (item.getProviderCode().equals(Constants.PROVIDER_MOCA)){
+                img_logo.setImageResource(R.drawable.ic_moca);
+            }else if (item.getProviderCode().equals(Constants.PROVIDER_VIETQR)){
+                img_logo.setImageResource(R.drawable.ic_viet_qr);
+            }else if (item.getProviderCode().equals(Constants.PROVIDER_VN_PAY)){
+                img_logo.setImageResource(R.drawable.ic_vnpay);
+            }else if (item.getProviderCode().equals(Constants.PROVIDER_SHOPPE)){
+                img_logo.setImageResource(R.drawable.ic_shoppe_pay);
             }
             if(TextUtils.isEmpty(item.getTransReason()))
                 rl_note.setVisibility(View.GONE);

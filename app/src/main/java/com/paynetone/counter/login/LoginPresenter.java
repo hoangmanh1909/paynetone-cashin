@@ -73,6 +73,7 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
                             public RegisterPassDataModel getData() {
                                 RegisterPassDataModel registerPassDataModel = new RegisterPassDataModel();
                                 registerPassDataModel.setMobileNumber(employeeModel.getMobileNumber());
+                                registerPassDataModel.setMerchantName(employeeModel.getFullName());
                                 return registerPassDataModel;
                             }
                         }).pushView();
@@ -92,6 +93,7 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
     void getPaynet(EmployeeModel employeeModel) {
         BaseRequest baseRequest = new BaseRequest();
         baseRequest.setID(employeeModel.getPaynetID());
+        baseRequest.setMobileNumber(employeeModel.getMobileNumber());
         mInteractor.getPaynet(baseRequest, new CommonCallback<SimpleResult>((Activity) mContainerView) {
             @Override
             protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
@@ -100,13 +102,9 @@ public class LoginPresenter extends Presenter<LoginContract.View, LoginContract.
                 if ("00".equals(response.body().getErrorCode())) {
                     SharedPref sharedPref = new SharedPref((Context) mContainerView);
                     PaynetModel paynetModel = NetWorkController.getGson().fromJson(response.body().getData(), PaynetModel.class);
-                    if (Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_STALL || (Integer.parseInt(paynetModel.getPnoLevel()) == Constants.PNOLEVEL_MERCHANT && paynetModel.getBusinessType() != Constants.BUSINESS_TYPE_ENTERPRISE)){
-                        sharedPref.savePaynet(paynetModel);
-                        sharedPref.putBoolean(PrefConst.PREF_IS_LOGIN,true);
-                        mView.goHome();
-                    }else {
-                        mView.showAlertDialog(getViewContext().getResources().getString(R.string.str_allow_account_personal_and_stall_login));
-                    }
+                    sharedPref.savePaynet(paynetModel);
+                    sharedPref.putBoolean(PrefConst.PREF_IS_LOGIN,true);
+                    mView.goHome();
                 } else {
                     mView.showAlertDialog(response.body().getMessage());
                 }

@@ -22,6 +22,7 @@ public interface HistoryContract {
 
     interface Presenter extends IPresenter<View, Interactor> {
         void orderSearch();
+        void orderSearchFilter(Integer branchID, Integer storeID,Integer stallID);
     }
 
 }

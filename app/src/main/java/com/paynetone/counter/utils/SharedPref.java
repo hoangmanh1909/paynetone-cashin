@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 
 import com.core.base.log.Logger;
+import com.google.gson.reflect.TypeToken;
 import com.paynetone.counter.model.EmployeeModel;
 import com.paynetone.counter.model.PaynetModel;
+import com.paynetone.counter.model.TabMainModel;
 import com.paynetone.counter.network.NetWorkController;
+
+import java.util.ArrayList;
 
 public class SharedPref {
     private SharedPreferences pref;
@@ -96,6 +101,8 @@ public class SharedPref {
             editor.remove(Constants.KEY_SHARE_PREFERENCES);
             editor.remove(Constants.KEY_EMPLOYEE);
             editor.remove(PrefConst.PREF_IS_LOGIN);
+            editor.remove(PrefConst.PREF_IS_TAB_MAIN);
+            editor.remove(PrefConst.PREF_IS_EXIST_PIN_CODE);
             editor.commit();
         } catch (Exception ex) {
             Logger.w(ex);
@@ -129,5 +136,102 @@ public class SharedPref {
         } else {
             return null;
         }
+    }
+    public ArrayList<TabMainModel> getTabMain(){
+        try{
+            String jsonTabMain = pref.getString(PrefConst.PREF_IS_TAB_MAIN,"");
+            if (!jsonTabMain.equals("")){
+                return NetWorkController.getGson().fromJson(jsonTabMain, new TypeToken<ArrayList<TabMainModel>>(){}.getType());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return null;
+
+    }
+    public Boolean isMerchantAdmin(){
+        try {
+            if (getEmployeeModel().getRoleID() == Constants.MERCHANT_ADMIN && Integer.parseInt(getPaynet().getPnoLevel())==Constants.PNOLEVEL_MERCHANT){ // merchant admin
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isAccountStore(){
+        try {
+            if (Integer.parseInt(getPaynet().getPnoLevel())==Constants.PNOLEVEL_STORE){
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  false;
+    }
+
+    public Boolean isAccountant(){
+        try {
+            if (getEmployeeModel().getRoleID() == Constants.ROLE_ACCOUNTANT) return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isAdmin(){
+        try {
+            if (getEmployeeModel().getRoleID() == Constants.ROLE_ADMIN) return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isManagerStore(){
+        try {
+            if (getEmployeeModel().getRoleID() == Constants.ROLE_MANAGER_STORE) return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isBranchStore(){
+        try {
+            if ( (getEmployeeModel().getRoleID() == Constants.ROLE_MANAGER_STORE &&
+                    Integer.parseInt(getPaynet().getPnoLevel()) == Constants.ROLE_MANAGER_BRANCH) ||
+                    getEmployeeModel().getRoleID() == Constants.ROLE_MANAGER_BRANCH) return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isAccountStall(){
+        try {
+            if (Integer.parseInt(getPaynet().getPnoLevel()) == Constants.PNOLEVEL_STALL) {
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isAccountBranch(){
+        try {
+            if (Integer.parseInt(getPaynet().getPnoLevel()) == Constants.PNOLEVEL_BRANCH) return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean isExistPINCode(){
+        try{
+            String pinCode = pref.getString(PrefConst.PREF_IS_EXIST_PIN_CODE,"");
+            if (!getEmployeeModel().getPin().isEmpty() && getEmployeeModel().getPin()!=null) return true;
+            if (!pinCode.isEmpty()) return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+
     }
 }

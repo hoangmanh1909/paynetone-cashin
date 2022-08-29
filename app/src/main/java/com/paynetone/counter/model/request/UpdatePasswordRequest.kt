@@ -7,15 +7,10 @@ data class UpdatePasswordRequest(
     @SerializedName("MobileNumber")
     @Expose
     var mobileNumber: String? = null,
-    @SerializedName("PasswordNew")
+    @SerializedName("Password")
     @Expose
     var password: String? = null,
-
-    @SerializedName("OTPType")
+    @SerializedName("PasswordNew")
     @Expose
-    var otpType: String? = null,
-
-    @SerializedName("OTPValue")
-    @Expose
-    var otpValue: String? = null
+    var passwordNew: String? = null,
 )

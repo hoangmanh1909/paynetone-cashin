@@ -2,18 +2,26 @@ package com.paynetone.counter.network;
 
 import android.util.Log;
 
+import com.blankj.utilcode.util.SpanUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.paynetone.counter.BuildConfig;
+import com.paynetone.counter.model.PostIdRequest;
 import com.paynetone.counter.model.RequestObject;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.BaseRequest;
+import com.paynetone.counter.model.request.ChangePassByOTPRequest;
 import com.paynetone.counter.model.request.EmployeeAddNewRequest;
 import com.paynetone.counter.model.request.LoginRequest;
 import com.paynetone.counter.model.request.MerchantAddNewRequest;
 import com.paynetone.counter.model.request.OrderAddRequest;
 import com.paynetone.counter.model.request.OrderGetByCodeRequest;
 import com.paynetone.counter.model.request.OrderSearchRequest;
+import com.paynetone.counter.model.request.PINAddRequest;
+import com.paynetone.counter.model.request.PaynetGetByParentRequest;
+import com.paynetone.counter.model.request.RequestOtp;
+import com.paynetone.counter.model.request.TopupAddressRequest;
+import com.paynetone.counter.model.request.TranSearchRequest;
 import com.paynetone.counter.model.request.UpdatePasswordRequest;
 import com.paynetone.counter.model.request.WithdrawRequest;
 import com.paynetone.counter.utils.Constants;
@@ -22,16 +30,19 @@ import com.paynetone.counter.utils.Utils;
 
 import java.io.File;
 
+import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWorkController {
     private static volatile PaynetOneApi apiBuilder;
     private static volatile PaynetOneApi apiBuilderImage;
+    private static volatile PaynetOneApi apiBuilderRx;
 
     private NetWorkController() {
 
@@ -58,6 +69,22 @@ public class NetWorkController {
         return apiBuilder;
     }
 
+    private static PaynetOneApi getApiBuilderRx() {
+        // mPrivateKeySignature = Constants.PRIVATE_KEY;
+        // mApiKey = Constants.API_KEY;
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.API_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(Utils.getUnsafeOkHttpClient(120, 120, "UGF5bmV0T25lOkdhdGV3YXlAMjEyMSFAIw=="))
+                .build();
+        apiBuilderRx = retrofit.create(PaynetOneApi.class);
+        return apiBuilderRx;
+    }
+
     private static PaynetOneApi getAPIBuilderImage() {
         if (apiBuilderImage == null) {
             Gson gson = new GsonBuilder()
@@ -78,6 +105,15 @@ public class NetWorkController {
             File file = new File(filePath);
             RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("pid_image", "file_pid_image.jpg", reqFile);
+            Call<SimpleResult> call = getAPIBuilderImage().postImage(body);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void postImage(MultipartBody.Part body, CommonCallback<SimpleResult> callback){
+        try {
             Call<SimpleResult> call = getAPIBuilderImage().postImage(body);
             call.enqueue(callback);
         } catch (Exception e) {
@@ -309,11 +345,11 @@ public class NetWorkController {
             e.printStackTrace();
         }
     }
-    public static void updatePassword(UpdatePasswordRequest request, CommonCallback<SimpleResult> callback){
+    public static void updatePassword(ChangePassByOTPRequest request, CommonCallback<SimpleResult> callback){
         try {
             String data = getGson().toJson(request);
             String signature = RSAUtil.signature(data);
-            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.CMD_UPDATE_PASSWORD_BY_OTP, data, "", signature);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.EMP_UPDATE_PASSWORD_BY_OTP, data, "", signature);
             Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
             call.enqueue(callback);
         }catch (Exception e){
@@ -350,6 +386,139 @@ public class NetWorkController {
             String data = getGson().toJson(request);
             String signature = RSAUtil.signature(data);
             RequestObject requestObject = new RequestObject("ANDROID", "", Constants.CMD_MERCHANT_GET_BY_MOBILE_NUMBER, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requestOtp(RequestOtp request, CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.EMP_OTP_VERIFY, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void requestViTopupArress(TopupAddressRequest request, CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.DIC_GET_VI_TOPUP_ADDRESS, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static void requestTransSearch(TranSearchRequest request, CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.TRANS_SEARCH, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static Single<SimpleResult> requestTransSearch(TranSearchRequest request){
+        String data = getGson().toJson(request);
+        String signature = RSAUtil.signature(data);
+        RequestObject requestObject = new RequestObject("ANDROID", "", Constants.TRANS_SEARCH, data, "", signature);
+        return getApiBuilderRx().commonServiceRx(requestObject);
+
+    }
+    public static void requestProvider(CommonCallback<SimpleResult> callback){
+        try {
+            String signature = RSAUtil.signature("");
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.DIC_GET_PROVIDERS, "", "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Single<SimpleResult> requestProvider(){
+        String signature = RSAUtil.signature("");
+        RequestObject requestObject = new RequestObject("ANDROID", "", Constants.DIC_GET_PROVIDERS, "", "", signature);
+        return getApiBuilderRx().commonServiceRx(requestObject);
+    }
+    public static void paynetGetByParentRequest(PaynetGetByParentRequest request,CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.PAYNET_GET_BY_PARENT, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static Single<SimpleResult> paynetGetByParentRequest(PaynetGetByParentRequest request){
+        String data = getGson().toJson(request);
+        String signature = RSAUtil.signature(data);
+        RequestObject requestObject = new RequestObject("ANDROID", "", Constants.PAYNET_GET_BY_PARENT, data, "", signature);
+        return getApiBuilderRx().commonServiceRx(requestObject);
+    }
+    public static void paynetGetBalanceByID(BaseRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.PAYNET_GET_BALANCE_BY_ID, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static Single<SimpleResult> paynetGetBalanceByID(BaseRequest request){
+        String data = getGson().toJson(request);
+        String signature = RSAUtil.signature(data);
+        RequestObject requestObject = new RequestObject("ANDROID", "", Constants.PAYNET_GET_BALANCE_BY_ID, data, "", signature);
+        return getApiBuilderRx().commonServiceRx(requestObject);
+    }
+    public static void getPostId(PostIdRequest request,CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.DIC_GET_POS, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Single<SimpleResult> requestAddPinCode(PINAddRequest request){
+        String data = getGson().toJson(request);
+        String signature = RSAUtil.signature(data);
+        RequestObject requestObject = new RequestObject("ANDROID", "", Constants.EMP_PIN_ADD, data, "", signature);
+        return getApiBuilderRx().commonServiceRx(requestObject);
+    }
+    public static void requestVerifyPinCode(PINAddRequest request,CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.EMP_PIN_VERIFY, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requestPINCode(PINAddRequest request,CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.EMP_PIN_HAS_OR_NOT, data, "", signature);
             Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
             call.enqueue(callback);
         } catch (Exception e) {

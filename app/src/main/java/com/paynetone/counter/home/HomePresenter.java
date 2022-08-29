@@ -37,7 +37,6 @@ public class HomePresenter extends Presenter<HomeContract.View, HomeContract.Int
     public void start() {
         sharedPref = new SharedPref(activity);
         paynetModel = sharedPref.getPaynet();
-        getBalance();
     }
 
     @Override
@@ -50,31 +49,4 @@ public class HomePresenter extends Presenter<HomeContract.View, HomeContract.Int
         return HomeFragment.getInstance();
     }
 
-    @Override
-    public void getBalance() {
-        if (paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_PERSONAL ||
-                paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_VIETLOTT ||
-                paynetModel.getBusinessType() == Constants.BUSINESS_TYPE_SYNTHETIC) {
-            BaseRequest baseRequest = new BaseRequest();
-            baseRequest.setMerchantID(paynetModel.getMerchantID());
-            mInteractor.getBalance(baseRequest, new CommonCallback<SimpleResult>((Activity) mContainerView) {
-                @Override
-                protected void onSuccess(Call<SimpleResult> call, Response<SimpleResult> response) {
-                    super.onSuccess(call, response);
-
-                    if ("00".equals(response.body().getErrorCode())) {
-                        List<MerchantBalance> merchantBalance = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<MerchantBalance>>() {
-                        }.getType());
-                        mView.showBalance(merchantBalance);
-                    }
-                }
-
-                @Override
-                protected void onError(Call<SimpleResult> call, String message) {
-                    mView.hideProgress();
-//                    super.onError(call, message);
-                }
-            });
-        }
-    }
 }
