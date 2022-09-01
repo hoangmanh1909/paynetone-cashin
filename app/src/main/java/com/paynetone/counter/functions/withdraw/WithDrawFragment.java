@@ -31,6 +31,7 @@ import com.paynetone.counter.dialog.ConfirmDialog;
 import com.paynetone.counter.dialog.SelectWithDrawBottom;
 import com.paynetone.counter.dialog.SelectWithDrawWalletBottom;
 import com.paynetone.counter.dialog.SuccessDialog;
+import com.paynetone.counter.dialog.SuccessPaymentDialog;
 import com.paynetone.counter.enumClass.StateNotify;
 import com.paynetone.counter.enumClass.StateView;
 import com.paynetone.counter.functions.withdraw.history.HistoryPresenter;
@@ -285,47 +286,52 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     }
 
     private void requestWithDraw(){
-        WithdrawRequest request = new WithdrawRequest();
-        request.setMerchantID(paynetModel.getMerchantID());
-        request.setPaynetID(paynetModel.getId());
-        request.setAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
-        request.setFee(0);
-        request.setTransAmount(Integer.parseInt(String.valueOf(edt_amount.getText()).replace(",", "")));
+        try {
+            WithdrawRequest request = new WithdrawRequest();
+            request.setMerchantID(paynetModel.getMerchantID());
+            request.setPaynetID(paynetModel.getId());
+            request.setAmount(Long.parseLong(String.valueOf(edt_amount.getText()).replace(",", "")));
+            request.setFee(0);
+            request.setTransAmount(Long.parseLong(String.valueOf(edt_amount.getText()).replace(",", "")));
 
-        switch (selectWithDraw){
-            case BANK:
-                request.setBankID(employeeModel.getBankID());
-                request.setMobileNumber(employeeModel.getMobileNumber());
-                request.setAccountNumber(Objects.requireNonNull(tv_name_account_number_bank.getText()).toString());
-                request.setFullName(employeeModel.getPaymentAccName());
-                request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_BANK);
-                request.setWalletID(0); // default
-                break;
-            case E_WALLET:
-                request.setBankID(0);
-                request.setMobileNumber(tv_name_number_phone.getText().toString());
-                request.setAccountNumber("");
-                request.setFullName(Objects.requireNonNull(tv_full_name_personal_wallet.getText()).toString());
-                request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_WALLET);
-                request.setWalletID(selectedWallet.getId());
-                break;
-            case VIETLOTT:
-                request.setBankID(0);
-                request.setFullName(Objects.requireNonNull(tv_full_name_personal_vietlott.getText()).toString());
-                request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_VIETLOTT);
-                request.setWalletID(0);
-                request.setPosID(paynetModel.getPosID());
-                break;
-            case HAN_MUC:{
-                request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_HAN_MUC);
-                if (checkBox.isChecked() && storeResponse != null ) request.setShopId(storeResponse.getLinkID()+"");
-                else if (checkBox.isChecked() &&
-                        paynetGetBalanceByIdResponse != null) request.setShopId(paynetGetBalanceByIdResponse.getLinkID()+"");
-                break;
+            switch (selectWithDraw){
+                case BANK:
+                    request.setBankID(employeeModel.getBankID());
+                    request.setMobileNumber(employeeModel.getMobileNumber());
+                    request.setAccountNumber(Objects.requireNonNull(tv_name_account_number_bank.getText()).toString());
+                    request.setFullName(employeeModel.getPaymentAccName());
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_BANK);
+                    request.setWalletID(0); // default
+                    break;
+                case E_WALLET:
+                    request.setBankID(0);
+                    request.setMobileNumber(tv_name_number_phone.getText().toString());
+                    request.setAccountNumber("");
+                    request.setFullName(Objects.requireNonNull(tv_full_name_personal_wallet.getText()).toString());
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_WALLET);
+                    request.setWalletID(selectedWallet.getId());
+                    break;
+                case VIETLOTT:
+                    request.setBankID(0);
+                    request.setFullName(Objects.requireNonNull(tv_full_name_personal_vietlott.getText()).toString());
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_VIETLOTT);
+                    request.setWalletID(0);
+                    request.setPosID(paynetModel.getPosID());
+                    break;
+                case HAN_MUC:{
+                    request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_HAN_MUC);
+                    if (checkBox.isChecked() && storeResponse != null ) request.setShopId(storeResponse.getLinkID()+"");
+                    else if (checkBox.isChecked() &&
+                            paynetGetBalanceByIdResponse != null) request.setShopId(paynetGetBalanceByIdResponse.getLinkID()+"");
+                    break;
 
+                }
             }
+            mPresenter.withdraw(request);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        mPresenter.withdraw(request);
+
     }
 
     @Override
@@ -336,15 +342,14 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
 
     @Override
     public void showSuccess(String retRefNumber) {
-        SuccessDialog successDialog = new SuccessDialog(requireContext(), retRefNumber, () -> {
-            SateViewData.setMeasurements(StateView.GONE);
-            StateNotifyData.setMeasurements(StateNotify.I_NEED_UPDATE);
-            requireActivity().finish();
-
-
-        });
-        successDialog.setCancelable(false);
-        successDialog.show();
+        new SuccessPaymentDialog(requireContext(), getString(R.string.str_message_payment_success), new SuccessPaymentDialog.CallBackListener() {
+            @Override
+            public void onCloseClicked() {
+                SateViewData.setMeasurements(StateView.GONE);
+                StateNotifyData.setMeasurements(StateNotify.I_NEED_UPDATE);
+                requireActivity().finish();
+            }
+        }).show(getChildFragmentManager(),"WithDrawFragment");
     }
 
     @Override

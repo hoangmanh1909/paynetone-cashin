@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_message"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_11sdp"
-            android:text="Đóng"
+            android:text="@string/str_close"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/bg_btn_close_success_payment_dialog"

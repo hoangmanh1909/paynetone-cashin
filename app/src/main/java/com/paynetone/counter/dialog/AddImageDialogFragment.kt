@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -30,7 +31,7 @@ import kotlinx.coroutines.flow.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.File
+import java.io.*
 
 class AddImageDialogFragment(val mContext: Context, val callBack:CallBackListener) : DialogFragment() {
 
@@ -223,18 +224,25 @@ class AddImageDialogFragment(val mContext: Context, val callBack:CallBackListene
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constants.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            activity
             if (resultCode == Activity.RESULT_OK) {
-                val uri = data?.data?.path
-                callBack.onSelectedItem(ImagePicker(uri = uri ?:"", isCamera = true))
+                val path = data?.data?.path
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                    callBack.onSelectedItem(ImagePicker(uri = path ?:"", isCamera = false),prepareFilePart("image",Uri.parse(path) ,path ?:""))
+
+                }else{
+                    callBack.onSelectedItem(ImagePicker(uri = path ?:"", isCamera = true))
+                }
+
                 this.dismiss()
             }
         }
     }
 
-    private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part? {
+
+
+    private fun prepareFilePart(partName: String, fileUri: Uri,path:String = ""): MultipartBody.Part? {
         try {
-            val file = File(getRealPathFromURI(fileUri))
+           val file =  if (path.isNotBlank()) File(path.replace("///","//")) else File(getRealPathFromURI(fileUri))
             val newFile = File(System.currentTimeMillis().toString())
             file.renameTo(newFile)
             val requestFile: RequestBody =
@@ -264,6 +272,9 @@ class AddImageDialogFragment(val mContext: Context, val callBack:CallBackListene
         }
         return ""
     }
+
+
+
 
 
 

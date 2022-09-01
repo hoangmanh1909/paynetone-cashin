@@ -2,10 +2,10 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:background="@color/white"
         android:id="@+id/rootView"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_header"
@@ -51,24 +51,26 @@
             android:background="@drawable/bg_edt_search"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/_10sdp"
-            android:maxLines="1"
-            android:singleLine="true"
             android:hint="@string/str_hint_edt_search_bank"
+            android:maxLines="1"
             android:paddingStart="@dimen/_15sdp"
             android:paddingEnd="@dimen/_15sdp"
+            android:singleLine="true"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintTop_toBottomOf="@id/layout_header" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleView"
+            style="@style/ScrollbarStyle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_search"
             app:spanCount="4" />
 

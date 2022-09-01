@@ -37,18 +37,18 @@ public class MainActivity extends PaynetOneActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Bundle bundle = intent.getExtras();
-        if (bundle!=null){
-            if (bundle.containsKey(Constants.NOTIFICATION_DATA_TRANSFER)){
-                Bundle data = bundle.getBundle(Constants.NOTIFICATION_DATA_TRANSFER);
-                String title = data.getString("title");
-                String body = data.getString("body");
-                if (title != null && body != null){
-                    startActivity(new Intent(this, HistoryActivity.class));
-                }
-
-            }
-        }
+//        Bundle bundle = intent.getExtras();
+//        if (bundle!=null){
+//            if (bundle.containsKey(Constants.NOTIFICATION_DATA_TRANSFER)){
+//                Bundle data = bundle.getBundle(Constants.NOTIFICATION_DATA_TRANSFER);
+//                String title = data.getString("title");
+//                String body = data.getString("body");
+//                if (title != null && body != null){
+//                    startActivity(new Intent(this, HistoryActivity.class));
+//                }
+//
+//            }
+//        }
 
     }
 

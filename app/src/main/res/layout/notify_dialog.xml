@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_close"
-            android:text="Đóng"
+            android:text="@string/str_close"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_marginTop="@dimen/_15sdp"

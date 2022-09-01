@@ -70,16 +70,15 @@ class ServiceFragment : ViewFragment<ServiceContract.Presenter>(), ServiceContra
                         if (item.isActive == Constants.PROVIDER_ACTIVE) {
                             if (sharedPref.isExistPINCode){
                                 ConfirmPINCodeDialog { pinCode ->
-                                    val empId = SharedPref.getInstance(requireContext()).employeeModel.id
+                                    val empId = SharedPref.getInstance(requireContext()).employeeModel.getiDMerAdmin()
                                     val mobileNumber = SharedPref.getInstance(requireContext()).employeeModel.mobileNumber
-                                    mPresenter.requestVerifyPinCode(PINAddRequest(empId, pinCode, mobileNumber = mobileNumber))
+                                    mPresenter.requestVerifyPinCode(PINAddRequest(empId ?: 0, pinCode, mobileNumber = mobileNumber))
 
                                 }.show(childFragmentManager, "ServiceFragment")
                             }else{
                                 NotifyDialog(getString(R.string.str_message_not_setting_pin_code))
                                     .show(childFragmentManager,"ServiceFragment")
                             }
-//
                         } else {
                             DevelopDialog(requireContext()).show(
                                 childFragmentManager,

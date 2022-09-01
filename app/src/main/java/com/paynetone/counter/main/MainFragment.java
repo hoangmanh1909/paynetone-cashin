@@ -84,6 +84,8 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
     @BindView(R.id.tv_money)
     AppCompatTextView tvMoney;
 
+    @BindView(R.id.cl_information_personal)
+    ConstraintLayout cl_information_personal;
     @BindView(R.id.layout_money_waiting)
     ConstraintLayout layoutMoneyWaiting;
     @BindView(R.id.layout_money)
@@ -91,6 +93,8 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
 
     @BindView(R.id.layout_personal)
     LinearLayout layoutPersonal;
+    @BindView(R.id.tv_merchant_name)
+    AppCompatTextView tvMerchantName;
     @BindView(R.id.tv_han_muc)
     AppCompatTextView tvHanMuc;
     @BindView(R.id.collapsing)
@@ -103,11 +107,10 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
     CardView card_bottom;
 
     long amountP = 0;
+    String mode = "";
 
     SharedPref sharedPref;
     PaynetModel paynetModel;
-    EmployeeModel employeeModel;
-
     List<TabMainModel> tabMainModels;
 
     public static MainFragment getInstance() {
@@ -126,19 +129,31 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
 
         sharedPref = new SharedPref(requireActivity());
         paynetModel = sharedPref.getPaynet();
-        employeeModel = sharedPref.getEmployeeModel();
         tabMainModels = sharedPref.getTabMain();
+        mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE, "");
         initNaviBottom();
 
 //        new ConfirmPasswordDialog(requireContext()).show(getChildFragmentManager(),"Main");
+
         try {
             if (sharedPref.isMerchantAdmin()){
                 collapsing.setVisibility(View.VISIBLE);
+            }
+            if (paynetModel != null){
+                tvMerchantName.setText(paynetModel.getName());
             }
         }catch (Exception e){
             e.printStackTrace();
         }
 
+        initViewPager();
+        setupRecyclerViewBanner();
+        hideViewToServer();
+
+
+    }
+
+    private void initViewPager(){
         adapter = new FragmentPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override
@@ -189,8 +204,6 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
 
         imgTabOne.setSelected(true);
         titleTabOne.setSelected(true);
-        setupRecyclerViewBanner();
-
     }
 
     private Fragment getFragmentItem(int position) {
@@ -317,5 +330,11 @@ public class MainFragment  extends ViewFragment<MainContract.Presenter> implemen
     public void onShowBottomNavigator() {
         //show bottom navigator
 //       bottomNavigation.show();
+    }
+    private void hideViewToServer(){
+        if (mode.equals(Constants.ANDROID_PAYMENT_MODE_HIDE)) {
+            collapsing.setVisibility(View.GONE);
+            tvHanMuc.setVisibility(View.GONE);
+        }
     }
 }

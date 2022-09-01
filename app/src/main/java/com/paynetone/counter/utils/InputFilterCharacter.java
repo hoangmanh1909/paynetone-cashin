@@ -6,7 +6,7 @@ import android.text.Spanned;
 public class InputFilterCharacter implements InputFilter {
 
     private boolean isCharacter(String s) {
-        return s.matches(".*[a-zA-Z-0-9 đ]+.*");
+        return s.matches(".*[a-zA-Z0-9 đ]+.*");
     }
 
     @Override

@@ -191,8 +191,10 @@
     <string name="str_store_required">Cửa hàng <font fgcolor='#EA5151'>*</font></string>
     <string name="str_branch_hint_name">--Chọn chi nhánh--</string>
     <string name="str_store_hint_name">--Chọn cửa hàng--</string>
+    <string name="str_message_payment_success">Yêu cầu rút tiền của bạn đã được ghi nhận và xử lý trong vòng 24h làm việc</string>
 
     <string name="str_allow_running_background">Không hạn chế hoạt động dưới nền cho ứng dụng.</string>
+
     
     //fragment_service
     <string name="str_naptien_phone">Nạp tiền điện thoại</string>
@@ -285,12 +287,12 @@ Chính sách quyền riêng tư này được giải thích và thi hành theo P
 
     //dialog phone contact
     <string name="str_no_memory_assess">Không có quyền truy cập bộ nhớ!</string>
-    <string name="str_no_call_phone_assess">Không có quyền gọi điện!</string>
+    <string name="str_no_call_phone_assess">Không có quyền gọi điện thoại!</string>
     <string name="str_no_call_read_contact_assess">Không có quyền truy cập danh bạ!</string>
 
     //dialog han muc
     <string name="str_han_muc_bank">Nạp hạn mức qua tài khoản ngân hàng\nPaynet Việt Nam</string>
-    <string name="str_han_muc_wallet">Nạp hạn mức qua Tài khoản ví điện tử\n(MoMo, Viettel Money, ZaloPay)</string>
+    <string name="str_han_muc_wallet">Nạp hạn mức qua tài khoản ví điện tử\n(MoMo, Viettel Money, ZaloPay)</string>
     <string name="str_han_muc_doi_soat">Nạp hạn mức từ tiền đã đối soát.</string>
     <string name="str_han_muc_post_id">Rút về POSID</string>
     <string name="str_guide_recharge"><u><font fgcolor='#BA2027'>Hướng dẫn nạp tiền</font></u></string>
@@ -338,6 +340,9 @@ Chính sách quyền riêng tư này được giải thích và thi hành theo P
     <string name="str_title_dialog_list_bank_qr">Tất cả ngân hàng</string>
     
     <string name="str_not_authorized_function">Bạn không đủ quyền thực hiện chức năng</string>
+    <string name="str_hint_search_contacts">Nhập tên hoặc số điện thoại</string>
+    <string name="str_title_contact">Danh bạ</string>
+    <string name="str_close">Đóng</string>
 
 
 </resources>

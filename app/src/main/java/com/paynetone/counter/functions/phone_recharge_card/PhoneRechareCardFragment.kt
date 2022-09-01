@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Message
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ class PhoneRechareCardFragment : ViewFragment<PhoneRechareCardContract.Presenter
 
     private lateinit var binding: PhoneRechargeCardFragmentBinding
     private var hotline :String? = null
+    private var url :String? = null
 
     companion object {
         val instance: PhoneRechareCardFragment
@@ -47,14 +50,19 @@ class PhoneRechareCardFragment : ViewFragment<PhoneRechareCardContract.Presenter
 
     private fun initView() {
         initWebView()
-
+        this.url = mPresenter.urlTopUpAddress()
         binding.apply {
             ivBack.setSingleClick {
                 if (webview.canGoBack()) {
-                    Log.e("TAG", "initView: ", )
                     webview.goBack()
                 } else {
                     activity?.finish()
+                }
+
+                url?.let {
+                    if (url == mPresenter.urlTopUpAddress()){
+                        activity?.finish()
+                    }
                 }
 
             }
@@ -67,6 +75,7 @@ class PhoneRechareCardFragment : ViewFragment<PhoneRechareCardContract.Presenter
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
                     view.loadUrl(url!!)
+                    this@PhoneRechareCardFragment.url = url
                     return true
                 }
 
@@ -77,13 +86,13 @@ class PhoneRechareCardFragment : ViewFragment<PhoneRechareCardContract.Presenter
                     binding.progressLoadingWebview.visibility = View.GONE
                 }
 
-                override fun onReceivedError(
-                    view: WebView?,
-                    request: WebResourceRequest?,
-                    error: WebResourceError?
-                ) {
+                override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                     showErrorDialog()
                     super.onReceivedError(view, request, error)
+                }
+
+                override fun onFormResubmission(view: WebView?, dontResend: Message?, resend: Message?) {
+                    resend?.sendToTarget();
                 }
 
             }
@@ -132,7 +141,7 @@ class PhoneRechareCardFragment : ViewFragment<PhoneRechareCardContract.Presenter
             if (permissions.all { it.value }) {
                 onPermissionGranted()
             } else {
-                Toast.showToast(activity,resources.getString(R.string.str_no_call_read_contact_assess))
+                Toast.showToast(activity,resources.getString(R.string.str_no_call_phone_assess))
             }
         }
 

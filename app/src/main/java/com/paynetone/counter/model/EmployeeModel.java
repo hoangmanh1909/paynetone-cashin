@@ -41,6 +41,17 @@ public class EmployeeModel {
     @Expose
     private String pin;
 
+    @SerializedName("IDMerAdmin")
+    private int iDMerAdmin;
+
+    public int getiDMerAdmin() {
+        return iDMerAdmin;
+    }
+
+    public void setiDMerAdmin(int iDMerAdmin) {
+        this.iDMerAdmin = iDMerAdmin;
+    }
+
     public String getPin() {
         return pin;
     }

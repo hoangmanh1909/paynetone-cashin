@@ -17,11 +17,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleView"
+            style="@style/ScrollbarStyle"
             app:layout_constraintTop_toBottomOf="@id/tv_service"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

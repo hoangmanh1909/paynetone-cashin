@@ -20,6 +20,7 @@ class ConfirmPasswordDialog(val mContext: Context, private val itemListener:Item
 
     override fun initView(){
         binding.apply {
+            edtPassword.disableCopyPaste()
             btnLogin.setSingleClick {
                 if (edtPassword.text.toString().isEmpty()){
                     Toast.showToast(requireContext(),"Vui lòng nhập mật khẩu")

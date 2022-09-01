@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/bg_btn_close_success_payment_dialog"
-            android:text="Đóng"
+            android:text="@string/str_close"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/recycleView" />

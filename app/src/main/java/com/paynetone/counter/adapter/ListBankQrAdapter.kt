@@ -36,6 +36,17 @@ class ListBankQrAdapter(private val mContext: Context,
         addAll(listContent)
     }
 
+    fun notifyAllData(){
+        try {
+            filterResult.clear()
+            filterResult.addAll(listContent)
+            notifyDataSetChanged()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+    }
+
     interface OnClickItemListener {
         fun onClickItem(item: GetProviderResponse)
     }
@@ -81,12 +92,11 @@ class ListBankQrAdapter(private val mContext: Context,
         return  object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString().trim()
-                Log.e("TAG", "performFiltering: $charSearch" )
                 filter = if (charSearch.isEmpty()) {
                     listContent
                 } else {
                     val resultList = ArrayList<GetProviderResponse>()
-                    for (row in filterResult) {
+                    for (row in listContent) {
                         val covertString= convertToString(row.name ?:"")
                         covertString?.let { name->
                             if (name.contains(convertToString(charSearch) ?: "")) resultList.add(row)

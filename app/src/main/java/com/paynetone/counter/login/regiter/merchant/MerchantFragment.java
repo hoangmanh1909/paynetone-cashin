@@ -577,6 +577,15 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                 }
             }
 
+            if (TextUtils.isEmpty(fileImgBefore)) {
+                Toast.showToast(requireContext(), "Bạn chưa Chụp ảnh giấy tờ tùy thân mặt trước");
+                return;
+            }
+            if (TextUtils.isEmpty(fileImgAfter)) {
+                Toast.showToast(requireContext(), "Bạn chưa Chụp ảnh giấy tờ tùy thân mặt sau");
+                return;
+            }
+
             if (TextUtils.isEmpty(edt_pid_number.getText())) {
                 Toast.showToast(requireContext(), "Bạn chưa nhập Số giấy tờ tùy thân người đại diện");
                 return;
@@ -591,14 +600,6 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
             }
             if (this.bankModel == null) {
                 Toast.showToast(requireContext(), "Bạn chưa Chọn Ngân hàng thanh toán");
-                return;
-            }
-            if (TextUtils.isEmpty(fileImgBefore)) {
-                Toast.showToast(requireContext(), "Bạn chưa Chụp ảnh giấy tờ tùy thân mặt trước");
-                return;
-            }
-            if (TextUtils.isEmpty(fileImgAfter)) {
-                Toast.showToast(requireContext(), "Bạn chưa Chụp ảnh giấy tờ tùy thân mặt sau");
                 return;
             }
             if (businessType == Constants.BUSINESS_TYPE_ENTERPRISE || businessType == Constants.BUSINESS_TYPE_HOUSEHOLD){
@@ -1173,7 +1174,7 @@ public class MerchantFragment extends ViewFragment<MerchantContract.Presenter> i
                                     this.hideProgress();
                                 }
                         );
-            }else {
+            } else {
                 mPresenter.postImage(body);
             }
 

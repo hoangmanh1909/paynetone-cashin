@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toTopOf="@id/img_personal">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_name_han_muc"
+                    android:id="@+id/tv_merchant_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Hạn mức bán hàng"

@@ -2,6 +2,7 @@ package com.paynetone.counter.utils;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
 
 import androidx.core.content.ContextCompat;
@@ -16,7 +17,8 @@ public class MediaUtils {
     public static void captureImage(Fragment fragment) {
         File saveDir = null;
         if (ContextCompat.checkSelfPermission(fragment.requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            saveDir = new File(Environment.getExternalStorageDirectory(), "MaterialCamera");
+            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)+"/PaynetOne/";
+            saveDir = new File(path);
             saveDir.mkdirs();
 
         }

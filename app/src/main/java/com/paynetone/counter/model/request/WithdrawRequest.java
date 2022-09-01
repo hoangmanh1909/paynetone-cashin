@@ -15,13 +15,13 @@ public class WithdrawRequest {
     private String transDetail;
     @SerializedName("Amount")
     @Expose
-    private Integer amount;
+    private Long amount;
     @SerializedName("Fee")
     @Expose
     private Integer fee;
     @SerializedName("TransAmount")
     @Expose
-    private Integer transAmount;
+    private Long transAmount;
     @SerializedName("TransReason")
     @Expose
     private String transReason;
@@ -110,11 +110,11 @@ public class WithdrawRequest {
         this.transDetail = transDetail;
     }
 
-    public Integer getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 
@@ -126,11 +126,11 @@ public class WithdrawRequest {
         this.fee = fee;
     }
 
-    public Integer getTransAmount() {
+    public Long getTransAmount() {
         return transAmount;
     }
 
-    public void setTransAmount(Integer transAmount) {
+    public void setTransAmount(Long transAmount) {
         this.transAmount = transAmount;
     }
 

@@ -118,10 +118,8 @@ public class Utils {
                     .connectTimeout(connectTimeOut, TimeUnit.SECONDS)
                     .hostnameVerifier(hostnameVerifier);//org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER
 
-            if (BuildConfig.DEBUG) {
-                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                builder.addInterceptor(loggingInterceptor);
-            }
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(loggingInterceptor);
 
             builder.addInterceptor(new Interceptor() {
                 @Override
@@ -164,6 +162,7 @@ public class Utils {
                     }
                 })
 //                .placeholder(R.drawable.loading) // any placeholder to load at start// any image in case of error
+                .error(R.drawable.ic_no_images)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView);  // imageview object
     }

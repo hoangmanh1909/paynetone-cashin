@@ -231,7 +231,7 @@
                 android:background="@drawable/bg_close_confirm_password"
                 android:paddingStart="@dimen/_30sdp"
                 android:paddingEnd="@dimen/_30sdp"
-                android:text="Đóng"
+                android:text="@string/str_close"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toEndOf="@id/btn_ok"

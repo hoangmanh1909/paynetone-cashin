@@ -67,6 +67,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
             ll_register.setVisibility(View.VISIBLE);
         }
         changeTextListener();
+        getFirebaseMessageToken();
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register,R.id.rootView,R.id.tv_forgot_password})
@@ -117,7 +118,7 @@ public class LoginFragment extends ViewFragment<LoginContract.Presenter> impleme
 //            textFieldPassword.setError(getString(R.string.message_field_password_invalid));
 //            return;
 //        }
-        getFirebaseMessageToken();
+
         mPresenter.login(phone, passWord,firebaseToken);
     }
 

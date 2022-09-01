@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_10sdp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titleHeight"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -58,164 +61,161 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:background="@color/backgroundHome"
+        android:paddingBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/btn_ok"
+        app:layout_constraintTop_toBottomOf="@id/layout_title">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rootView"
+        <LinearLayout
+            android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_10sdp"
-            android:background="@color/backgroundHome">
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/layout_content"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent">
+                android:hint="Số điện thoại"
+                android:padding="@dimen/anchor_default"
+                android:visibility="gone"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_mobile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Số điện thoại"
-                    android:padding="@dimen/anchor_default"
-                    android:visibility="gone"
-                    app:boxBackgroundColor="@color/white"
-                    app:endIconMode="clear_text">
+                    android:inputType="number" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_mobile_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_viet_qr"
+                android:visibility="gone" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_viet_qr" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_25sdp">
-
-                    <EditText
-                        android:id="@+id/edt_amount"
-                        android:maxLength="8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:background="@null"
-                        android:hint="0"
-                        android:inputType="number"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:paddingEnd="@dimen/_10sdp"
-                        android:singleLine="true"
-                        android:textColor="@color/colorBlack3"
-                        android:textColorHint="@color/grey_400"
-                        android:textSize="@dimen/_25sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_format_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="-10dp"
-                        android:paddingTop="@dimen/_2sdp"
-                        android:text="đ"
-                        android:textColor="@color/grey_400"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/edt_amount"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/viewLine"
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="0.5dp"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/edt_amount" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_error_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:text="@string/str_error_amount"
-                        android:textColor="#ED6262"
-                        android:textSize="@dimen/_9sdp"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/viewLine" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="Mô tả"
-                    android:textColor="@color/colorBlack3"
-                    android:textSize="@dimen/_11sdp"
-                    android:textStyle="bold" />
-
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp">
 
                 <EditText
-                    android:id="@+id/edt_note"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
+                    android:id="@+id/edt_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/bg_edittext_qr_dynamic"
-                    android:gravity="start"
-                    android:hint="Nhập mô tả"
-                    android:inputType="text"
-                    android:padding="@dimen/_10sdp"
-                    android:textSize="@dimen/_10sdp" />
+                    android:background="@null"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:importantForAutofill="no"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack3"
+                    android:textColorHint="@color/grey_400"
+                    android:textSize="@dimen/_25sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_format_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-10dp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:text="đ"
+                    android:textColor="@color/colorBlack3"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/edt_amount"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edt_amount" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_error_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/str_error_amount"
+                    android:textColor="#ED6262"
+                    android:textSize="@dimen/_9sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_ok"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Mô tả"
+                android:textColor="@color/colorBlack3"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/edt_note"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@drawable/bg_button_primary"
-                android:letterSpacing="0.05"
-                android:text="Xác nhận"
-                android:textAllCaps="false"
-                app:layout_constraintTop_toBottomOf="@id/layout_content" />
+                android:background="@drawable/bg_edittext_qr_dynamic"
+                android:gravity="start"
+                android:hint="Nhập mô tả"
+                android:inputType="text"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 
-</LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/bg_button_primary"
+        android:letterSpacing="0.05"
+        android:text="Xác nhận"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

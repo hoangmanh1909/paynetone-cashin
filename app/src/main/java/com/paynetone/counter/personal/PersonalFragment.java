@@ -90,6 +90,7 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
     EmployeeModel employeeModel;
     Long amountOutWard = 0L;
     String password = "";
+    String mode = "";
 
     public static PersonalFragment getInstance() {
         return new PersonalFragment();
@@ -110,7 +111,7 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
 
         employeeModel = sharedPref.getEmployeeModel();
         paynetModel = sharedPref.getPaynet();
-        String mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE, "");
+        mode = sharedPref.getString(Constants.KEY_ANDROID_PAYMENT_MODE, "");
 
         try {
             if (sharedPref.isMerchantAdmin() ){ // merchant admin
@@ -121,11 +122,6 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
 
             if (sharedPref.isManagerStore()) btnNapHanMuc.setVisibility(View.VISIBLE); // quản lý của hàng
 
-            if (mode.equals(Constants.ANDROID_PAYMENT_MODE_SHOW)) {
-                rl_merchant_info.setVisibility(View.VISIBLE);
-            }else {
-                rl_merchant_info.setVisibility(View.GONE);
-            }
             if ((sharedPref.isAccountBranch() &&
                     (sharedPref.isAccountant() || // kế toán
                      sharedPref.isAdmin() || // admin
@@ -154,7 +150,7 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
                 isCheckedChangeByCode = false;
             }
         });
-
+        hideViewToServer();
     }
 
     @OnClick({R.id.rl_logout, R.id.rl_merchant_info, R.id.iv_back, R.id.layout_transaction_history, R.id.layout_notify,
@@ -346,6 +342,13 @@ public class PersonalFragment extends ViewFragment<PersonalContract.Presenter> i
         }else if (response.getHasPin().equals(Constants.EXIST_PIN_CODE)){ // đã tạo mã PIN
             new PinCodeDialog(requireContext(),getString(R.string.str_title_change_pin_code),password)
                     .show(getChildFragmentManager(), "PersonalFragment");
+        }
+    }
+    private void hideViewToServer(){
+        if (mode.equals(Constants.ANDROID_PAYMENT_MODE_HIDE)) {
+            layoutHanMuc.setVisibility(View.GONE);
+            rlHanMucStore.setVisibility(View.GONE);
+            rl_merchant_info.setVisibility(View.GONE);
         }
     }
 

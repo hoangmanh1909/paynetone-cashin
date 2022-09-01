@@ -5,7 +5,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.ContactsContract
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +22,7 @@ import androidx.fragment.app.DialogFragment
 import com.paynetone.counter.R
 import com.paynetone.counter.adapter.PhoneContactAdapter
 import com.paynetone.counter.databinding.PhoneContactDialogBinding
-import com.paynetone.counter.databinding.PhoneRechargeCardFragmentBinding
 import com.paynetone.counter.model.PhoneContact
-import com.paynetone.counter.utils.autoCleared
 import com.paynetone.counter.utils.setSingleClick
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -45,7 +47,7 @@ class PhoneContactDialog(val mContext: Context,val itemClick : (PhoneContact) ->
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+        this.setStyle(STYLE_NO_FRAME, R.style.FullScreenDialogListBankQR)
 
     }
 
@@ -57,6 +59,7 @@ class PhoneContactDialog(val mContext: Context,val itemClick : (PhoneContact) ->
 
         }
         initAdapter()
+        listenerSearchView()
         if (allPermissionsGranted()) {
             onPermissionGranted()
         } else {
@@ -64,6 +67,29 @@ class PhoneContactDialog(val mContext: Context,val itemClick : (PhoneContact) ->
         }
 
 
+    }
+    private fun listenerSearchView(){
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s.toString().isNotBlank()){
+                    this@PhoneContactDialog.adapter.filter.filter(s)
+                } else {
+                    Handler(Looper.myLooper()!!).postDelayed({
+                        this@PhoneContactDialog.adapter.notifyAllData()
+                    },300L)
+
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
     }
 
     // The permissions we need for the app to work properly
@@ -95,8 +121,9 @@ class PhoneContactDialog(val mContext: Context,val itemClick : (PhoneContact) ->
     private fun getPhoneContacts() {
         flow = flow {
             val uriExternal = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+            val sortOder = "${ContactsContract.Contacts.DISPLAY_NAME} ASC"
             val cursor: Cursor? =
-                activity?.contentResolver?.query(uriExternal, null, null, null, null)
+                activity?.contentResolver?.query(uriExternal, null, null, null, sortOder)
             try {
                 cursor?.let {
                     cursor.moveToFirst()
@@ -119,6 +146,7 @@ class PhoneContactDialog(val mContext: Context,val itemClick : (PhoneContact) ->
     private fun initAdapter(){
         binding.apply {
             recycleView.adapter = adapter
+//            recycleView.getRecycledViewPool().setMaxRecycledViews(TYPE_CAROUSEL, 0);
 
         }
     }

@@ -19,7 +19,6 @@ import com.paynetone.counter.dialog.DevelopDialog;
 import com.paynetone.counter.dialog.ListBankQRDialog;
 import com.paynetone.counter.functions.history.HistoryActivity;
 import com.paynetone.counter.functions.outward.OutwardActivity;
-import com.paynetone.counter.functions.qr.OptionAmountAdapter;
 import com.paynetone.counter.functions.qr.OptionPaymentAdapter;
 import com.paynetone.counter.functions.qr.QRDynamicActivity;
 import com.paynetone.counter.functions.withdraw.WithDrawActivity;

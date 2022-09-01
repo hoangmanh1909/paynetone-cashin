@@ -12,6 +12,7 @@
         <entry key="..\:/Users/ADMIN/Desktop/paynetone-cashin/app/src/main/res/layout/fragment_request_otp.xml" value="0.2453125" />
         <entry key="..\:/Users/ADMIN/Desktop/paynetone-cashin/app/src/main/res/layout/item_dialog.xml" value="0.2453125" />
         <entry key="..\:/Users/ADMIN/Desktop/paynetone-cashin/app/src/main/res/layout/item_option_payment.xml" value="0.2453125" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/drawable-v24/ic_no_images.xml" value="0.1535" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable-xxxhdpi/bg_item_option_payment.xml" value="0.1825" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_btn_agree.xml" value="0.159" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_btn_agress.xml" value="0.247" />
@@ -49,6 +50,7 @@
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_radio_selector.xml" value="0.208" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_recycler_view_home_fragment.xml" value="0.1" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_request_otp.xml" value="0.13" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_scroller.xml" value="0.238" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_setting_tab_main.xml" value="0.2155" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_splashscreen.xml" value="0.1535" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/drawable/bg_status_2.xml" value="0.201" />
@@ -113,6 +115,7 @@
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_step.xml" value="0.14903846153846154" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_with_draw.xml" value="0.25" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/fragment_withdrwaw_history.xml" value="0.20729166666666668" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/frm_camera.xml" value="0.20208333333333334" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/guide_recharge_dialog.xml" value="0.25" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/history_dialog.xml" value="0.18" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/item_amount.xml" value="0.303125" />
@@ -141,7 +144,7 @@
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/nap_han_muc_dialog.xml" value="0.21910112359550563" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/notice_dialog.xml" value="0.20625" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/notify_dialog.xml" value="0.2734375" />
-        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/phone_contact_dialog.xml" value="0.30185185185185187" />
+        <entry key="..\:/paynetone-cashin/app/src/main/res/layout/phone_contact_dialog.xml" value="0.25" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/phone_recharge_card_fragment.xml" value="0.29375" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/qr_option_pop_up.xml" value="0.28072916666666664" />
         <entry key="..\:/paynetone-cashin/app/src/main/res/layout/service_fragment.xml" value="0.29074074074074074" />
