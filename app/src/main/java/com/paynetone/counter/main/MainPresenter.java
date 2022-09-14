@@ -13,6 +13,7 @@ import com.paynetone.counter.model.PaynetModel;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.BaseRequest;
 import com.paynetone.counter.model.request.GetProviderResponse;
+import com.paynetone.counter.model.response.ResponseMerchantBalance;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
 import com.paynetone.counter.utils.Constants;
@@ -68,9 +69,9 @@ public class MainPresenter extends Presenter<MainContract.View, MainContract.Int
                         super.onSuccess(call, response);
 
                         if ("00".equals(response.body().getErrorCode())) {
-                            List<MerchantBalance> merchantBalance = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<MerchantBalance>>() {
+                            ResponseMerchantBalance merchantBalance = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<ResponseMerchantBalance>() {
                             }.getType());
-                            mView.showBalance(merchantBalance);
+                            mView.showBalance(merchantBalance.getMerchantBalances());
                         }
                     }
 

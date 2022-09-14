@@ -17,6 +17,7 @@ import com.paynetone.counter.model.request.BaseRequest;
 import com.paynetone.counter.model.request.PINAddRequest;
 import com.paynetone.counter.model.request.TranSearchRequest;
 import com.paynetone.counter.model.response.PINCodeResponse;
+import com.paynetone.counter.model.response.ResponseMerchantBalance;
 import com.paynetone.counter.model.response.TranSearchResponse;
 import com.paynetone.counter.network.CommonCallback;
 import com.paynetone.counter.network.NetWorkController;
@@ -65,9 +66,9 @@ public class PersonalPresenter extends Presenter<PersonalContract.View, Personal
                 mView.hideProgress();
 
                 if ("00".equals(response.body().getErrorCode())) {
-                    List<MerchantBalance> merchantBalance = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<List<MerchantBalance>>() {
+                    ResponseMerchantBalance merchantBalance = NetWorkController.getGson().fromJson(response.body().getData(), new TypeToken<ResponseMerchantBalance>() {
                     }.getType());
-                    mView.showBalance(merchantBalance);
+                    mView.showBalance(merchantBalance.getMerchantBalances());
                 }
             }
 
