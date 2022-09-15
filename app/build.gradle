@@ -175,6 +175,8 @@ dependencies {
     implementation 'com.github.poovamraj:PinEditTextField:1.2.6'
     implementation 'com.chaos.view:pinview:1.4.4'
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
 repositories {
     mavenCentral()

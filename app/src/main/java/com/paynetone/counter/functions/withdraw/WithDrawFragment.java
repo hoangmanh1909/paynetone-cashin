@@ -103,10 +103,6 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
 
     // map view han muc
 
-    @BindView(R.id.checkbox)
-    AppCompatCheckBox checkBox;
-    @BindView(R.id.layout_checkbox)
-    ConstraintLayout layout_checkbox;
     @BindView(R.id.tv_branch)
     AppCompatTextView tvBranch;
     @BindView(R.id.tv_store)
@@ -195,10 +191,6 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
                 }
 
             });
-            checkBox.setOnCheckedChangeListener((compoundButton, checked) -> {
-                if (checked) enabledFocusViewHanMuc();
-                else disableFocusViewHanMuc();
-            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -218,12 +210,10 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
                 mPresenter.getByMobileNumber(employeeModel.getMobileNumber());
             }
             if (paynetGetBalanceByIdResponse != null){
-                checkBox.setChecked(true);
                 tvBranch.setText("Cửa hàng 01");
                 tvStore.setText(paynetGetBalanceByIdResponse.getName());
                 tvStore.setEnabled(false);
                 layoutBranch.setVisibility(View.GONE);
-                layout_checkbox.setVisibility(View.GONE);
 
             }
         }catch (Exception e){
@@ -320,9 +310,8 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
                     break;
                 case HAN_MUC:{
                     request.setWithdrawCategory(Constants.WITHDRAW_CATEGORY_HAN_MUC);
-                    if (checkBox.isChecked() && storeResponse != null ) request.setShopId(storeResponse.getLinkID()+"");
-                    else if (checkBox.isChecked() &&
-                            paynetGetBalanceByIdResponse != null) request.setShopId(paynetGetBalanceByIdResponse.getLinkID()+"");
+                    if ( storeResponse != null ) request.setShopId(storeResponse.getLinkID()+"");
+                    else if (paynetGetBalanceByIdResponse != null) request.setShopId(paynetGetBalanceByIdResponse.getLinkID()+"");
                     break;
 
                 }
@@ -371,7 +360,6 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
             branchResponses.clear();
             branchResponses.addAll(responses);
             if (responses.size()==0){
-                layout_checkbox.setVisibility(View.GONE);
                 layoutBranch.setVisibility(View.GONE);
                 layout_store.setVisibility(View.GONE);
             }
@@ -410,10 +398,10 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
     private void showPopUpStore(ArrayList<PaynetGetByParentResponse> responses){
         View popup = getLayoutInflater().inflate(R.layout.branch_pop_up_layout,null);
 
-        if (popupWindowStore==null) popupWindowStore = new PopupWindow(popup, ViewGroup.LayoutParams.WRAP_CONTENT,
+         popupWindowStore = new PopupWindow(popup, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
-        if (storeAdapter==null) storeAdapter = new BranchAdapter(requireContext(), responses, item -> {
+         storeAdapter = new BranchAdapter(requireContext(), responses, item -> {
             this.storeResponse = item;
             tvStore.setText(item.getName());
             popupWindowStore.dismiss();
@@ -528,8 +516,7 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
             case VIETLOTT:
                 return validateReceiveFullNameVietlott() && validateAmount();
             case HAN_MUC:
-                if (checkBox.isChecked()) return validateBranch() && validateStore() && validateAmount() ;
-                else  return validateAmount();
+                return validateBranch() && validateStore() && validateAmount() ;
             default:
                 return false;
         }
@@ -539,27 +526,26 @@ public class WithDrawFragment extends ViewFragment<WithDrawContract.Presenter> i
             tv_name_wallet.setText("");
             tv_name_number_phone.setText("");
             tv_full_name_personal_wallet.setText("");
-            checkBox.setChecked(false);
             edt_amount.setText("");
             clearCheckedWallet();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    private void disableFocusViewHanMuc(){
-        tvBranch.setText("");
-        tvStore.setText("");
-        tvBranch.setEnabled(false);
-        tvStore.setEnabled(false);
-        tvBranch.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_disable_focus));
-        tvStore.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_disable_focus));
-    }
-    private void enabledFocusViewHanMuc(){
-        tvBranch.setEnabled(true);
-        tvStore.setEnabled(true);
-        tvBranch.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_enable_focus));
-        tvStore.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_enable_focus));
-    }
+//    private void disableFocusViewHanMuc(){
+//        tvBranch.setText("");
+//        tvStore.setText("");
+//        tvBranch.setEnabled(false);
+//        tvStore.setEnabled(false);
+//        tvBranch.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_disable_focus));
+//        tvStore.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_disable_focus));
+//    }
+//    private void enabledFocusViewHanMuc(){
+//        tvBranch.setEnabled(true);
+//        tvStore.setEnabled(true);
+//        tvBranch.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_enable_focus));
+//        tvStore.setBackground(ContextCompat.getDrawable(requireContext(),R.drawable.bg_textview_with_draw_enable_focus));
+//    }
 
     private void clearCheckedWallet(){
         for (WalletResponse walletResponse:walletResponses){

@@ -344,5 +344,12 @@ Chính sách quyền riêng tư này được giải thích và thi hành theo P
     <string name="str_title_contact">Danh bạ</string>
     <string name="str_close">Đóng</string>
 
+    // fragment dashboard
+    <string name="str_title_tab_dashboard">Báo cáo</string>
+    <string name="str_dashboard_day">Báo cáo theo Ngày</string>
+    <string name="str_dashboard_week">Báo cáo theo Tuần</string>
+    <string name="str_dashboard_month">Báo cáo theo Tháng</string>
+    <string name="str_dashboard_quarter">Báo cáo theo Quý</string>
+
 
 </resources>

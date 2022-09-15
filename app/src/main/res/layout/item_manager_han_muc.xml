@@ -3,8 +3,8 @@
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        app:cardElevation="@dimen/_3sdp"
-        android:layout_margin="@dimen/_5sdp"
+        app:cardElevation="@dimen/_1sdp"
+        android:layout_margin="@dimen/_3sdp"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"

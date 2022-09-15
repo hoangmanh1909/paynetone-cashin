@@ -44,6 +44,7 @@ public class Constants {
     public static final String EMP_PIN_ADD ="EMP_PIN_ADD";
     public static final String EMP_PIN_VERIFY ="EMP_PIN_VERIFY";
     public static final String EMP_PIN_HAS_OR_NOT ="EMP_PIN_HAS_OR_NOT";
+    public static final String REPORT_MOBILE_DASHBOARD ="REPORT_MOBILE_DASHBOARD";
 
     public static final int SCREEN_WIDTH_DESIGN = 375;
 
@@ -163,6 +164,11 @@ public class Constants {
 
     public static final String EXIST_PIN_CODE = "Y"; // đã tồn tại pincode
     public static final String NOT_EXIST_PIN_CODE = "N"; // chưa tạo pincode
+
+    public static final String DASHBOARD_DAY = "D";
+    public static final String DASHBOARD_WEEK = "W";
+    public static final String DASHBOARD_MONTH = "M";
+    public static final String DASHBOARD_QUARTER = "Q";
 
 
 

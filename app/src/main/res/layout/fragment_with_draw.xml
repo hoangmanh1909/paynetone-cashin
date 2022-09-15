@@ -373,35 +373,11 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_name_with_draw">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/layout_checkbox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                            android:id="@+id/checkbox"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nạp hạn mức cho cửa hàng"
-                            app:layout_constraintBottom_toBottomOf="@id/checkbox"
-                            app:layout_constraintStart_toEndOf="@id/checkbox"
-                            app:layout_constraintTop_toTopOf="@id/checkbox" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layout_branch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintTop_toBottomOf="@id/layout_checkbox">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_name_branch"
@@ -415,11 +391,10 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_branch"
-                            android:enabled="false"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:background="@drawable/bg_textview_with_draw_disable_focus"
+                            android:background="@drawable/bg_textview_with_draw_enable_focus"
                             android:gravity="start|center"
                             android:hint="@string/str_branch_hint_name"
                             android:paddingStart="@dimen/_10sdp"
@@ -446,7 +421,6 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_name_store"
-                            android:enabled="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_7sdp"
@@ -460,7 +434,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:background="@drawable/bg_textview_with_draw_disable_focus"
+                            android:background="@drawable/bg_textview_with_draw_enable_focus"
                             android:gravity="start|center"
                             android:hint="@string/str_store_hint_name"
                             android:maxLines="1"

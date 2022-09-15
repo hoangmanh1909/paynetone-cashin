@@ -11,6 +11,7 @@ import com.paynetone.counter.model.RequestObject;
 import com.paynetone.counter.model.SimpleResult;
 import com.paynetone.counter.model.request.BaseRequest;
 import com.paynetone.counter.model.request.ChangePassByOTPRequest;
+import com.paynetone.counter.model.request.DashboardRequest;
 import com.paynetone.counter.model.request.EmployeeAddNewRequest;
 import com.paynetone.counter.model.request.LoginRequest;
 import com.paynetone.counter.model.request.MerchantAddNewRequest;
@@ -519,6 +520,17 @@ public class NetWorkController {
             String data = getGson().toJson(request);
             String signature = RSAUtil.signature(data);
             RequestObject requestObject = new RequestObject("ANDROID", "", Constants.EMP_PIN_HAS_OR_NOT, data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void questDashboard(DashboardRequest request, CommonCallback<SimpleResult> callback){
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.signature(data);
+            RequestObject requestObject = new RequestObject("ANDROID", "", Constants.REPORT_MOBILE_DASHBOARD, data, "", signature);
             Call<SimpleResult> call = getAPIBuilder().commonService(requestObject);
             call.enqueue(callback);
         } catch (Exception e) {

@@ -19,12 +19,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_tick"
+            android:visibility="gone"
             android:src="@drawable/ic_tick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_200sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
             app:layout_constraintBottom_toBottomOf="@id/tv_name"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
